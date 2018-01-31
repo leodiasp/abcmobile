@@ -1,0 +1,184 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<!-- top tiles -->
+<div class="row tile_count">
+	<div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+		<div class="left"></div>
+		<div class="right">
+			<span class="count_top"><i class="fa fa-user"></i> Aluno(s)</span>
+			<div class="count">{{ totAlunos }}</div>
+			<!--<span class="count_bottom"><i class="green">4% </i> From last Week</span>-->
+		</div>
+	</div>
+	<!--<div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">-->
+	<!--<div class="left"></div>-->
+	<!--<div class="right">-->
+	<!--&lt;!&ndash;<span class="count_top"><i class="fa fa-clock-o"></i> Average Time</span>&ndash;&gt;-->
+	<!--&lt;!&ndash;<div class="count">123.50</div>&ndash;&gt;-->
+	<!--&lt;!&ndash;<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>&ndash;&gt;-->
+	<!--</div>-->
+	<!--</div>-->
+	<div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+		<div class="left"></div>
+		<div class="right">
+			<span class="count_left"><i class="fa fa-user"></i> Professores</span>
+			<div class="count">{{ totProfessor }}</div>
+			<!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>-->
+		</div>
+	</div>
+	<div class="animated flipInY col-md-3 col-sm-2 col-xs-2 tile_stats_count">
+		<div class="left"></div>
+		<div class="right">
+			<span class="count_top"><i class="fa fa-money"></i> Pagtos Confirmados </span>
+			<div class="count">{{ totTitulosPagos.total }}</div>
+			<!--<span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>-->
+		</div>
+	</div>
+	<div class="animated flipInY col-md-3 col-sm-2 col-xs-2 tile_stats_count">
+		<div class="left"></div>
+		<div class="right">
+			<span class="count_top"><i class="fa fa-user"></i> Pagtos Pendentes</span>
+			<div class="count">{{ totTitulosAbertos.total }}</div>
+			<!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>-->
+		</div>
+	</div>
+	<div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+		<div class="left"></div>
+		<div class="right">
+			<span class="count_top"><i class="fa fa-user"></i> Total Connections</span>
+			<div class="count">7,325</div>
+			<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
+		</div>
+	</div>
+
+</div>
+<div class="x_panel">
+<div class="x_title">
+		<h2> Dashboard - Bem Vindo ao Portal ABC Mobile. <small></small></h2>
+
+		<ul class="nav navbar-right panel_toolbox">
+			<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+			</li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+
+			</li>
+			<li><a class="close-link"><i class="fa fa-close"></i></a>
+			</li>
+		</ul>
+
+		<div class="clearfix"></div>
+	</div>
+
+<div class="x_panel" >
+	<div class="x_title">
+		<h2> Galeria de Alunos <small></small></h2>
+
+		<ul class="nav navbar-right panel_toolbox">
+			<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+			</li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+
+			</li>
+			<li><a class="close-link"><i class="fa fa-close"></i></a>
+			</li>
+		</ul>
+
+		<div class="clearfix"></div>
+	</div>
+
+	<div class="x_content" align="center">
+
+		<div class="x_content" >
+
+			<div class="row">
+
+				{% for regAlunos in alunos %}
+				<div class="col-md-55">
+					<div class="thumbnail">
+						<div class="image view view-first">
+							<!--<img style="width: 100%; display: block;" src="images/4.jpg" alt="image" />-->
+							<img style="width: 100%; display: block;" src="/media/{{ regAlunos.imagem }}" alt="image">
+							<div class="mask">
+								<p>{{ regAlunos.nome_abreviado }}</p>
+								<div class="tools tools-bottom">
+									<!--<a href="#"><i class="fa fa-link"></i></a>-->
+									<a href="{% url 'portal:form_aluno' pk=regAlunos.pk %}"><i class="fa fa-pencil"></i></a>
+									<!--<a href="#"><i class="fa fa-times"></i></a>-->
+								</div>
+							</div>
+						</div>
+						<div class="caption">
+							<p>{{ regAlunos.nome }}</p>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			<!-- Fim - Galeria de Alunos -->
+
+		</div>
+	</div>
+
+</div>
+<div class="x_panel" >
+	<div class="x_title">
+		<h2> Galeria de Professores <small></small></h2>
+
+		<ul class="nav navbar-right panel_toolbox">
+			<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+			</li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+
+			</li>
+			<li><a class="close-link"><i class="fa fa-close"></i></a>
+			</li>
+		</ul>
+
+		<div class="clearfix"></div>
+	</div>
+
+	<div class="x_content" align="center">
+
+		<div class="x_content" >
+			<!-- Inicio Galeria Professores-->
+
+			<div class="row">
+
+
+				<!--<p>Galeria de Aluno</p>-->
+				{% for regProfessores in professores %}
+				<div class="col-md-55">
+					<div class="thumbnail">
+						<div class="image view view-first">
+							<!--<img style="width: 100%; display: block;" src="images/4.jpg" alt="image" />-->
+							<img style="width: 100%; display: block;" src="/media/{{ regProfessores.imagem }}" alt="image">
+							<div class="mask">
+								<p>{{ regProfessores.nome_abreviado }}</p>
+								<div class="tools tools-bottom">
+									<!--<a href="#"><i class="fa fa-link"></i></a>-->
+									<a href="{% url 'portal:form_professor' pk=regProfessores.pk %}"><i class="fa fa-pencil"></i></a>
+									<!--<a href="#"><i class="fa fa-times"></i></a>-->
+								</div>
+							</div>
+						</div>
+						<div class="caption">
+							<p>{{ regProfessores.nome }}</p>
+						</div>
+					</div>
+				</div>
+				{% endfor %}
+			</div>
+			<!-- Fim - Galeria de Professores -->
+
+		</div>
+	</div>
+
+</div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,147 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="x_panel">
+	<div class="x_title">
+		<a href="{% url 'portal:periodoletivo' %}"><h2>  Período Letivo <small></small></h2> </a>
+		<ul class="nav navbar-right panel_toolbox">
+			<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+			</li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+
+			</li>
+			<li><a class="close-link"><i class="fa fa-close"></i></a>
+			</li>
+		</ul>
+		<div class="clearfix"></div>
+	</div>
+	<form enctype="multipart/form-data" method="post" >
+		{% csrf_token %}
+
+		{% if form.errors %}
+		<div class="alert alert-danger">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+				&times;
+			</button>
+			<strong>Erro !</strong> Favor Verificar os Dados Informados.
+			{{form.errors.items}}
+
+
+		</div>
+
+		{% endif %}
+
+		{% for message in messages %}
+
+		<div class="alert alert-success fade in">
+			<button data-dismiss="alert" class="close close-sm" type="button">
+				&times;
+
+			</button>
+			<strong>ATENÇÃO ! {{ message }} </strong>
+		</div>
+
+		{% endfor %}
+		<div class="x_content">
+
+			<div class="row">
+
+				<!--<div class="col-md-4 col-sm-12 col-xs-12 form-group">-->
+
+					<!--{{ form.instituicao }}-->
+
+				<!--</div>-->
+
+
+
+				<div class="col-md-1 col-sm-12 col-xs-12 form-group">
+
+					{{ form.codigo }}
+
+				</div>
+
+				<div class="col-md-4 col-sm-12 col-xs-12 form-group">
+					{{ form.descricao }}
+				</div>
+
+				<div class="col-md-1 col-sm-12 col-xs-12 form-group">
+					{{ form.diasletivos }}
+				</div>
+
+				<div class="col-md-2 col-sm-12 col-xs-12 form-group">
+					{{ form.dtinicial }}
+				</div>
+
+				<div class="col-md-2 col-sm-12 col-xs-12 form-group">
+					{{ form.dtfinal }}
+				</div>
+
+				<div class="col-md-2 col-sm-12 col-xs-12 form-group">
+					{{ form.calendario }}
+				</div>
+
+
+				<div class="col-md-6 col-sm-12 col-xs-12 form-group">
+					<button type="submit" class="btn btn-round btn-success">CONFIRMAR</button>
+				</div>
+
+
+
+			</div>
+
+		</div>
+	</form>
+</div>
+
+<script language="javascript">
+
+function CarregaUF() {
+
+  var selectUF = document.getElementById('uf');
+
+  {% for l_estado in estado %}
+
+    var option = document.createElement('option');
+        option.value = ""
+        option.value = "{{ l_estado.id }}"
+        option.text  = "{{ l_estado.uf }}"
+
+    selectUF.add(option);
+
+
+  {% endfor %}
+
+
+}
+
+function CarregaCidade() {
+
+ var select = document.getElementById('uf');
+
+// alert('UF: | ' + $("#uf").val());
+
+ var selectCidade = document.getElementById('cidade');
+
+ $("#cidade").empty();
+
+ {% for l_cidade in cidade %}
+
+ if ($("#uf").val() == {{ l_cidade.estado_id }}) {
+
+    var option = document.createElement('option');
+        option.value = "{{ l_cidade.id }}"
+        option.text  = "{{ l_cidade.nome }}"
+
+    selectCidade.add(option);
+
+    }
+
+   {% endfor %}
+
+}
+
+</script>
+
+{% endblock %}
