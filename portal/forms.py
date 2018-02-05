@@ -55,7 +55,7 @@ class InstituicaoForm(forms.ModelForm):
                                           'onKeyPress': "MascaraTelefone(telefax);",
 
                                                }),
-            'codigo': forms.TextInput(attrs={'class': 'form-control','id': 'codigo', 'placeholder' : 'Código','readonly':'readonly'})
+            'codigo': forms.TextInput(attrs={'class': 'form-control','id': 'codigo', 'placeholder' : 'Código'})
 
 
         }
