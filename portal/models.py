@@ -16,7 +16,7 @@ class Pais(models.Model):
     abreviacao = models.CharField(max_length=3, verbose_name="Abreviação do País")
 
     def __str__(self):
-        return self.pais_nome.encode('utf-8')
+        return self.nome.encode('utf-8')
 
 # CLASSE ESTADO -----------------------------------------------------------------------------
 

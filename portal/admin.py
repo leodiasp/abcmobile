@@ -4,7 +4,16 @@ from portal.models import Pais,Estado,Cidade, Instituicao, TabelaImportacao,Impo
 
 # Register your models here.
 
+class PaisAdmin(admin.ModelAdmin):
+
+    model = Instituicao
+    list_display = ['nome','abreviacao']
+    list_filter = ['nome','abreviacao']
+    search_fields = ['nome','abreviacao']
+    save_on_top = True
+
 admin.site.register(Pais);
+
 admin.site.register(Estado);
 admin.site.register(Cidade);
 
