@@ -503,8 +503,8 @@ def importacao_csv(request, pk, template_name="importar_csv.html"):
                          #mensagem = (dados.line_num)
                          messages.success(request, mensagem)
 
-                     #except Exception:
-                     except ValueError:
+                     except Exception:
+                     #except ValueError:
                          mensagem = "Linha: %s | %s" % (dados.line_num,row)
                          messages.error(request, mensagem)
 
