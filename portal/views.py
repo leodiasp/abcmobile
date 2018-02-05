@@ -42,6 +42,10 @@ def portal(request):
     # Total Professor
     totProfessores = professores.count()
 
+    # Total Responsavel
+    responsavel = Responsavel.objects.all()
+    totResponsavel = responsavel.count()
+
     # Pagtos Confirmados
     totTitulosPagos   = Financeiro.objects.filter(dtbaixa__isnull= False).aggregate(total=Sum('vlr_titulo', output_field=FloatField() ))
     totTitulosAbertos = Financeiro.objects.filter(dtbaixa__isnull= True).aggregate(total=Sum('vlr_titulo' ))
@@ -51,6 +55,7 @@ def portal(request):
                                         'professores': professores,
                                         'totAlunos': totAlunos,
                                         'totProfessor': totProfessores,
+                                        'totResponsavel': totResponsavel,
                                         'totTitulosPagos': totTitulosPagos,
                                         'totTitulosAbertos':totTitulosAbertos
 
