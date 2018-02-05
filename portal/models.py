@@ -186,7 +186,7 @@ class Professor(models.Model):
     cep = models.CharField(max_length=15)
     telefone = models.CharField(max_length=20)
     telefone2 = models.CharField(max_length=20)
-    imagem    = models.ImageField(upload_to="professores", default = 'professores/sem_foto.jpg', blank=True, null=True)
+    imagem    = models.ImageField(upload_to="professores", default = 'professores/sem_foto.png', blank=True, null=True)
 
 # class Turma(models.Model):
 #
