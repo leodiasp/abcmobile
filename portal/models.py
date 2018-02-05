@@ -66,7 +66,7 @@ class Instituicao(models.Model):
     estado = models.ForeignKey(Estado)
     cidade = models.ForeignKey(Cidade)
 
-    codigo        = models.CharField(max_length=10, primary_key=True, auto_created=True)
+    codigo        = models.AutoField(primary_key=True)
     razaosocial   = models.CharField(max_length=100, null=True)
     nomefantasia  = models.CharField(max_length=100)
     cgc           = models.CharField(max_length=20)
