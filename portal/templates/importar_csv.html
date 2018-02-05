@@ -58,7 +58,7 @@
 									{% csrf_token %}
 									<td> {{ regimportacaocsv.tabelaimportacao }} </td>
 									<td> {{ regimportacaocsv.nome_importacao }} </td>
-									<td> {{ regimportacaocsv.dtupload }}</td>
+									<td> {{ regimportacaocsv.dtupload|date:'d/m/Y' }}</td>
 									<td> <a href="/media/{{ regimportacaocsv.arquivo }}" >{{ regimportacaocsv.arquivo }} </a></td>
 									<td>
 
