@@ -1,0 +1,61 @@
+from django.conf.urls import url, include
+from .views import *
+from portal.views import *
+from mobile.views import *
+from admin import *
+from django.conf import settings
+from django.conf.urls.static import static
+
+
+urlpatterns = [
+
+    url(r'^mobile/', mobile,    name='mobile'),
+    # url(r'^login/',  do_login,  name='login'),
+    # url(r'^logout/', do_logout, name='logout'),
+    #
+    # url(r'^instituicao/', instituicao, name='instituicao'),
+    # url(r'^instituicao_new/', instituicao_new, name="instituicao_new"),
+    # url(r'^instituicao_edit/(?P<pk>[0-9]+)', instituicao_edit, name="instituicao_edit"),
+    #
+    # url(r'^periodoletivo/', periodoletivo, name='periodoletivo'),
+    # url(r'^periodoletivo_new/', periodoletivo_new, name="periodoletivo_new"),
+    # url(r'^periodoletivo_edit/(?P<pk>[0-9]+)', periodoletivo_edit, name="periodoletivo_edit"),
+    #
+    # # url(r'^turma/', turma, name='turma'),
+    # # url(r'^turma_new/', turma_new, name="turma_new"),
+    # # url(r'^turma_edit/(?P<pk>[0-9]+)', turma_edit, name="turma_edit"),
+    # # #
+    # # url(r'^disciplina/', disciplina, name='disciplina'),
+    # # url(r'^disciplina_new/', disciplina_new, name="disciplina_new"),
+    # # url(r'^disciplina_edit/(?P<pk>[0-9]+)', disciplina_edit, name="disciplina_edit"),
+    # #
+    # # url(r'^turmadisciplina/', turmadisciplina, name='turmadisciplina'),
+    # # url(r'^form_turmadisciplina/(?P<pk>[0-9]+)', form_turmadisciplina, name='form_turmadisciplina'),
+    #
+    # url(r'^aluno/', aluno, name='aluno'),
+    # url(r'^form_aluno/(?P<pk>[0-9]+)', form_aluno, name='form_aluno'),
+    # #    url(r'^importar_csv/', importar_csv, name='importar_csv'),
+    #
+    # url(r'^professor/', professor, name='professor'),
+    # url(r'^form_professor/(?P<pk>[0-9]+)', form_professor, name='form_professor'),
+    #
+    # # url(r'^financeiro/(?P<pk>[0-9]+)', financeiro, name='financeiro'),
+    #
+    # url(r'^form_boletim/(?P<pk>[0-9]+)', form_boletim, name='form_boletim'),
+    #
+    # url(r'^responsavel/', responsavel, name='responsavel'),
+    # url(r'^form_responsavel/(?P<pk>[0-9]+)', form_responsavel, name='form_responsavel'),
+    # #url(r'^edit_responsavel/(?P<pk>[0-9]+)', edit_responsavel, name='edit_responsavel'),
+    #
+    # url(r'^perfil/', perfil, name='perfil'),
+    # url(r'^administracao/', administracao,   name='administracao'),
+    #
+    # url(r'^importacao_csv/(?P<pk>[0-9]+)', importacao_csv, name='importacao_csv'),
+    #
+    # url(r'^inbox/', inbox, name='inbox'),
+
+]
+
+# if settings.DEBUG:
+#     urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+#     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
