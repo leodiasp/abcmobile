@@ -6,11 +6,20 @@
 	<div class="x_title">
 		<a href="{% url 'portal:importacao_csv' pk=0 %}"><h2>Importação de Dados - CSV <small></small></h2> </a>
 		<ul class="nav navbar-right panel_toolbox">
-			<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+			<li>
+				<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
 			</li>
 			<li class="dropdown">
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-
+				<ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menubar">
+					<li>
+						<div class="text-left">
+							<a href="{%  url 'portal:upload'  %}" target="_blank">
+								<button class="btn btn-success btn-xm"><i class="glyphicon glyphicon-pencil"></i> CADASTRAR </button>
+							</a>
+						</div>
+					</li>
+				</ul>
 			</li>
 			<li><a class="close-link"><i class="fa fa-close"></i></a>
 			</li>

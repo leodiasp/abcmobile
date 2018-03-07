@@ -17,6 +17,9 @@ from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
 from django.core.files.uploadedfile import InMemoryUploadedFile
 
+
+from django.utils.formats import localize
+
 import csv
 import codecs
 import xlrd
@@ -31,7 +34,10 @@ from datetime import datetime
 @login_required
 def portal(request):
 
-    # Alunos
+   #Instituicao
+    instituicao = Instituicao.objects.all()
+
+   # Alunos
     alunos = Aluno.objects.all()
 
     # Total Alunos
@@ -47,19 +53,81 @@ def portal(request):
     totResponsavel = responsavel.count()
 
     # Pagtos Confirmados
-    totTitulosPagos   = Financeiro.objects.filter(dtbaixa__isnull= False).aggregate(total=Sum('vlr_titulo', output_field=FloatField() ))
-    totTitulosAbertos = Financeiro.objects.filter(dtbaixa__isnull= True).aggregate(total=Sum('vlr_titulo' ))
+    totTitulosPagos = Financeiro.objects.filter(dtbaixa__isnull= False).aggregate(total=Sum('vlr_titulo'))
 
-    return render(request,'index.html',{'img_usuario':set_imagem(request.user),
+    # Pagtos Pendentes
+    totTitulosAbertos = Financeiro.objects.filter(dtbaixa__isnull= True).aggregate(total=Sum('vlr_titulo'))
+
+    #Mensagem
+    totMensagem = Mensagem.objects.all()
+
+    return render(request,'index.html',{'instituicao': instituicao,
                                         'alunos': alunos,
                                         'professores': professores,
                                         'totAlunos': totAlunos,
                                         'totProfessor': totProfessores,
                                         'totResponsavel': totResponsavel,
                                         'totTitulosPagos': totTitulosPagos,
-                                        'totTitulosAbertos':totTitulosAbertos
+                                        'totTitulosAbertos':totTitulosAbertos,
+                                        'totMensagem': totMensagem
 
                                         })
+
+def mensagem(request, template="mensagem.html"):
+
+    # usuario = User.objects.filter(pk=request.user.pk)
+    # print("Usuario", request.user.pk)
+    mensagem = Mensagem.objects.all()
+
+    return render (request,template,{'alerta':mensagem})
+
+def mensagem_new(request,template='form_mensagem.html'):
+
+    mensagem = Mensagem.objects.all()
+
+    if request.method == "POST":
+        form = MensagemForm(request.POST, request.FILES or None )
+
+        if form.is_valid():
+
+            form.save()
+
+
+        # titulo = request.POST['titulo']
+        # dtmensagem = request.POST['dtmensagem']
+        # descricao = request.POST['descricao']
+        # stmensagem = 0
+        # #usuario_id = request.user.pk
+        #
+        # mensagem = Mensagem.objects.create(titulo=titulo,
+        #                                    #dtmensagem=dtmensagem,
+        #                                    dtmensagem= datetime.strptime(dtmensagem, '%d/%m/%Y').strftime('%Y-%m-%d'),
+        #                                    stmensagem = stmensagem,
+        #                                    descricao= descricao,usuario_id=request.user.pk)
+        #
+        # mensagem.save()
+        messages.success(request, " Operação Realizada com Sucesso ! ")
+        return redirect('mensagem.html')
+    else:
+        form = MensagemForm(request.POST or None)
+
+    return render(request,template,{'form':form})
+
+def mensagem_edit(request,pk,template_name='form_mensagem.html'):
+
+    mensagem = get_object_or_404(Mensagem, pk=pk)
+
+    if request.method == "POST":
+        form = MensagemForm(request.POST, request.FILES, instance=mensagem)
+        if form.is_valid():
+            mensagem = form.save()
+            messages.success(request, " Operação Realizada com Sucesso ! ")
+        return render(request, template_name, {'form': form})
+    else:
+        form = MensagemForm(instance=mensagem)
+    return render(request, template_name, {'form': form})
+
+
 
 def administracao(request):
 
@@ -71,15 +139,25 @@ def administracao(request):
 def perfil(request):
 
     if request.user.is_superuser:
+        #return redirect('/admin/auth/user/')
         return redirect('/admin/auth/user/')
     else:
         return redirect('/portal/')
 
-def set_imagem(usuario):
+def upload(request):
 
-    imagem_usuario = ImagemUsuarios.objects.all().filter(usuarios=usuario)
+    if request.user.is_superuser:
+        return redirect ('/admin/portal/importacaocsv/')
+    else:
+        return redirect('/portal/')
 
-    return imagem_usuario
+
+# def set_imagem(usuario):
+#
+#     #imagem_usuario = ImagemUsuarios.objects.all().filter(usuarios=usuario)
+#     imagem_usuario = ImagemUsuarios.objects.all().filter(usuarios=usuario)
+#
+#     return imagem_usuario
 
 def do_login(request, *args, **kwargs):
 
@@ -103,14 +181,76 @@ def inbox(request,template='inbox.html'):
 
     return render(request,template,{'mensagem': 'Mensagem'})
 
+def usuario_new(request, template="form_usuario.html"):
+
+    if request.method =="POST":
+
+        #form = UserForm(request.POST, request.FILES or None)
+
+        username =  request.POST['username']
+        email    =  request.POST['email']
+        password =   request.POST['password']
+        first_name = request.POST['first_name']
+        last_name = request.POST['last_name']
+        imagem = request.FILES['imagem']
+
+        usuario = User.objects.create_superuser(username=username,email=email,password=password,first_name=first_name,
+                                                last_name=last_name, imagem=imagem)
+        usuario.save()
+        messages.success(request, " Operação Realizada com Sucesso ! ")
+        return redirect('/portal/')
+    else:
+        form = UserForm(request.POST, request.FILES or None)
+
+    return render(request,template,{'form':form})
+
+def usuario_edit(request, pk, template="form_usuario.html"):
+
+    usuario = get_object_or_404(User, pk=pk)
+
+    src_imagem = usuario.imagem
+
+    if request.method == "POST":
+        form = UserForm(request.POST, request.FILES, instance=usuario)
+        if form.is_valid():
+            usuario = form.save()
+            messages.success(request, " Operação Realizada com Sucesso ! ")
+            return redirect('/portal/')
+    else:
+        form = UserForm(instance=usuario)
+    return render(request, template, {'form': form})
+
+    # if request.method =="POST":
+    #
+    #     #form = UserForm(request.POST, request.FILES or None)
+    #
+    #     username =  request.POST['username']
+    #     email    =  request.POST['email']
+    #     password =   request.POST['password']
+    #     first_name = request.POST['first_name']
+    #     last_name = request.POST['last_name']
+    #     imagem = request.FILES['imagem']
+    #     print("Imagem: ",imagem)
+    #
+    #     usuario = User.objects.create_superuser(username=username,email=email,password=password,first_name=first_name,
+    #                                             last_name=last_name, imagem=imagem)
+    #     usuario.save()
+    #     messages.success(request, " Operação Realizada com Sucesso ! ")
+    #     return redirect('/portal/')
+    # else:
+    #     form = UserForm(request.POST, request.FILES or None)
+    #
+    # return render(request,template,{'form':form})
+
 def instituicao(request,template="instituicao.html"):
 
     dados = Instituicao.objects.all()
 
-    return render(request,template,{'instituicao': dados,'img_usuario':set_imagem(request.user)})
+    return render(request,template,{'instituicao': dados})
 
 def instituicao_new(request,template='form_instituicao.html'):
 
+    #estado = Estado.objects.all()
     estado = Estado.objects.all()
     cidade = Cidade.objects.all()
 
@@ -121,11 +261,12 @@ def instituicao_new(request,template='form_instituicao.html'):
 
             form.save()
             messages.success(request, " Operação Realizada com Sucesso ! ")
-            return redirect('instituicao.html')
+            # return redirect('instituicao.html')
+
     else:
         form = InstituicaoForm(request.POST or None)
 
-    return render(request,template,{'form':form,'estado': estado,'cidade': cidade,'img_usuario':set_imagem(request.user)})
+    return render(request,template,{'form':form,'estado': estado,'cidade': cidade})
 
 def instituicao_edit(request,pk,template_name='form_instituicao.html'):
 
@@ -146,19 +287,17 @@ def instituicao_edit(request,pk,template_name='form_instituicao.html'):
             #return redirect('portal:instituicao_new')
     else:
         form = InstituicaoForm(instance=instituicao)
-    return render(request, template_name, {'form': form,'estado': estado,'cidade': cidade
-                                           ,'img_usuario':set_imagem(request.user),'fotos': str(src_imagem).encode('utf-8')})
+    return render(request, template_name, {'form': form,'estado': estado,'cidade': cidade,
+                                           'fotos': str(src_imagem).encode('utf-8')})
 
 # CLASSE PERIODO LETIVO ===============================================================================================
 def periodoletivo(request,template="periodoletivo.html"):
 
     periodoletivo = PeriodoLetivo.objects.all()
 
-    return render(request,template,{'periodoletivo': periodoletivo,'img_usuario':set_imagem(request.user)})
+    return render(request,template,{'periodoletivo': periodoletivo})
 
 def periodoletivo_new(request,template='form_periodoletivo.html'):
-
-    img_usuario = set_imagem(request.user)
 
     periodoletivo = PeriodoLetivo.objects.all()
 
@@ -173,7 +312,7 @@ def periodoletivo_new(request,template='form_periodoletivo.html'):
     else:
         form = PeriodoLetivoForm(request.POST or None)
 
-    return render(request,template,{'form':form,'img_usuario':img_usuario})
+    return render(request,template,{'form':form})
 
 def periodoletivo_edit(request,pk,template_name='form_periodoletivo.html'):
 
@@ -194,7 +333,7 @@ def aluno(request,template="aluno.html"):
 
     dados = Aluno.objects.all()
 
-    return render(request,template,{'dados': dados,'img_usuario':set_imagem(request.user)})
+    return render(request,template,{'dados': dados})
 
 def form_aluno(request, pk, template_name="form_aluno.html"):
 
@@ -225,7 +364,7 @@ def form_aluno(request, pk, template_name="form_aluno.html"):
         mensagem = 'Boletim Acadêmico'
 
         return render(request, template_name, {'form': form, 'estado': estado, 'cidade': cidade,
-                                               'img_usuario': set_imagem(request.user), 'fotos': str(src_imagem).encode('utf-8'),
+                                               'fotos': str(src_imagem).encode('utf-8'),
                                                'disciplina': disciplinas,'boletim': boletim, 'mensagem': mensagem
                                               })
     else:
@@ -235,7 +374,7 @@ def form_aluno(request, pk, template_name="form_aluno.html"):
         #                                        'mensagem': mensagem})
 
         return render(request, template_name, {'form': form, 'estado': estado, 'cidade': cidade,
-                                               'img_usuario': set_imagem(request.user), 'fotos': str(src_imagem).encode('utf-8'),
+                                               'fotos': str(src_imagem).encode('utf-8'),
                                                'mensagem': mensagem
                                               })
 
@@ -244,7 +383,7 @@ def professor(request,template="professor.html"):
 
     dados = Professor.objects.all()
 
-    return render(request,template,{'dados': dados, 'img_usuario':set_imagem(request.user)})
+    return render(request,template,{'dados': dados})
 
 def form_professor(request, pk, template_name="form_professor.html"):
 
@@ -267,15 +406,15 @@ def form_professor(request, pk, template_name="form_professor.html"):
             #return redirect('portal:responsavel')
     else:
         form = ProfessorForm(instance=professores)
-    return render(request, template_name, {'form': form,'estado': estado,'cidade': cidade
-                                           ,'img_usuario':set_imagem(request.user),'fotos': str(src_imagem).encode('utf-8')})
+    return render(request, template_name, {'form': form,'estado': estado,'cidade': cidade,
+                                           'fotos': str(src_imagem).encode('utf-8')})
 
 # CLASSE RESPONSAVEL ===============================================================================================
 def responsavel(request,template="responsavel.html"):
 
     dados = Responsavel.objects.all()
 
-    return render(request,template,{'dados': dados,'img_usuario':set_imagem(request.user)})
+    return render(request,template,{'dados': dados})
 
 def form_responsavel(request, pk, template_name="form_responsavel.html"):
 
@@ -305,7 +444,7 @@ def form_responsavel(request, pk, template_name="form_responsavel.html"):
         # mensagem = 'Boletim Acadêmico'
 
         return render(request, template_name, {'form': form, 'estado': estado, 'cidade': cidade,
-                                               'img_usuario': set_imagem(request.user), 'fotos': str(src_imagem).encode('utf-8'),
+                                               'fotos': str(src_imagem).encode('utf-8'),
                                                'financeiro': financeiro, 'responsavel': responsavel
                                               })
     else:
@@ -315,7 +454,7 @@ def form_responsavel(request, pk, template_name="form_responsavel.html"):
         #                                        'mensagem': mensagem})
 
         return render(request, template_name, {'form': form, 'estado': estado, 'cidade': cidade,
-                                               'img_usuario': set_imagem(request.user), 'fotos': str(src_imagem).encode('utf-8'),
+                                               'fotos': str(src_imagem).encode('utf-8'),
                                                'responsavel': responsavel
                                               })
 
@@ -337,9 +476,14 @@ def form_boletim(request, pk, template_name="boletim.html"):
 
     print("Aluno",aluno)
 
-    return render(request, template_name, {'aluno': alunos,'img_usuario':set_imagem(request.user)})
+    return render(request, template_name, {'aluno': alunos})
 
 # CLASSE IMPORTACAO CSV ===============================================================================================
+
+def upload_csv (request):
+
+    return redirect('admin/portal/importacaocsv/')
+    #return redirect('/admin/auth/user/')
 
 def importacao_csv(request, pk, template_name="importar_csv.html"):
 
@@ -348,7 +492,7 @@ def importacao_csv(request, pk, template_name="importar_csv.html"):
      if not(importacaocsv):
 
          importacaocsv = ImportacaoCSV.objects.all().filter(stimportacao=False)
-         return render(request, template_name, {'importacaocsv': importacaocsv,'img_usuario':set_imagem(request.user)})
+         return render(request, template_name, {'importacaocsv': importacaocsv})
 
      else:
 
@@ -513,4 +657,4 @@ def importacao_csv(request, pk, template_name="importar_csv.html"):
                          mensagem = "Linha: %s | %s" % (dados.line_num,row)
                          messages.error(request, mensagem)
 
-                 return render(request, template_name,{'importacaocsv': importacaocsv,'img_usuario':set_imagem(request.user)})
+                 return render(request, template_name,{'importacaocsv': importacaocsv})

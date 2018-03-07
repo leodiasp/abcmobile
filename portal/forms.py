@@ -8,6 +8,42 @@ from django.forms.widgets import ClearableFileInput
 from django.contrib.admin.widgets import AdminDateWidget
 
 
+class UserForm(forms.ModelForm):
+
+    imagem = forms.ImageField(widget=ClearableFileInput)
+
+    class Meta:
+
+        model = User
+
+        fields = ['username','email','password','first_name','last_name','is_superuser']
+
+        widgets = {
+
+            'username': forms.TextInput(attrs={
+                'class': 'form-control', 'id': 'username', 'placeholder': 'Login de Acesso',
+                'title': 'Login de Acesso'
+            }),
+            'email': forms.EmailInput(
+                attrs={'class': 'form-control', 'id': 'email', 'placeholder': 'E-mail',
+                       'title': 'E-mail'
+                       }),
+            'password': forms.PasswordInput(
+                attrs={'class': 'form-control', 'id': 'password', 'placeholder': 'Senha',
+                       'title': 'Senha'}),
+            'first_name': forms.TextInput(
+                attrs={'class': 'form-control', 'id': 'first_name', 'placeholder': 'Nome do Usuário', 'title': 'Nome do Usuário'}),
+            'last_name': forms.TextInput(
+                attrs={'class': 'form-control', 'id': 'last_name', 'placeholder': 'Ultimo Nome do Usuário',
+                       'title': 'Ultimo Nome do Usuário'}),
+            # 'is_usersuper' :forms.CheckboxInput(
+            #     attrs={'class': 'form-control', 'id': 'is_superuser', 'placeholder': 'Administrador ?',
+            #            'title': 'Administrador ?'}
+            # )
+
+
+        }
+
 class InstituicaoForm(forms.ModelForm):
     imagem = forms.ImageField(widget=ClearableFileInput)
     class Meta:
@@ -47,7 +83,7 @@ class InstituicaoForm(forms.ModelForm):
                                           'onKeyPress': "MascaraCep(cep);",
                                            }),
             'contato':  forms.TextInput(attrs={'class': 'form-control','id': 'contato', 'placeholder' : 'Contato' }),
-            #'imagem':  forms.ImageField(attrs={'class': 'form-control'}),
+            #'imagem':  forms.ImageField(attrs={'class': 'form-control','onclick':"UploadFoto();"}),
             #'imagem':  forms.TextInput(attrs={'class': 'form-control','id': 'imagem', 'placeholder' : 'Imagem' }),
             # 'dtcadastro':  forms.TextInput(attrs={'class': 'form-control','id': 'dtcadastro', 'placeholder' : 'Data Cadasttro',
             #                                       'readonly':'readonly' }),
@@ -60,12 +96,41 @@ class InstituicaoForm(forms.ModelForm):
 
         }
 
+class MensagemForm(forms.ModelForm):
+
+    class Meta:
+
+        model = Mensagem
+
+        usuario = forms.ModelMultipleChoiceField(queryset=User.objects.none(), widget=forms.CheckboxSelectMultiple())
+
+        fields = ['titulo','dtmensagem','descricao','stmensagem','usuario']
+
+        widgets = {
+
+            'titulo': forms.TextInput(attrs={
+            'class': 'form-control','id': 'titulo', 'placeholder' : 'Título da Mensagem','title': 'Título', 'onblur': "SetUsuario();"
+                }),
+            'dtmensagem': forms.DateInput(attrs={
+                'class': 'form-control','id': 'dtmensagem', 'placeholder' : 'Data da Mensagem','title': 'Data da Mensagem',
+                'onKeyPress': "MascaraData(dtmensagem);"
+                }),
+            'descricao': forms.Textarea(attrs={
+                'class': 'form-control','id': 'descricao', 'placeholder' : 'Texto da Mensagem', 'title':'Texto da Mensagem'
+            }),
+            # 'usuario': forms.MultipleChoiceField(attrs={
+            #     'class': 'form-control','id': 'usuario'
+            # }),
+
+
+
+        }
+
 class PeriodoLetivoForm(forms.ModelForm):
     class Meta:
 
         model = PeriodoLetivo
         instituicao = models.ForeignKey(Instituicao, null=True)
-
 
         fields = ['codigo','descricao','diasletivos','dtinicial','dtfinal','calendario']
 
@@ -86,7 +151,7 @@ class PeriodoLetivoForm(forms.ModelForm):
             'dtinicial':  forms.TextInput(attrs={'class': 'form-control','id': 'dtinicial', 'placeholder' : 'Data Inícial', 'title': 'Data Inicial',
                                           'onKeyPress': "MascaraData(dtinicial);"}),
             'dtfinal':  forms.TextInput(attrs={'class': 'form-control','id': 'dtfinal', 'placeholder' : 'Data Final','title': 'Data Final',
-                                          'onKeyPress': "MascaraData(dtfinal);"       }),
+                                          'onKeyPress': "MascaraData(dtfinal);"}),
             'calendario':  forms.TextInput(attrs={'class': 'form-control','id': 'calendario', 'placeholder' : 'Calendário Período Letivo',
                                                   'title': 'Calendário' }),
 

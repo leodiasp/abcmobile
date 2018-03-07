@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from portal.models import Pais,Estado,Cidade, Instituicao, TabelaImportacao,ImportacaoCSV, ImagemUsuarios
+from portal.models import Pais,Estado,Cidade, Instituicao, TabelaImportacao,ImportacaoCSV
 
 # Register your models here.
 
@@ -51,16 +51,16 @@ class ImportacaoCSVAdmin(admin.ModelAdmin):
 admin.site.register(TabelaImportacao);
 admin.site.register(ImportacaoCSV, ImportacaoCSVAdmin);
 
-class ImagemUsuariosAdmin(admin.ModelAdmin):
-
-    model = ImagemUsuarios
-    list_display = ['usuarios','imagem']
-    list_filter  = ['usuarios','imagem']
-    search_fields = ['usuarios','imagem']
-    save_on_top = True
-
-admin.site.register(ImagemUsuarios,ImagemUsuariosAdmin);
-
+# class ImagemUsuariosAdmin(admin.ModelAdmin):
+#
+#     model = ImagemUsuarios
+#     list_display = ['usuarios','imagem']
+#     list_filter  = ['usuarios','imagem']
+#     search_fields = ['usuarios','imagem']
+#     save_on_top = True
+#
+# admin.site.register(ImagemUsuarios,ImagemUsuariosAdmin);
+#
 
 
 

@@ -45,21 +45,25 @@ class Cidade(models.Model):
     def __str__(self):
         return (self.nome.encode('utf-8'))
 
-class Alertas(models.Model):
+class Mensagem(models.Model):
+
+    #usuario = models.ForeignKey(User, on_delete=models.CASCADE)
+
+    usuario = models.ManyToManyField(User, related_name="usuarios")
 
     titulo     = models.CharField(max_length=100)
-    dtalerta   = models.DateField()
+    dtmensagem = models.DateField()
     descricao  = models.TextField()
     stmensagem = models.BooleanField()
 
     def __str__(self):
         return self.titulo.encode('utf-8')
 
-class ImagemUsuarios(models.Model):
-
-    usuarios = models.ForeignKey(User, on_delete=models.CASCADE)
-
-    imagem  = models.ImageField(upload_to="usuarios", default = 'usuarios/sem_foto.jpg', blank=True, null=True)
+# class ImagemUsuarios(models.Model):
+#
+#     usuarios = models.ForeignKey(User, on_delete=models.CASCADE)
+#
+#     imagem  = models.ImageField(upload_to="usuarios", default = 'usuarios/sem_foto.jpg', blank=True, null=True)
 
 class Instituicao(models.Model):
 
@@ -79,7 +83,7 @@ class Instituicao(models.Model):
     bairro        = models.CharField(max_length=80)
     cep           = models.CharField(max_length=10)
     contato       = models.CharField(max_length=40)
-    imagem        = models.ImageField(upload_to="imagens", default = '/instituicao/sem_foto.jpg', blank=True, null=True)
+    imagem        = models.ImageField(upload_to="instituicao", default = 'instituicao/sem_foto.png', blank=True, null=True)
     #imagem        = models.FileField(upload_to="imagens", blank=True, null=True)
     dtcadastro    = models.DateField(auto_now=True)
 

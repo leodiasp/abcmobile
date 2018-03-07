@@ -68,13 +68,11 @@
 				<!-- menu prile quick info -->
 				<div class="profile">
 					<div class="profile_pic">
+						<!--<img src="/media/{{ img.imagem }}" alt="Avatar" class="img-circle profile_img">-->
+						<a href="{% url 'portal:usuario_edit' pk=request.user.pk %}" >
+							<img src="/media/{{ request.user.imagem }}" alt="Avatar" class="img-circle profile_img">
+						</a>
 
-						{% for img in img_usuario %}
-
-						<img src="/media/{{ img.imagem }}" alt="Avatar" class="img-circle profile_img">
-
-
-						{% endfor %}
 						<!--<img src="/media/usuarios/sem_foto.png" alt="Avatar" class="img-circle profile_img">-->
 
 					</div>
@@ -186,11 +184,11 @@
 					<ul class="nav navbar-nav navbar-right">
 						<li class="">
 							<a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-								<img src="images/img.jpg" alt="">{{ request.user.first_name }}
+								<img src="images/img.jpg" alt="">Configuração
 								<span class=" fa fa-angle-down"></span>
 							</a>
 							<ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
-								<li><a href="{% url 'portal:perfil' %}">  Perfil / Usuário </a>
+								<li><a href="{% url 'portal:usuario_edit' pk=request.user.pk %}">  Perfil / Usuário </a>
 								</li>
 								<li>
 									<a href="{% url 'portal:importacao_csv' pk=0 %}">
@@ -209,15 +207,15 @@
 						<li role="presentation" class="dropdown">
 							<a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
 								<i class="fa fa-envelope-o"></i>
-								<span class="badge bg-green">6</span>
+
+								<span class="badge bg-green">{{ totMensagem.count }}</span>
 							</a>
 							<ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
 
 								<li>
 									<div class="text-center">
-										<a href="{% url 'portal:inbox' %}">
-											<strong>Listar Alerta(s)</strong>
-											<i class="fa fa-angle-right"></i>
+										<a href="{%  url 'portal:mensagem'  %}">
+											Mensagem(s)
 										</a>
 									</div>
 								</li>

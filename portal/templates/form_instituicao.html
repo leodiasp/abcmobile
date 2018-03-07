@@ -76,6 +76,7 @@
 							</ul>
 							<div class="clearfix"></div>
 						</div>
+
 						<div class="x_content">
 
 							<div class="col-md-3 col-sm-3 col-xs-12 profile_left">
@@ -85,8 +86,13 @@
 									<!-- end of image cropping -->
 									<div id="crop-avatar">
 										<!-- Current avatar -->
-										<div class="avatar-view" title="Alterar Foto"  onclick="UploadFoto();">
-											<img src="/media/{{ fotos }}" alt="Avatar">
+										<div class="avatar-view" title="Alterar Foto"  onclick="UploadFoto();" >
+											{% if fotos %}
+											<img src="/media/{{ fotos }}" id="imagem" alt="Avatar">
+											{% else %}
+											<img src="/media/instituicao/sem_foto.png" id="imagem" alt="Avatar">
+
+											{% endif %}
 										</div>
 
 										<!-- Cropping modal -->
@@ -169,7 +175,7 @@
 									</li>
 									<li class="m-top-xs">
 										<i class="fa fa-external-link user-profile-icon"></i>
-										<a href="#" target="_blank"> E-mail{{ form.email }}</a>
+										E-mail{{ form.email }}
 									</li>
 								</ul>
 
@@ -187,7 +193,7 @@
 										<h4> <b> Registro </b></h4> <i> {{ form.codigo }} </i>
 									</div>
 									<div class="col-md-4">
-										<h4 title="CPF"><b> CPF </b></h4> <i> {{ form.cgc }} </i>
+										<h4 title="CNPJ"><b> CPF </b></h4> <i> {{ form.cgc }} </i>
 									</div>
 
 								</div>
@@ -259,6 +265,14 @@
 
 <script language="javascript">
 
+function UploadFoto() {
+
+ var v_img = document.getElementById('id_imagem');
+
+ document.getElementById('imagem').src = $("#id_imagem").val();
+
+}
+
 function CarregaUF() {
 
   var selectUF = document.getElementById('uf');
@@ -274,7 +288,6 @@ function CarregaUF() {
 
 
   {% endfor %}
-
 
 }
 

@@ -12,6 +12,9 @@ urlpatterns = [
     url(r'^login/',  do_login,  name='login'),
     url(r'^logout/', do_logout, name='logout'),
 
+    url(r'^usuario_new/', usuario_new, name="usuario_new"),
+    url(r'^usuario_edit/(?P<pk>[0-9]+)', usuario_edit, name="usuario_edit"),
+
     url(r'^instituicao/', instituicao, name='instituicao'),
     url(r'^instituicao_new/', instituicao_new, name="instituicao_new"),
     url(r'^instituicao_edit/(?P<pk>[0-9]+)', instituicao_edit, name="instituicao_edit"),
@@ -47,11 +50,15 @@ urlpatterns = [
     #url(r'^edit_responsavel/(?P<pk>[0-9]+)', edit_responsavel, name='edit_responsavel'),
 
     url(r'^perfil/', perfil, name='perfil'),
+    url(r'^upload/', upload, name='upload'),
     url(r'^administracao/', administracao,   name='administracao'),
 
     url(r'^importacao_csv/(?P<pk>[0-9]+)', importacao_csv, name='importacao_csv'),
+    url(r'^upload_csv/', upload_csv, name='upload_csv'),
 
-    url(r'^inbox/', inbox, name='inbox'),
+    url(r'^mensagem/', mensagem, name='mensagem'),
+    url(r'^mensagem_new/', mensagem_new, name='mensagem_new'),
+    url(r'^mensagem_edit/(?P<pk>[0-9]+)', mensagem_edit, name='mensagem_edit'),
 
 ]
 

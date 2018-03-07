@@ -12,14 +12,7 @@
 			<!--<span class="count_bottom"><i class="green">4% </i> From last Week</span>-->
 		</div>
 	</div>
-	<!--<div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">-->
-	<!--<div class="left"></div>-->
-	<!--<div class="right">-->
-	<!--&lt;!&ndash;<span class="count_top"><i class="fa fa-clock-o"></i> Average Time</span>&ndash;&gt;-->
-	<!--&lt;!&ndash;<div class="count">123.50</div>&ndash;&gt;-->
-	<!--&lt;!&ndash;<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>&ndash;&gt;-->
-	<!--</div>-->
-	<!--</div>-->
+
 	<div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
 		<div class="left"></div>
 		<div class="right">
@@ -40,7 +33,11 @@
 		<div class="left"></div>
 		<div class="right">
 			<span class="count_top"><i class="fa fa-money"></i> Pagtos Confirmados </span>
-			<div class="count">{{ totTitulosPagos.total }}</div>
+			<div class="count">
+
+				{{ totTitulosPagos.total|default:"0.00"  }}
+
+			</div>
 			<!--<span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>-->
 		</div>
 	</div>
@@ -48,138 +45,381 @@
 		<div class="left"></div>
 		<div class="right">
 			<span class="count_top"><i class="fa fa-user"></i> Pagtos Pendentes</span>
-			<div class="count">{{ totTitulosAbertos.total }}</div>
+			<div class="count">{{ totTitulosAbertos.total|default:"0.00" }}</div>
 			<!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>-->
 		</div>
 	</div>
 
 
 </div>
+
+
 <div class="x_panel">
-<div class="x_title">
-		<h2> Dashboard - Bem Vindo ao Portal ABC Mobile. <small></small></h2>
+	<div class="x_content">
+		<div class="x_title">
+			<h2> Dashboard - Bem Vindo ao Portal ABC Mobile. <small></small></h2>
 
-		<ul class="nav navbar-right panel_toolbox">
-			<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-			</li>
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+			<!--<ul class="nav navbar-right panel_toolbox">-->
+			<!--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
+			<!--</li>-->
+			<!--<li class="dropdown">-->
+			<!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>-->
 
-			</li>
-			<li><a class="close-link"><i class="fa fa-close"></i></a>
-			</li>
-		</ul>
+			<!--</li>-->
+			<!--<li><a class="close-link"><i class="fa fa-close"></i></a>-->
+			<!--</li>-->
+			<!--</ul>-->
 
-		<div class="clearfix"></div>
-	</div>
+			<div class="clearfix"></div>
+		</div>
 
-<div class="x_panel" >
-	<div class="x_title">
-		<h2> Galeria de Alunos <small></small></h2>
+		{% if instituicao %}
 
-		<ul class="nav navbar-right panel_toolbox">
-			<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-			</li>
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+		{% for reginstituicao in instituicao %}
 
-			</li>
-			<li><a class="close-link"><i class="fa fa-close"></i></a>
-			</li>
-		</ul>
+		<div class="x_panel" >
+			<div class="x_title">
+				<h2> Instituição <small></small></h2>
 
-		<div class="clearfix"></div>
-	</div>
+				<ul class="nav navbar-right panel_toolbox">
+					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
 
-	<div class="x_content" align="center">
+					</li>
+					<li><a class="close-link"><i class="fa fa-close"></i></a>
+					</li>
+				</ul>
 
-		<div class="x_content" >
+				<div class="clearfix"></div>
+			</div>
 
-			<div class="row">
+			<div class="x_content">
 
-				{% for regAlunos in alunos %}
-				<div class="col-md-55">
-					<div class="thumbnail">
-						<div class="image view view-first">
-							<!--<img style="width: 100%; display: block;" src="images/4.jpg" alt="image" />-->
-							<img style="width: 100%; display: block;" src="/media/{{ regAlunos.imagem }}" alt="image">
-							<div class="mask">
-								<p>{{ regAlunos.nome_abreviado }}</p>
-								<div class="tools tools-bottom">
-									<!--<a href="#"><i class="fa fa-link"></i></a>-->
-									<a href="{% url 'portal:form_aluno' pk=regAlunos.pk %}"><i class="fa fa-pencil"></i></a>
-									<!--<a href="#"><i class="fa fa-times"></i></a>-->
+				<div class="col-md-3 col-sm-3 col-xs-12 profile_left">
+
+					<div class="profile_img">
+
+						<!-- end of image cropping -->
+						<div id="crop-avatar">
+							<!-- Current avatar -->
+							<div class="avatar-view" title="Alterar Foto"  onclick="UploadFoto();" >
+
+								<img src="/media/{{ reginstituicao.imagem }}" id="imagem" alt="Avatar">
+
+							</div>
+
+							<!-- Cropping modal -->
+							<div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+								<div class="modal-dialog modal-lg">
+									<div class="modal-content">
+										<form class="avatar-form" action="crop.php" enctype="multipart/form-data" method="post">
+											<div class="modal-header">
+												<button class="close" data-dismiss="modal" type="button">&times;</button>
+												<h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
+											</div>
+											<div class="modal-body">
+												<div class="avatar-body">
+
+													<!-- Upload image and data -->
+													<div class="avatar-upload">
+														<input class="avatar-src" name="avatar_src" type="hidden">
+														<input class="avatar-data" name="avatar_data" type="hidden">
+														<label for="avatarInput">Local upload</label>
+														<input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+													</div>
+
+													<!-- Crop and preview -->
+													<div class="row">
+														<div class="col-md-9">
+															<div class="avatar-wrapper"></div>
+														</div>
+														<div class="col-md-3">
+															<div class="avatar-preview preview-lg"></div>
+															<div class="avatar-preview preview-md"></div>
+															<div class="avatar-preview preview-sm"></div>
+														</div>
+													</div>
+
+													<div class="row avatar-btns">
+														<div class="col-md-9">
+															<div class="btn-group">
+																<button class="btn btn-primary" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees">Rotate Left</button>
+																<button class="btn btn-primary" data-method="rotate" data-option="-15" type="button">-15deg</button>
+																<button class="btn btn-primary" data-method="rotate" data-option="-30" type="button">-30deg</button>
+																<button class="btn btn-primary" data-method="rotate" data-option="-45" type="button">-45deg</button>
+															</div>
+															<div class="btn-group">
+																<button class="btn btn-primary" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees">Rotate Right</button>
+																<button class="btn btn-primary" data-method="rotate" data-option="15" type="button">15deg</button>
+																<button class="btn btn-primary" data-method="rotate" data-option="30" type="button">30deg</button>
+																<button class="btn btn-primary" data-method="rotate" data-option="45" type="button">45deg</button>
+															</div>
+														</div>
+														<div class="col-md-3">
+															<button class="btn btn-primary btn-block avatar-save" type="submit">Done</button>
+														</div>
+													</div>
+												</div>
+											</div>
+											<!-- <div class="modal-footer">
+                                                              <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                                                            </div> -->
+										</form>
+									</div>
+								</div>
+							</div>
+							<!-- /.modal -->
+
+							<!-- Loading state -->
+							<div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+						</div>
+						<!-- end of image cropping -->
+
+					</div>
+					<ul class="list-unstyled user_data">
+					</ul>
+					<ul class="list-unstyled user_data">
+
+					</ul>
+
+					<ul class="list-unstyled user_data">
+						<li><i class="fa fa-map-marker user-profile-icon"></i> UF {{ reginstituicao.estado }}
+						<li><i class="fa fa-map-marker user-profile-icon"></i> Cidade {{ reginstituicao.cidade }}, BRASIL
+						</li>
+						<li class="m-top-xs">
+							<i class="fa fa-external-link user-profile-icon"></i>
+							E-mail:{{ reginstituicao.email }}
+						</li>
+					</ul>
+
+					<a href="{% url 'portal:instituicao_edit' pk=reginstituicao.pk %}" >
+						<button type="submit" class="btn btn-success"> <i class="fa fa-edit m-right-xs"></i> Alterar </button>
+					</a>
+					<br />
+
+					<!-- start skills -->
+					<!-- end of skills -->
+
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+					<div class="profile_title">
+						<div class="col-md-12">
+							<h3> <b> <i>  {{ reginstituicao.nomefantasia }} ( {{ reginstituicao.razaosocial }} )</i> </b> </h3>
+						</div>
+						<!--<div class="col-md-6">-->
+						<!--<h3> <b> <i>  {{ reginstituicao.razaosocial }}</i> </b> </h3>-->
+						<!--</div>-->
+
+					</div>
+
+					<div class="profile_title">
+						<!--<div class="col-md-3">-->
+						<!--<h4> <b> Registro </b></h4> <i>  {{ reginstituicao.codigo }} </i>-->
+						<!--</div>-->
+						<div class="col-md-6">
+							<h4> <b> <i> CNPJ: {{ reginstituicao.cgc }} </i> </b></h4>
+						</div>
+					</div>
+
+					<div class="profile_title">
+
+						<div class="col-md-6">
+							<h4> <b> <i> Insc. Estadual: {{ reginstituicao.inscestadual }} </i> </b></h4>
+						</div>
+
+						<!--<div class="col-md-8">-->
+
+						<!--<h4> <b> <i> {{ reginstituicao.contato }} </i> </b></h4>-->
+
+						<!--</div>-->
+					</div>
+					<div class="profile_title">
+
+						<div class="col-md-4">
+
+							<h4> <b> <i> Telefone: {{ reginstituicao.telefone }} </i> </b></h4>
+
+						</div>
+						<div class="col-md-4">
+							<h4> <b> <i> Telefax: {{ reginstituicao.telefax }} </i> </b></h4>
+
+						</div>
+					</div>
+					<hr >
+
+				</div>
+				<div class="col-md-9 col-sm-9 col-xs-12">
+
+					<div class="profile_title">
+						<div class="col-md-6">
+							<h4> <b>  <i> Endereço : {{ reginstituicao.endereco }} </i> </b></h4>
+						</div>
+						<div class="col-md-3">
+							<h4> <b>  <i> Complemento : {{ reginstituicao.complemento }} </i> </b></h4>
+						</div>
+					</div>
+
+					<div class="profile_title">
+						<div class="col-md-6">
+							<h4> <b>  <i> Bairro : {{ reginstituicao.bairro }} </i> </b></h4>
+						</div>
+						<div class="col-md-3">
+							<h4> <b>  <i> Cep : {{ reginstituicao.cep }} </i> </b></h4>
+						</div>
+
+					</div>
+				</div>
+				<!-- start of user-activity-graph -->
+				<div id="graph_bar" style="width:100%; height:280px;"></div>
+				<!-- end of user-activity-graph -->
+
+			</div>
+			<!-- Fim Teste -->
+		</div>
+		<div class="x_panel" >
+			<div class="x_title">
+				<h2> Galeria de Alunos <small></small></h2>
+
+				<ul class="nav navbar-right panel_toolbox">
+					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+
+					</li>
+					<li><a class="close-link"><i class="fa fa-close"></i></a>
+					</li>
+				</ul>
+
+				<div class="clearfix"></div>
+			</div>
+
+			<div class="x_content" align="center">
+
+				<div class="x_content" >
+
+					<div class="row">
+
+						{% for regAlunos in alunos %}
+						<div class="col-md-55">
+							<div class="thumbnail">
+								<div class="image view view-first">
+									<!--<img style="width: 100%; display: block;" src="images/4.jpg" alt="image" />-->
+									<img style="width: 100%; display: block;" src="/media/{{ regAlunos.imagem }}" alt="image">
+									<div class="mask">
+										<p>{{ regAlunos.nome_abreviado }}</p>
+										<div class="tools tools-bottom">
+											<!--<a href="#"><i class="fa fa-link"></i></a>-->
+											<a href="{% url 'portal:form_aluno' pk=regAlunos.pk %}"><i class="fa fa-pencil"></i></a>
+											<!--<a href="#"><i class="fa fa-times"></i></a>-->
+										</div>
+									</div>
+								</div>
+								<div class="caption">
+									<p>{{ regAlunos.nome }}</p>
 								</div>
 							</div>
 						</div>
-						<div class="caption">
-							<p>{{ regAlunos.nome }}</p>
-						</div>
+						{% endfor %}
 					</div>
+					<!-- Fim - Galeria de Alunos -->
+
 				</div>
-				{% endfor %}
 			</div>
-			<!-- Fim - Galeria de Alunos -->
 
 		</div>
-	</div>
+		<div class="x_panel" >
+			<div class="x_title">
+				<h2> Galeria de Professores <small></small></h2>
 
-</div>
-<div class="x_panel" >
-	<div class="x_title">
-		<h2> Galeria de Professores <small></small></h2>
+				<ul class="nav navbar-right panel_toolbox">
+					<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+					</li>
+					<li class="dropdown">
+						<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
 
-		<ul class="nav navbar-right panel_toolbox">
-			<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-			</li>
-			<li class="dropdown">
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+					</li>
+					<li><a class="close-link"><i class="fa fa-close"></i></a>
+					</li>
+				</ul>
 
-			</li>
-			<li><a class="close-link"><i class="fa fa-close"></i></a>
-			</li>
-		</ul>
+				<div class="clearfix"></div>
+			</div>
 
-		<div class="clearfix"></div>
-	</div>
+			<div class="x_content" align="center">
 
-	<div class="x_content" align="center">
+				<div class="x_content" >
+					<!-- Inicio Galeria Professores-->
 
-		<div class="x_content" >
-			<!-- Inicio Galeria Professores-->
-
-			<div class="row">
+					<div class="row">
 
 
-				<!--<p>Galeria de Aluno</p>-->
-				{% for regProfessores in professores %}
-				<div class="col-md-55">
-					<div class="thumbnail">
-						<div class="image view view-first">
-							<!--<img style="width: 100%; display: block;" src="images/4.jpg" alt="image" />-->
-							<img style="width: 100%; display: block;" src="/media/{{ regProfessores.imagem }}" alt="image">
-							<div class="mask">
-								<p>{{ regProfessores.nome_abreviado }}</p>
-								<div class="tools tools-bottom">
-									<!--<a href="#"><i class="fa fa-link"></i></a>-->
-									<a href="{% url 'portal:form_professor' pk=regProfessores.pk %}"><i class="fa fa-pencil"></i></a>
-									<!--<a href="#"><i class="fa fa-times"></i></a>-->
+						<!--<p>Galeria de Aluno</p>-->
+						{% for regProfessores in professores %}
+						<div class="col-md-55">
+							<div class="thumbnail">
+								<div class="image view view-first">
+									<!--<img style="width: 100%; display: block;" src="images/4.jpg" alt="image" />-->
+									<img style="width: 100%; display: block;" src="/media/{{ regProfessores.imagem }}" alt="image">
+									<div class="mask">
+										<p>{{ regProfessores.nome_abreviado }}</p>
+										<div class="tools tools-bottom">
+											<!--<a href="#"><i class="fa fa-link"></i></a>-->
+											<a href="{% url 'portal:form_professor' pk=regProfessores.pk %}"><i class="fa fa-pencil"></i></a>
+											<!--<a href="#"><i class="fa fa-times"></i></a>-->
+										</div>
+									</div>
+								</div>
+								<div class="caption">
+									<p>{{ regProfessores.nome }}</p>
 								</div>
 							</div>
 						</div>
-						<div class="caption">
-							<p>{{ regProfessores.nome }}</p>
-						</div>
+						{% endfor %}
 					</div>
+					<!-- Fim - Galeria de Professores -->
+
 				</div>
-				{% endfor %}
 			</div>
-			<!-- Fim - Galeria de Professores -->
 
 		</div>
+
+		{% endfor %}
+
+		{% else %}
+
+		<!--<div class="alert alert-danger fade in">-->
+		<!--<button data-dismiss="alert" class="close close-sm" type="button"> &times; </button>-->
+
+		<!--<strong>ESSE É O SEU PRIMEIRO ACESSO AO SISTEMA. FAVOR REALIZAR OS PROCEDIMENTOS ABAIXO:</strong>-->
+		<!--<BR>-->
+		<!--<BR>-->
+		<!--<strong> INFORMAR DADOS DA INSTITUÇÃO, CLIQUE <a href="{% url 'portal:instituicao_new' %}"> AQUI </a> !</strong>-->
+		<!--<br>-->
+		<!--<strong> INFORMAR DADOS DO PERÍODO LETIVO, CLIQUE <a href="{% url 'portal:periodoletivo_new' %}"> AQUI </a> !</strong>-->
+		<!--<br>-->
+
+		<!--{% if totAlunos == 0 %}-->
+		<!--<strong> IMPORTAR DADOS DO ALUNO, CLIQUE <a href="{% url 'portal:instituicao_new' %}"> AQUI </a> !</strong>-->
+		<!--<br>-->
+		<!--{% endif %}-->
+
+		<!--{% if totProfessor == 0 %}-->
+		<!--<strong>IMPORTAR DADOS DO PROFESSOR, CLIQUE <a href="{% url 'portal:importacao_csv' pk=0 %}"> AQUI </a> !</strong>-->
+		<!--<br>-->
+		<!--{% endif %}-->
+
+		<!--{% if totResponsavel == 0 %}-->
+		<!--<strong>IMPORTAR DADOS DO RESPONSAVEL, CLIQUE  <a href="{% url 'portal:importacao_csv' pk=0 %}"> AQUI </a> !</strong>-->
+		<!--<br>-->
+		<!--{% endif %}-->
+		<!--</div>-->
+
+		{% endif %}
 	</div>
 
-</div>
 </div>
 
 {% endblock %}

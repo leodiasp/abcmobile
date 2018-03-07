@@ -1,0 +1,159 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="x_panel">
+	<div class="x_title">
+		<a href="{% url 'portal:mensagem' %}"><h2>  Mensagens <small></small></h2> </a>
+		<ul class="nav navbar-right panel_toolbox">
+			<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+			</li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+
+			</li>
+			<li><a class="close-link"><i class="fa fa-close"></i></a>
+			</li>
+		</ul>
+		<div class="clearfix"></div>
+	</div>
+	<form enctype="multipart/form-data" method="post"   >
+		{% csrf_token %}
+
+		{% if form.errors %}
+		<div class="alert alert-danger">
+			<button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+				&times;
+			</button>
+			<strong>Erro !</strong> Favor Verificar os Dados Informados.
+			{{form.errors.items}}
+
+
+		</div>
+
+		{% endif %}
+
+		{% for message in messages %}
+
+		<div class="alert alert-success fade in">
+			<button data-dismiss="alert" class="close close-sm" type="button">
+				&times;
+
+			</button>
+			<strong>ATENÇÃO ! {{ message }} </strong>
+		</div>
+
+		{% endfor %}
+		<div class="x_content">
+
+			<div class="row">
+
+				<!--<div class="col-md-4 col-sm-12 col-xs-12 form-group">-->
+
+					<!--{{ form.instituicao }}-->
+
+				<!--</div>-->
+
+
+
+				<!--<div class="col-md-1 col-sm-12 col-xs-12 form-group">-->
+
+					<!--{{ form.codigo }}-->
+
+				<!--</div>-->
+
+
+				<div class="col-md-10 col-sm-12 col-xs-12 form-group">
+					{{ form.titulo }}
+				</div>
+
+				<div class="col-md-2 col-sm-12 col-xs-12 form-group">
+					{{ form.dtmensagem }}
+				</div>
+
+				<div class="col-md-12 col-sm-12 col-xs-12 form-group">
+					{{ form.descricao }}
+				</div>
+
+
+				<div class="col-md-12 col-sm-12 col-xs-12 form-group">
+					{{ form.usuario }}
+				</div>
+
+				<div class="col-md-6 col-sm-12 col-xs-12 form-group">
+					<button type="submit" class="btn btn-round btn-success">CONFIRMAR</button>
+				</div>
+
+
+
+			</div>
+
+		</div>
+	</form>
+</div>
+
+<script language="javascript">
+
+function CarregaUF() {
+
+  var selectUF = document.getElementById('uf');
+
+  {% for l_estado in estado %}
+
+    var option = document.createElement('option');
+        option.value = ""
+        option.value = "{{ l_estado.id }}"
+        option.text  = "{{ l_estado.uf }}"
+
+    selectUF.add(option);
+
+
+  {% endfor %}
+
+
+}
+
+function SetUsuario(){
+
+
+  //Get
+  var bla = $('#usuario').val();
+  //var bla = {{request.user.username}}
+  //alert('Alerta 01: ' + {{request.user.username}});
+  //alert('{{request.user.username}}');
+
+  //Set
+  #$('#usuario').val({{request.user.username}});
+  document.getElementById('usuario').value = 'ABCD'
+
+}
+
+function CarregaCidade() {
+
+ var select = document.getElementById('uf');
+
+// alert('UF: | ' + $("#uf").val());
+
+ var selectCidade = document.getElementById('cidade');
+
+ $("#cidade").empty();
+
+ {% for l_cidade in cidade %}
+
+ if ($("#uf").val() == {{ l_cidade.estado_id }}) {
+
+    var option = document.createElement('option');
+        option.value = "{{ l_cidade.id }}"
+        option.text  = "{{ l_cidade.nome }}"
+
+    selectCidade.add(option);
+
+    }
+
+   {% endfor %}
+
+}
+
+</script>
+
+{% endblock %}
