@@ -1,34 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="7382c40c-f45f-40ee-982a-92a7d826b7f9" name="Default" comment="Commit 01">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/portal/templates/form_mensagem.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/portal/templates/form_usuario.html" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/portal/templates/mensagem.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/csv/01-ALUNO.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/csv/04-RESPONSAVEL.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/csv/05-FINANCEIRO.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/csv/BOLETIM_CSV.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/csv/PROFESSOR_CSV.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/usuarios/admin.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/usuarios/leodiasp.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/portal/migrations/0001_initial.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/static/imagens/bg_login.psd" afterPath="$PROJECT_DIR$/mobile/static/imagens/bg_login.psd" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/mobile/templates/dashboard.html" afterPath="$PROJECT_DIR$/mobile/templates/dashboard.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/admin.py" afterPath="$PROJECT_DIR$/portal/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/forms.py" afterPath="$PROJECT_DIR$/portal/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/models.py" afterPath="$PROJECT_DIR$/portal/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/templates/base.html" afterPath="$PROJECT_DIR$/portal/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/templates/form_aluno.html" afterPath="$PROJECT_DIR$/portal/templates/form_aluno.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/templates/form_instituicao.html" afterPath="$PROJECT_DIR$/portal/templates/form_instituicao.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/templates/importar_csv.html" afterPath="$PROJECT_DIR$/portal/templates/importar_csv.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/templates/index.html" afterPath="$PROJECT_DIR$/portal/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/templates/instituicao.html" afterPath="$PROJECT_DIR$/portal/templates/instituicao.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/templates/login.html" afterPath="$PROJECT_DIR$/portal/templates/login.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/urls.py" afterPath="$PROJECT_DIR$/portal/urls.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/views.py" afterPath="$PROJECT_DIR$/portal/views.py" />
-    </list>
+    <list default="true" id="7382c40c-f45f-40ee-982a-92a7d826b7f9" name="Default" comment="Commit 01" />
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
