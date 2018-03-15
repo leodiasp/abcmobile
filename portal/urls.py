@@ -12,6 +12,9 @@ urlpatterns = [
     url(r'^login/',  do_login,  name='login'),
     url(r'^logout/', do_logout, name='logout'),
 
+    url(r'^mobile/', mobile, name='mobile'),
+
+    url(r'^responsavel_usuario/', responsavel_usuario, name="responsavel_usuario"),
     url(r'^usuario_new/', usuario_new, name="usuario_new"),
     url(r'^usuario_edit/(?P<pk>[0-9]+)', usuario_edit, name="usuario_edit"),
 

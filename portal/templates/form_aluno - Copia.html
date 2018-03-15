@@ -28,18 +28,18 @@
 			<strong>Erro !</strong> Favor Verificar os Dados Informados.
 			{{form.errors.items}}
 
-
 		</div>
 
 		{% endif %}
 
+		{% if messages %}
 		{% for message in messages %}
 
 		{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
 
 		<div class="alert alert-danger fade in">
 			<button data-dismiss="alert" class="close close-sm" type="button"> &times; </button>
-			<strong>ERRO ! {{ message }} {{ erro }} </strong>
+			<strong>ATENÇÃO ! {{ message }} </strong>
 
 		</div>
 
@@ -47,8 +47,7 @@
 
 		<div class="alert alert-success fade in">
 			<button data-dismiss="alert" class="close close-sm" type="button"> &times; </button>
-			<strong>CONCLUÍDO ! {{ message }} </strong>
-
+			<strong>ATENÇÃO ! {{ message }} </strong>
 
 		</div>
 
@@ -56,16 +55,27 @@
 
 		{% endfor %}
 
-		{% for reg in aluno %}
+		{% endif %}
+
 		<div class="x_content">
 			<div class="row">
 				<div class="col-md-12 col-sm-12 col-xs-12">
 					<div class="x_panel">
 						<div class="x_title">
 							<h2> Ficha Cadastral <small></small></h2>
+							<ul class="nav navbar-right panel_toolbox">
+								<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+								</li>
+								<li class="dropdown">
+									<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
 
+								</li>
+								<li><a class="close-link"><i class="fa fa-close"></i></a>
+								</li>
+							</ul>
 							<div class="clearfix"></div>
 						</div>
+
 						<div class="x_content">
 
 							<div class="col-md-3 col-sm-3 col-xs-12 profile_left">
@@ -75,12 +85,14 @@
 									<!-- end of image cropping -->
 									<div id="crop-avatar">
 										<!-- Current avatar -->
-										<div class="avatar-view" title="Alterar Foto"  onclick="UploadFoto();">
-											<img src="/media/{{ reg.imagem }}" alt="Avatar">
+										<div class="avatar-view" title="Alterar Foto"  onclick="UploadFoto();" >
+											{% if fotos %}
+											<img src="/media/{{ fotos }}" id="imagem" alt="Avatar">
+											{% else %}
+											<img src="/media/instituicao/sem_foto.png" id="imagem" alt="Avatar">
 
+											{% endif %}
 										</div>
-
-
 
 										<!-- Cropping modal -->
 										<div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
@@ -150,29 +162,23 @@
 									<!-- end of image cropping -->
 
 								</div>
-
-								<h3>{% if reg.nome_abreviado %}
-
-									{{ reg.nome }}({{ reg.nome_abreviado }})
-
-									{% else %}
-									{{ reg.nome }}
-									{% endif %}
-								</h3>
-
 								<ul class="list-unstyled user_data">
-									<li><i class="fa fa-map-marker user-profile-icon"></i> {{ reg.cidade }}, {{ reg.uf }}, BRASIL
-									</li>
-
-
-
-									<li class="m-top-xs">
-										<i class="fa fa-external-link user-profile-icon"></i>
-										<a href="#" target="_blank">{{ reg.email }}</a>
-									</li>
+								</ul>
+								<ul class="list-unstyled user_data">
+									{{ form.imagem }}
 								</ul>
 
-								<a class="btn btn-success"> <i class="fa fa-edit m-right-xs"></i>Alterar</a>
+								<ul class="list-unstyled user_data">
+									<li><i class="fa fa-map-marker user-profile-icon"></i> UF {{ form.uf }}
+									<li><i class="fa fa-map-marker user-profile-icon"></i> Cidade {{ form.cidade }}, BRASIL
+									</li>
+									<!--<li class="m-top-xs">-->
+									<!--<i class="fa fa-external-link user-profile-icon"></i>-->
+									<!--E-mail{{ form.email }}-->
+									<!--</li>-->
+								</ul>
+
+								<button type="submit" class="btn btn-success"> <i class="fa fa-edit m-right-xs"></i> Confirmar </button>
 								<br />
 
 								<!-- start skills -->
@@ -182,39 +188,47 @@
 							<div class="col-md-9 col-sm-9 col-xs-12">
 
 								<div class="profile_title">
-									<div class="col-md-6">
-										<h4> <b> Registro do Aluno </b></h4> <i> {{ reg.registro_aluno }} </i>
+									<div class="col-md-2">
+										<h4> <b> Registro </b></h4> <i> {{ form.registro_aluno }} </i>
 									</div>
-									<div class="col-md-6">
-										<h4 title="CPF"><b> CPF </b></h4> <i> {{ reg.cpf }} </i>
-									</div>
-									<div class="col-md-6">
-										<h4 > <b>Nascido em</b> </h4> <i> {{ reg.dtnascimento }} </i>
-									</div>
-								</div>
-								<div class="profile_title">
-
-									<div class="col-md-3">
-										<h4> <b>Identidade</b></h4>  <i> {{ reg.identidade }} </i>
-									</div>
-									<div class="col-md-6">
-										<h4> <b>E-mail</b> </h4> <i> {{ reg.email }} </i>
+									<div class="col-md-2">
+										<h4 title="nascimento"><b> Nascido em</b></h4> <i> {{ form.dtnascimento }} </i>
 									</div>
 									<div class="col-md-4">
-										{% if reg.sexo == 'F' %}
-										<h4> <b>Sexo:</b> </h4> <i> Feminino </i>
-										{% else %}
-										<h4> <b>Sexo:</b> </h4> <i> Masculino </i>
-										{% endif %}
+										<h4 title="CNPJ"><b> CPF </b></h4> <i> {{ form.cpf }} </i>
 									</div>
+									<div class="col-md-2">
+										<h4 title="CNPJ"><b> Identidade </b></h4> <i> {{ form.identidade }} </i>
+									</div>
+									<div class="col-md-2">
+
+										<h4 title="CNPJ"><b> Sexo </b></h4>   <i> {{ form.sexo }} </i>
+
+									</div>
+
 								</div>
+
+								<div class="profile_title">
+									<div class="col-md-8">
+										<h4> <b> Nome do Aluno </b></h4> <i> {{ form.nome }}</i>
+									</div>
+									<div class="col-md-4">
+										<h4> <b> Apelido </b></h4> <i> {{ form.nome_abreviado }}</i>
+									</div>
+
+								</div>
+
 								<div class="profile_title">
 
-									<div class="col-md-6">
-										<h4> <b>Telefone</b> </h4> <i> {{ reg.telefone }} </i>
+									<div class="col-md-4">
+										<h4> <b>E-mail</b></h4>  <i> {{ form.email }} </i>
 									</div>
-									<div class="col-md-6">
-										<h4><b>Telefone</b> </h4> <i> {{ reg.telefone }} </i>
+
+									<div class="col-md-4">
+										<h4> <b>Telefone</b> </h4> <i> {{ form.telefone }} </i>
+									</div>
+									<div class="col-md-4">
+										<h4><b>Telefone</b> </h4> <i> {{ form.telefone2 }} </i>
 									</div>
 								</div>
 								<hr >
@@ -223,20 +237,20 @@
 							<div class="col-md-9 col-sm-9 col-xs-12">
 
 								<div class="profile_title">
-									<div class="col-md-6">
-										<h4> <b> Endereço </b></h4> <i> {{ reg.endereco }} </i>
+									<div class="col-md-9">
+										<h4> <b> Endereço </b></h4> <i> {{ form.endereco }} </i>
 									</div>
 									<div class="col-md-3">
-										<h4> <b>Complemento</b> </h4> <i> {{ reg.complemento }} </i>
+										<h4> <b>Complemento</b> </h4> <i> {{ form.complemento }} </i>
 									</div>
 								</div>
 
 								<div class="profile_title">
 									<div class="col-md-6">
-										<h4> <b> Bairro </b> </h4> <i> {{ reg.bairro }} </i>
+										<h4> <b> Bairro </b> </h4> <i> {{ form.bairro }} </i>
 									</div>
 									<div class="col-md-3">
-										<h4> <b>Cep</b> </h4> <i>{{ reg.cep }}</i>
+										<h4> <b>Cep</b> </h4> <i>{{ form.cep }}</i>
 									</div>
 
 								</div>
@@ -251,22 +265,17 @@
 			</div>
 		</div>
 
-		{% endfor %}
-
-
-	</form>
-</div>
 
 <!-- Boletim -->
 <div class="x_panel">
 	<div class="x_title">
-		<a href="{% url 'portal:aluno' %}">
+
 			{% if mensagem %}
 			<h2> {{ mensagem }}   </h2>
 			{% else %}
 			<h2> Boletim   </h2>
 			{% endif %}
-		</a>
+
 		<ul class="nav navbar-right panel_toolbox">
 			<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
 			</li>
@@ -282,74 +291,169 @@
 	<form enctype="multipart/form-data" method="post"  >
 		{% csrf_token %}
 
-		{% for regdisciplina in disciplina %}
-
 		<div class="x_content">
-			<div class="row">
-				<div class="col-md-12 col-sm-12 col-xs-12">
-					<div class="x_panel">
-						<div class="x_title">
 
-							<h2> Disciplina: {{ regdisciplina }} <small></small></h2>
+			<table id="datatable-buttons" class="table table-bordered">
+				<thead>
+				<tr>
+					<th width="5%">Ano</th>
+					<th width="15%">Disciplina</th>
 
-							<div class="clearfix"></div>
+					<th width="5%">Nota 1</th>
+					<th width="5%">Nota 2</th>
+					<th width="5%">Nota 3</th>
+					<th width="5%">Nota 4</th>
 
-						</div>
-						<!-- Disciplina -->
+					<th width="5%">Média</th>
+					<th width="5%">Recup</th>
+					<th width="5%">Falta 1</th>
+					<th width="5%">Falta 2</th>
+					<th width="5%">Falta 3</th>
+					<th width="5%">Falta 4</th>
+					<th width="5%">Tot. Falta</th>
 
-						<div class="x_content">
+				</tr>
+				</thead>
 
-							<table id="datatable-buttons" class="table table-striped table-bordered">
-								<thead>
-								<tr>
+				<tbody>
 
-									<th width="60%">Etapas</th>
-									<th width="20%">Notas</th>
-									<th width="20%">Faltas</th>
+				{% for reg in boletim %}
 
-								</tr>
-								</thead>
+				<tr>
+					<td>{{ reg.periodoletivo_id  }}</td>
+					<td>{{ reg.disciplina  }}</td>
+					<td>{{ reg.notas1 }}</td>
+					<td>{{ reg.notas2  }}</td>
+					<td>{{ reg.notas3  }}</td>
+					<td>{{ reg.notas4  }}</td>
+					<td>{{ reg.media  }}</td>
+					<td>{{ reg.recuperacao  }}</td>
+					<td>{{ reg.faltas1  }}</td>
+					<td>{{ reg.faltas2  }}</td>
+					<td>{{ reg.faltas3  }}</td>
+					<td>{{ reg.faltas4  }}</td>
+					<td>{{ reg.faltas   }}</td>
 
-								{% for reg in boletim %}
+				</tr>
+				{% endfor %}
+				</tbody>
+			</table>
 
-								{% if regdisciplina == reg.disciplina %}
-
-								<tbody>
-
-								<tr>
-
-									<td> {{ reg.etapa  }}</td>
-									<td> {{ reg.notas  }}</td>
-									<td> {{ reg.faltas  }}</td>
-
-								</tr>
-
-								</tbody>
-
-								{% endif %}
-
-								{% endfor %}
-							</table>
-
-
-						</div>
-
-						<!-- Fim - Disciplina -->
-
-					</div>
-				</div>
-			</div>
 		</div>
-
-		{% endfor %}
-
 
 	</form>
 </div>
 
-<!-- FIM - Boletim -->
+<!--<div class="x_panel">-->
+<!--<div class="x_title">-->
+<!--<a href="{% url 'portal:aluno' %}">-->
+<!--{% if mensagem %}-->
+<!--<h2> {{ mensagem }}   </h2>-->
+<!--{% else %}-->
+<!--<h2> Boletim   </h2>-->
+<!--{% endif %}-->
+<!--</a>-->
+<!--<ul class="nav navbar-right panel_toolbox">-->
+<!--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
+<!--</li>-->
+<!--<li class="dropdown">-->
+<!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>-->
 
+<!--</li>-->
+<!--<li><a class="close-link"><i class="fa fa-close"></i></a>-->
+<!--</li>-->
+<!--</ul>-->
+<!--<div class="clearfix"></div>-->
+<!--</div>-->
+<!--<form enctype="multipart/form-data" method="post"  >-->
+<!--{% csrf_token %}-->
+
+<!--{% for regdisciplina in disciplina %}-->
+
+<!--<div class="x_title">-->
+<!--<div class="row">-->
+<!--<div class="col-md-12 col-sm-12 col-xs-12">-->
+<!--<div class="x_panel">-->
+<!--<div class="x_title">-->
+
+<!--<h2> Disciplina: {{ regdisciplina }} <small></small></h2>-->
+<!--<ul class="nav navbar-right panel_toolbox">-->
+<!--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
+<!--</li>-->
+<!--<li class="dropdown">-->
+<!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>-->
+
+<!--</li>-->
+<!--<li><a class="close-link"><i class="fa fa-close"></i></a></li>-->
+<!--</ul>-->
+
+<!--<div class="clearfix"></div>-->
+
+<!--</div>-->
+<!--&lt;!&ndash; Disciplina &ndash;&gt;-->
+
+<!--<div class="x_content">-->
+
+<!--<table id="datatable-buttons" class="table table-striped table-bordered">-->
+<!--<thead>-->
+<!--<tr>-->
+
+<!--<th width="60%">Etapas</th>-->
+<!--<th width="20%">Notas</th>-->
+<!--<th width="20%">Faltas</th>-->
+
+<!--</tr>-->
+<!--</thead>-->
+
+<!--{% for reg in boletim %}-->
+
+<!--{% if regdisciplina == reg.disciplina %}-->
+
+<!--<tbody>-->
+
+<!--<tr>-->
+
+<!--<td> {{ reg.etapa  }}</td>-->
+<!--<td> {{ reg.notas  }}</td>-->
+<!--<td> {{ reg.faltas  }}</td>-->
+
+<!--</tr>-->
+
+<!--</tbody>-->
+
+<!--{% endif %}-->
+
+<!--{% endfor %}-->
+<!--</table>-->
+
+
+<!--</div>-->
+
+<!--&lt;!&ndash; Fim - Disciplina &ndash;&gt;-->
+
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+<!--</div>-->
+
+<!--{% endfor %}-->
+
+
+<!--</form>-->
+<!--</div>-->
+
+<!-- FIM - Boletim -->
+</div>
 <script language="javascript">
+
+function UploadFoto() {
+
+ var v_img = document.getElementById('id_imagem');
+
+ document.getElementById('imagem').src = $("#id_imagem").val();
+
+}
+
 
 function CarregaUF() {
 
@@ -393,22 +497,6 @@ function CarregaCidade() {
     }
 
    {% endfor %}
-
-}
-
-function UploadFoto() {
-
-alert('Trocar de Foto');
-
-var file = document.getElementById('foto');
-
-file.open();
-
-$ ( '#foto #atualizar' ) . bind ( 'click' , function ( )
-{
-	// AQUI QUE DEVE SER ATIVADA A CAIXA DE SELEÇÃO DE ARQUIVO */
-	$ ( '#foto' ) . open ( );
-} );
 
 }
 

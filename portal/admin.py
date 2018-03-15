@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from portal.models import Pais,Estado,Cidade, Instituicao, TabelaImportacao,ImportacaoCSV
+from portal.models import Pais,Estado,Cidade, Instituicao, TabelaImportacao,ImportacaoCSV, Aluno
 
 # Register your models here.
 
@@ -37,6 +37,17 @@ admin.site.register(Instituicao,InstituicaoAdmin)
 #     save_on_top = True
 #
 # admin.site.register(TabelaImportacao, TabelaImportacaoAdmin)
+
+class AlunoAdmin(admin.ModelAdmin):
+
+    model = Aluno
+    list_display = ['nome','imagem']
+    list_filter  = ['nome']
+    search_fields = ['nome']
+    save_on_top = True
+
+admin.site.register(Aluno, AlunoAdmin);
+
 
 
 

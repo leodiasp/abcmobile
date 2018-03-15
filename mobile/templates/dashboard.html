@@ -45,346 +45,339 @@
 
 <body class="nav-md">
 
-<div class="container body">
+<div class="top_nav">
 
-	<div class="main_container">
+	<div class="nav_menu">
+		<nav class="top_nav" role="navigation">
 
-		<div class="col-md-3 left_col">
-			<div class="left_col scroll-view">
+			<!--<ul class="navbar-left">-->
+						<!--<a href="{% url 'portal:portal' %}" >-->
+							<!--<img src="{% static "images/lg_abcmobile.png" %}" alt="Avatar" class="img-circle profile_img">-->
+						<!--</a>-->
+			<!--</ul>-->
 
-				<!--<div class="navbar nav_title" style="border: 0;">-->
-				<!--<a href="{% url 'portal:portal' %}" class="site_title">-->
-				<!--&lt;!&ndash;<img src="{% static "images/icon_abcmobile.png" %}" />&ndash;&gt;-->
-				<!--<img src="{% static "images/lg_abcmobile.png" %}" />-->
-				<!--&lt;!&ndash;<span>ABC Mobile 1</span>&ndash;&gt;-->
-				<!--</a>-->
-				<!--</div>-->
-				<div class="clearfix">
-					<a href="{% url 'portal:portal' %}" >
-						<img src="{% static "images/lg_abcmobile.png" %}" alt="Avatar" class="img-circle profile_img">
+
+			<ul class="nav navbar-nav navbar-right">
+				<li class="">
+
+					<!--<a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">-->
+					<!--<img src="" alt="">Configuração-->
+					<!--<span class=" fa fa-angle-down"></span>-->
+					<!--</a>-->
+					<a href="{% url 'portal:logout' %}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
+
+				</li>
+
+				<li role="presentation" class="dropdown">
+					<a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
+						<i class="fa fa-envelope-o"></i>
+
+						<span class="badge bg-green">{{ totMensagem.count }}</span>
 					</a>
-				</div>
+					<ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
 
-				<!-- menu prile quick info -->
-				<div class="profile">
-					<div class="profile_pic">
-
-						{% for img in img_usuario %}
-
-						<img src="/media/{{ img.imagem }}" alt="Avatar" class="img-circle profile_img">
-
-
-						{% endfor %}
-						<!--<img src="/media/usuarios/sem_foto.png" alt="Avatar" class="img-circle profile_img">-->
-
-					</div>
-					<div class="profile_info">
-						<span></span>
-						<h2></h2>
-					</div>
-				</div>
-				<!-- /menu prile quick info -->
-
-				<br />
-
-				<!-- sidebar menu -->
-				<div id="sidebar-menu" class="main_menu_side hidden-print">
-
-
-					<div class="menu_section" >
-						<h3 align="center">
-
-							{{ request.user.first_name }}
-
-
-						</h3>
-						<!--<ul class="nav side-menu">-->
-							<!--<li><a><i class="fa fa-home"></i> Home <span class="fa fa-chevron-down"></span></a>-->
-								<!--<ul class="nav child_menu" style="display: none">-->
-									<!--<li><a href="{% url 'portal:portal' %}">Dashboard</a>-->
-									<!--</li>-->
-
-								<!--</ul>-->
-							<!--</li>-->
-							<!--<li><a><i class="fa fa-edit"></i> Anotações <span class="fa fa-chevron-down"></span></a>-->
-								<!--<ul class="nav child_menu" style="display: none">-->
-									<!--<li><a href="form.html">Avisos</a></li>-->
-									<!--<li><a href="form.html">Pauta de Reunião</a></li>-->
-								<!--</ul>-->
-							<!--</li>-->
-							<!--<li><a><i class="fa fa-desktop"></i> Cadastros <span class="fa fa-chevron-down"></span></a>-->
-								<!--<ul class="nav child_menu" style="display: none">-->
-									<!--<li><a href="{% url 'portal:instituicao' %}">Instituição</a></li>-->
-									<!--<li><a href="{% url 'portal:periodoletivo' %}">Período Letivo</a></li>-->
-
-								<!--</ul>-->
-							<!--</li>-->
-							<!--<li><a><i class="fa fa-table"></i> Aluno(s) <span class="fa fa-chevron-down"></span></a>-->
-								<!--<ul class="nav child_menu" style="display: none">-->
-									<!--<li><a href="{% url 'portal:aluno' %}">Listar</a></li>-->
-								<!--</ul>-->
-							<!--</li>-->
-							<!--<li><a><i class="fa fa-table"></i> Professor <span class="fa fa-chevron-down"></span></a>-->
-								<!--<ul class="nav child_menu" style="display: none">-->
-									<!--<li><a href="{% url 'portal:professor' %}">Listar</a></li>-->
-								<!--</ul>-->
-							<!--</li>-->
-							<!--<li><a><i class="fa fa-table"></i>  Responsavel <span class="fa fa-chevron-down"></span></a>-->
-								<!--<ul class="nav child_menu" style="display: none">-->
-									<!--<li><a href="{% url 'portal:responsavel' %}">Listar</a></li>-->
-								<!--</ul>-->
-							<!--</li>-->
-
-							<!--<li><a><i class="fa fa-bar-chart-o"></i> Avaliação Educacional <span class="fa fa-chevron-down"></span></a>-->
-								<!--<ul class="nav child_menu" style="display: none">-->
-									<!--<li><a href="chartjs.html">Chart JS</a>-->
-									<!--</li>-->
-									<!--<li><a href="chartjs2.html">Chart JS2</a>-->
-									<!--</li>-->
-									<!--<li><a href="morisjs.html">Moris JS</a>-->
-									<!--</li>-->
-									<!--<li><a href="echarts.html">ECharts </a>-->
-									<!--</li>-->
-									<!--<li><a href="other_charts.html">Other Charts </a>-->
-									<!--</li>-->
-								<!--</ul>-->
-							<!--</li>-->
-						<!--</ul>-->
-					</div>
-
-				</div>
-				<!-- /sidebar menu -->
-
-				<!-- /menu footer buttons -->
-				<div class="sidebar-footer hidden-small">
-					<a href="{% url 'portal:administracao' %}" data-toggle="tooltip" data-placement="top" title="Adminstração">
-						<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
-					</a>
-					<a data-toggle="tooltip" data-placement="top" title="FullScreen">
-						<span class="glyphicon glyphicon-fullscreen" aria-hidden="true"></span>
-					</a>
-					<a data-toggle="tooltip" data-placement="top" title="Lock">
-						<span class="glyphicon glyphicon-eye-close" aria-hidden="true"></span>
-					</a>
-					<a href="{% url 'portal:logout' %}" data-toggle="tooltip" data-placement="top" title="Logout">
-						<span class="glyphicon glyphicon-off" aria-hidden="true"></span>
-					</a>
-				</div>
-				<!-- /menu footer buttons -->
-			</div>
-		</div>
-
-		<!-- top navigation -->
-		<div class="top_nav">
-
-			<div class="nav_menu">
-				<nav class="" role="navigation">
-					<div class="nav toggle">
-						<a id="menu_toggle"><i class="fa fa-bars"></i></a>
-					</div>
-
-					<ul class="nav navbar-nav navbar-right">
-						<li class="">
-							<a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
-								<img src="images/img.jpg" alt="">{{ request.user.first_name }}, Você está na versão Mobile.
-								<span class=" fa fa-angle-down"></span>
-							</a>
-							<!--<ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">-->
-								<!--<li><a href="{% url 'portal:perfil' %}">  Perfil / Usuário </a>-->
-								<!--</li>-->
-								<!--<li>-->
-									<!--<a href="{% url 'portal:importacao_csv' pk=0 %}">-->
-										<!--&lt;!&ndash;span class="badge bg-red pull-right">50%</span&ndash;&gt;-->
-										<!--<span>Importação de Dados</span>-->
-									<!--</a>-->
-								<!--</li>-->
-								<!--<li>-->
-									<!--<a href="javascript:;">Help</a>-->
-								<!--</li>-->
-								<!--<li><a href="{% url 'portal:logout' %}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>-->
-								<!--</li>-->
-							<!--</ul>-->
+						<li>
+							<div class="text-center">
+								<a href="{%  url 'portal:mensagem'  %}">
+									Mensagem(s)
+								</a>
+							</div>
 						</li>
-
-						<li role="presentation" class="dropdown">
-							<a href="javascript:;" class="dropdown-toggle info-number" data-toggle="dropdown" aria-expanded="false">
-								<i class="fa fa-envelope-o"></i>
-								<span class="badge bg-green">8</span>
-							</a>
-							<ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menu">
-
-								<li>
-									<div class="text-center">
-										<a href="{% url 'portal:inbox' %}">
-											<strong>Listar Alerta(s)</strong>
-											<i class="fa fa-angle-right"></i>
-										</a>
-									</div>
-								</li>
-							</ul>
-						</li>
-
 					</ul>
-				</nav>
+				</li>
+
+			</ul>
+		</nav>
+	</div>
+
+</div>
+<!-- /top navigation -->
+
+
+<!-- page content -->
+<div class="right_col" role="main">
+
+	<div class="x_panel">
+		<div class="x_content">
+			<div class="x_title">
+				<!--<h2> Dashboard - Bem Vindo ao Portal ABC Mobile. <small></small></h2>-->
+				<h2> Olá, {{ request.user.first_name }}. <small></small></h2>
+
+				<div class="clearfix"></div>
 			</div>
 
-		</div>
-		<!--&lt;!&ndash; /top navigation &ndash;&gt;-->
+			{% if instituicao %}
 
+			{% for reginstituicao in instituicao %}
 
-		<!-- page content -->
-		<div class="right_col" role="main">
+			<div class="x_panel" >
+				<div class="x_title">
+					<h2> Instituição <small></small></h2>
 
+					<ul class="nav navbar-right panel_toolbox">
+						<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
 
-        <!-- top tiles -->
-          <div class="row tile_count">
-          <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
-            <div class="left"></div>
-            <div class="right">
-              <span class="count_top"><i class="fa fa-user"></i> Total Users</span>
-              <div class="count">2500</div>
-              <span class="count_bottom"><i class="green">4% </i> From last Week</span>
-            </div>
-          </div>
-          <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
-            <div class="left"></div>
-            <div class="right">
-              <span class="count_top"><i class="fa fa-clock-o"></i> Average Time</span>
-              <div class="count">123.50</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>3% </i> From last Week</span>
-            </div>
-          </div>
-          <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
-            <div class="left"></div>
-            <div class="right">
-              <span class="count_top"><i class="fa fa-user"></i> Total Males</span>
-              <div class="count green">2,500</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-            </div>
-          </div>
-          <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
-            <div class="left"></div>
-            <div class="right">
-              <span class="count_top"><i class="fa fa-user"></i> Total Females</span>
-              <div class="count">4,567</div>
-              <span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>
-            </div>
-          </div>
-          <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
-            <div class="left"></div>
-            <div class="right">
-              <span class="count_top"><i class="fa fa-user"></i> Total Collections</span>
-              <div class="count">2,315</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-            </div>
-          </div>
-          <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
-            <div class="left"></div>
-            <div class="right">
-              <span class="count_top"><i class="fa fa-user"></i> Total Connections</span>
-              <div class="count">7,325</div>
-              <span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>
-            </div>
-          </div>
+						</li>
+						<li><a class="close-link"><i class="fa fa-close"></i></a>
+						</li>
+					</ul>
 
-        </div>
+					<div class="clearfix"></div>
+				</div>
 
-        <div class="row">
-          <div class="col-md-12 col-sm-12 col-xs-12">
-            <div class="dashboard_graph">
+				<div class="x_content">
 
-              <div class="row x_title">
-                <div class="col-md-6">
-                  <h3>Network Activities <small>Graph title sub-title</small></h3>
-                </div>
-                <div class="col-md-6">
-                  <div id="reportrange" class="pull-right" style="background: #fff; cursor: pointer; padding: 5px 10px; border: 1px solid #ccc">
-                    <i class="glyphicon glyphicon-calendar fa fa-calendar"></i>
-                    <span>December 30, 2014 - January 28, 2015</span> <b class="caret"></b>
-                  </div>
-                </div>
-              </div>
+					<div class="col-md-3 col-sm-3 col-xs-4 profile_left">
 
-              <div class="col-md-9 col-sm-9 col-xs-12">
-                <div id="placeholder33" style="height: 260px; display: none" class="demo-placeholder"></div>
-                <div style="width: 100%;">
-                  <div id="canvas_dahs" class="demo-placeholder" style="width: 100%; height:270px;"></div>
-                </div>
-              </div>
-              <div class="col-md-3 col-sm-3 col-xs-12 bg-white">
-                <div class="x_title">
-                  <h2>Top Campaign Performance</h2>
-                  <div class="clearfix"></div>
-                </div>
+						<div class="profile_img">
 
-                <div class="col-md-12 col-sm-12 col-xs-6">
-                  <div>
-                    <p>Facebook Campaign</p>
-                    <div class="">
-                      <div class="progress progress_sm" style="width: 76%;">
-                        <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="80"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p>Twitter Campaign</p>
-                    <div class="">
-                      <div class="progress progress_sm" style="width: 76%;">
-                        <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="60"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
-                <div class="col-md-12 col-sm-12 col-xs-6">
-                  <div>
-                    <p>Conventional Media</p>
-                    <div class="">
-                      <div class="progress progress_sm" style="width: 76%;">
-                        <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="40"></div>
-                      </div>
-                    </div>
-                  </div>
-                  <div>
-                    <p>Bill boards</p>
-                    <div class="">
-                      <div class="progress progress_sm" style="width: 76%;">
-                        <div class="progress-bar bg-green" role="progressbar" data-transitiongoal="50"></div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+							<!-- end of image cropping -->
+							<div id="crop-avatar">
+								<!-- Current avatar -->
+								<div class="avatar-view" title="Alterar Foto"  onclick="UploadFoto();" >
 
-              </div>
+									<img src="/media/{{ reginstituicao.imagem }}" id="imagem" alt="Avatar">
 
-              <div class="clearfix"></div>
-            </div>
-          </div>
+								</div>
 
-        </div>
-        <br />
+								<!-- Cropping modal -->
+								<div class="modal fade" id="avatar-modal" aria-hidden="true" aria-labelledby="avatar-modal-label" role="dialog" tabindex="-1">
+									<div class="modal-dialog modal-lg">
+										<div class="modal-content">
+											<form class="avatar-form" action="crop.php" enctype="multipart/form-data" method="post">
+												<div class="modal-header">
+													<button class="close" data-dismiss="modal" type="button">&times;</button>
+													<h4 class="modal-title" id="avatar-modal-label">Change Avatar</h4>
+												</div>
+												<div class="modal-body">
+													<div class="avatar-body">
 
+														<!-- Upload image and data -->
+														<div class="avatar-upload">
+															<input class="avatar-src" name="avatar_src" type="hidden">
+															<input class="avatar-data" name="avatar_data" type="hidden">
+															<label for="avatarInput">Local upload</label>
+															<input class="avatar-input" id="avatarInput" name="avatar_file" type="file">
+														</div>
+
+														<!-- Crop and preview -->
+														<div class="row">
+															<div class="col-md-9">
+																<div class="avatar-wrapper"></div>
+															</div>
+															<div class="col-md-3">
+																<div class="avatar-preview preview-lg"></div>
+																<div class="avatar-preview preview-md"></div>
+																<div class="avatar-preview preview-sm"></div>
+															</div>
+														</div>
+
+														<div class="row avatar-btns">
+															<div class="col-md-9">
+																<div class="btn-group">
+																	<button class="btn btn-primary" data-method="rotate" data-option="-90" type="button" title="Rotate -90 degrees">Rotate Left</button>
+																	<button class="btn btn-primary" data-method="rotate" data-option="-15" type="button">-15deg</button>
+																	<button class="btn btn-primary" data-method="rotate" data-option="-30" type="button">-30deg</button>
+																	<button class="btn btn-primary" data-method="rotate" data-option="-45" type="button">-45deg</button>
+																</div>
+																<div class="btn-group">
+																	<button class="btn btn-primary" data-method="rotate" data-option="90" type="button" title="Rotate 90 degrees">Rotate Right</button>
+																	<button class="btn btn-primary" data-method="rotate" data-option="15" type="button">15deg</button>
+																	<button class="btn btn-primary" data-method="rotate" data-option="30" type="button">30deg</button>
+																	<button class="btn btn-primary" data-method="rotate" data-option="45" type="button">45deg</button>
+																</div>
+															</div>
+															<div class="col-md-3">
+																<button class="btn btn-primary btn-block avatar-save" type="submit">Done</button>
+															</div>
+														</div>
+													</div>
+												</div>
+												<!-- <div class="modal-footer">
+                                                                  <button class="btn btn-default" data-dismiss="modal" type="button">Close</button>
+                                                                </div> -->
+											</form>
+										</div>
+									</div>
+								</div>
+								<!-- /.modal -->
+
+								<!-- Loading state -->
+								<div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>
+							</div>
+							<!-- end of image cropping -->
+
+						</div>
+						<ul class="list-unstyled user_data">
+						</ul>
+						<ul class="list-unstyled user_data">
+
+						</ul>
+
+						<ul class="list-unstyled user_data">
+							<li><i class="fa fa-map-marker user-profile-icon"></i> UF {{ reginstituicao.estado }}
+							<li><i class="fa fa-map-marker user-profile-icon"></i> Cidade {{ reginstituicao.cidade }}, BRASIL
+							</li>
+							<li class="m-top-xs">
+								<i class="fa fa-external-link user-profile-icon"></i>
+								E-mail:{{ reginstituicao.email }}
+							</li>
+						</ul>
+
+						<a href="{% url 'portal:instituicao_edit' pk=reginstituicao.pk %}" >
+							<button type="submit" class="btn btn-success"> <i class="fa fa-edit m-right-xs"></i> Alterar </button>
+						</a>
+						<br />
+
+						<!-- start skills -->
+						<!-- end of skills -->
+
+					</div>
+					<div class="col-md-9 col-sm-9 col-xs-12">
+						<div class="profile_title">
+							<div class="col-md-12">
+								<h3> <b> <i>  {{ reginstituicao.nomefantasia }} ( {{ reginstituicao.razaosocial }} )</i> </b> </h3>
+							</div>
+							<!--<div class="col-md-6">-->
+							<!--<h3> <b> <i>  {{ reginstituicao.razaosocial }}</i> </b> </h3>-->
+							<!--</div>-->
+
+						</div>
+
+						<div class="profile_title">
+							<!--<div class="col-md-3">-->
+							<!--<h4> <b> Registro </b></h4> <i>  {{ reginstituicao.codigo }} </i>-->
+							<!--</div>-->
+							<div class="col-md-6">
+								<h4> <b> <i> CNPJ: {{ reginstituicao.cgc }} </i> </b></h4>
+							</div>
+						</div>
+
+						<div class="profile_title">
+
+							<div class="col-md-6">
+								<h4> <b> <i> Insc. Estadual: {{ reginstituicao.inscestadual }} </i> </b></h4>
+							</div>
+
+							<!--<div class="col-md-8">-->
+
+							<!--<h4> <b> <i> {{ reginstituicao.contato }} </i> </b></h4>-->
+
+							<!--</div>-->
+						</div>
+						<div class="profile_title">
+
+							<div class="col-md-4">
+
+								<h4> <b> <i> Telefone: {{ reginstituicao.telefone }} </i> </b></h4>
+
+							</div>
+							<div class="col-md-4">
+								<h4> <b> <i> Telefax: {{ reginstituicao.telefax }} </i> </b></h4>
+
+							</div>
+						</div>
+						<hr >
+
+					</div>
+					<div class="col-md-9 col-sm-9 col-xs-12">
+
+						<div class="profile_title">
+							<div class="col-md-6">
+								<h4> <b>  <i> Endereço : {{ reginstituicao.endereco }} </i> </b></h4>
+							</div>
+							<div class="col-md-3">
+								<h4> <b>  <i> Complemento : {{ reginstituicao.complemento }} </i> </b></h4>
+							</div>
+						</div>
+
+						<div class="profile_title">
+							<div class="col-md-6">
+								<h4> <b>  <i> Bairro : {{ reginstituicao.bairro }} </i> </b></h4>
+							</div>
+							<div class="col-md-3">
+								<h4> <b>  <i> Cep : {{ reginstituicao.cep }} </i> </b></h4>
+							</div>
+
+						</div>
+					</div>
+					<!-- start of user-activity-graph -->
+					<div id="graph_bar" style="width:100%; height:280px;"></div>
+					<!-- end of user-activity-graph -->
+
+				</div>
+				<!-- Fim Teste -->
+			</div>
+			<div class="x_panel" >
+				<div class="x_title">
+					<h2> Galeria de Alunos <small></small></h2>
+
+					<ul class="nav navbar-right panel_toolbox">
+						<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+						</li>
+						<li class="dropdown">
+							<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+
+						</li>
+						<li><a class="close-link"><i class="fa fa-close"></i></a>
+						</li>
+					</ul>
+
+					<div class="clearfix"></div>
+				</div>
+
+				<div class="x_content" align="center">
+
+					<div class="x_content" >
+
+						<div class="row">
+
+							{% for regAlunos in alunos %}
+							<div class="col-md-55">
+								<div class="thumbnail">
+									<div class="image view view-first">
+										<!--<img style="width: 100%; display: block;" src="images/4.jpg" alt="image" />-->
+										<a href="{% url 'portal:form_aluno' pk=regAlunos.pk %}">
+											<img style="width: 100%; display: block;" src="/media/{{ regAlunos.imagem }}" alt="image">
+										</a>
+										<!--<div class="mask">-->
+										<!--<p>{{ regAlunos.nome_abreviado }}</p>-->
+										<!--&lt;!&ndash;<div class="tools tools-bottom">&ndash;&gt;-->
+										<!--&lt;!&ndash;&lt;!&ndash;<a href="#"><i class="fa fa-link"></i></a>&ndash;&gt;&ndash;&gt;-->
+										<!--&lt;!&ndash;<a href="{% url 'portal:form_aluno' pk=regAlunos.pk %}"><i class="fa fa-pencil"></i></a>&ndash;&gt;-->
+										<!--&lt;!&ndash;&lt;!&ndash;<a href="#"><i class="fa fa-times"></i></a>&ndash;&gt;&ndash;&gt;-->
+										<!--&lt;!&ndash;</div>&ndash;&gt;-->
+										<!--</div>-->
+									</div>
+									<div class="caption">
+										<p>{{ regAlunos.nome }}</p>
+									</div>
+								</div>
+							</div>
+							{% endfor %}
+						</div>
+						<!-- Fim - Galeria de Alunos -->
+
+					</div>
+				</div>
+
+			</div>
+
+			{% endfor %}
+
+			{% endif %}
 		</div>
 
 	</div>
 
+	<br />
+
 </div>
 
-<!-- footer content -->
-
-<!--<footer>-->
-<!--<div class="copyright-info">-->
-<!--<p class="pull-right">ABC Mobile - Desenvolvido por <a href="https://colorlib.com">Barratec</a>-->
-<!--</p>-->
-<!--</div>-->
-<!--<div class="clearfix"></div>-->
-<!--</footer>-->
-<!-- /footer content -->
-</div>
 <!-- /page content -->
-
-</div>
-
-</div>
 
 <div id="custom_notifications" class="custom-notifications dsp_none">
 	<ul class="list-unstyled notifications clearfix" data-tabbed_notifications="notif-group">

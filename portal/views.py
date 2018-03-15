@@ -31,6 +31,10 @@ sys.setdefaultencoding('utf8')
 from datetime import datetime
 # Create your views here.
 
+def mobile(request):
+
+    return redirect('mobile:index')
+
 @login_required
 def portal(request):
 
@@ -38,7 +42,12 @@ def portal(request):
     instituicao = Instituicao.objects.all()
 
    # Alunos
-    alunos = Aluno.objects.all()
+
+    if request.user.is_superuser:
+        alunos = Aluno.objects.all()
+    else:
+        alunos = Aluno.objects.filter(responsavel_id=request.user.responsavel_id)
+
 
     # Total Alunos
     totAlunos = alunos.count()
@@ -53,10 +62,12 @@ def portal(request):
     totResponsavel = responsavel.count()
 
     # Pagtos Confirmados
-    totTitulosPagos = Financeiro.objects.filter(dtbaixa__isnull= False).aggregate(total=Sum('vlr_titulo'))
+#    totTitulosPagos = Financeiro.objects.filter(dtbaixa__isnull= False).aggregate(total=Sum('vlr_titulo'))
+    totTitulosPagos = Financeiro.objects.all().exclude(dtbaixa= 'NULL')
 
     # Pagtos Pendentes
-    totTitulosAbertos = Financeiro.objects.filter(dtbaixa__isnull= True).aggregate(total=Sum('vlr_titulo'))
+#    totTitulosAbertos = Financeiro.objects.filter(dtbaixa__isnull= True).aggregate(total=Sum('vlr_titulo'))
+    totTitulosAbertos = Financeiro.objects.filter(dtbaixa = 'NULL')
 
     #Mensagem
     totMensagem = Mensagem.objects.all()
@@ -67,8 +78,8 @@ def portal(request):
                                         'totAlunos': totAlunos,
                                         'totProfessor': totProfessores,
                                         'totResponsavel': totResponsavel,
-                                        'totTitulosPagos': totTitulosPagos,
-                                        'totTitulosAbertos':totTitulosAbertos,
+                                        'totTitulosPagos': totTitulosPagos.count(),
+                                        'totTitulosAbertos':totTitulosAbertos.count(),
                                         'totMensagem': totMensagem
 
                                         })
@@ -127,8 +138,6 @@ def mensagem_edit(request,pk,template_name='form_mensagem.html'):
         form = MensagemForm(instance=mensagem)
     return render(request, template_name, {'form': form})
 
-
-
 def administracao(request):
 
     if request.user.is_superuser:
@@ -168,7 +177,10 @@ def do_login(request, *args, **kwargs):
         if user is not None:
             if user.is_active:
                 login(request, user)
+                #if user.is_superuser:
                 return redirect('/portal/')
+                # else:
+                #     return redirect('mobile:index')
 
     return render(request, 'login.html')
 
@@ -180,6 +192,31 @@ def do_logout(request):
 def inbox(request,template='inbox.html'):
 
     return render(request,template,{'mensagem': 'Mensagem'})
+
+def responsavel_usuario (request):
+
+    responsavel = Responsavel.objects.all()
+
+    for reg in responsavel:
+
+        username = reg.cpf
+        email =    reg.email
+        password = reg.cpf
+        first_name = reg.nome
+    #    last_name = request.POST['last_name']
+        imagem = reg.imagem
+
+        responsavel = reg.pk
+
+        usuario = User.objects.create_user(username=username, email=email, password=password, first_name=first_name,
+                                           imagem=imagem,responsavel_id=responsavel )
+        usuario.save()
+
+        # reg.usuario = request.user.pk
+        # reg.save()
+
+    messages.success(request, " Usuários x Responsável Criado com Sucesso ! ")
+    return redirect('/portal/')
 
 def usuario_new(request, template="form_usuario.html"):
 
@@ -323,10 +360,10 @@ def periodoletivo_edit(request,pk,template_name='form_periodoletivo.html'):
         if form.is_valid():
             periodoletivo = form.save()
             messages.success(request, " Operação Realizada com Sucesso ! ")
-        return render(request, template_name, {'form': form, 'img_usuario':set_imagem(request.user)})
+        return render(request, template_name, {'form': form})
     else:
         form = PeriodoLetivoForm(instance=periodoletivo)
-    return render(request, template_name, {'form': form,'img_usuario':set_imagem(request.user)})
+    return render(request, template_name, {'form': form})
 
 # CLASSE ALUNO ===============================================================================================
 def aluno(request,template="aluno.html"):
@@ -355,13 +392,28 @@ def form_aluno(request, pk, template_name="form_aluno.html"):
     else:
         form = AlunoForm(instance=alunos)
         # return render(request, template_name, {'form': form, 'estado': estado, 'cidade': cidade,
-        #                                        'img_usuario': set_imagem(request.user), 'fotos': str(src_imagem).encode('utf-8')})
+        #                                        'fotos': str(src_imagem).encode('utf-8')})
 
-    boletim = Boletim.objects.all().filter(aluno_id=alunos)
+    periodoletivo = PeriodoLetivo.objects.filter(dtfinal__isnull=True)
+    print(periodoletivo)
+    boletim = Boletim.objects.filter(aluno_id=alunos,periodoletivo_id=periodoletivo)
+    #boletim = Boletim.objects.all().filter(aluno_id=alunos)
+
+    # if boletim:
+    #
+    #     for qryPeriodoLetivo in periodoletivo:
+    #         mensagem = "Boletim Acadêmico - %s" % (qryPeriodoLetivo.codigo)
+    #
+    #     return render(request, template_name, {'form': form, 'estado': estado, 'cidade': cidade,
+    #                                             'fotos': str(src_imagem).encode('utf-8'),
+    #                                             'periodoletivo':periodoletivo,
+    #                                             'boletim': boletim, 'mensagem': mensagem
+    #                                         })
 
     if boletim:
         disciplinas = boletim.values_list('disciplina', flat=True).distinct()
-        mensagem = 'Boletim Acadêmico'
+        for qryPeriodoLetivo in periodoletivo:
+            mensagem = "Boletim Acadêmico - %s" % (qryPeriodoLetivo.codigo)
 
         return render(request, template_name, {'form': form, 'estado': estado, 'cidade': cidade,
                                                'fotos': str(src_imagem).encode('utf-8'),
@@ -518,15 +570,16 @@ def importacao_csv(request, pk, template_name="importar_csv.html"):
 
                      print ('CSV: ', row)
 
-                     instituicao = Instituicao.objects.all().filter(codigo=row[0])
+                     instituicao = Instituicao.objects.all()
 
                      # ALUNO
                      if regtabelaimportacao.nome == 'ALUNO':
 
+
                          t_csv = Aluno(registro_aluno=row[0],
                                        nome=row[1],
                                        nome_abreviado=row[2],
-                                       # dtnascimento=row[3],
+                                       # dtna   cimento=row[3],
                                        dtnascimento= datetime.strptime(row[3],'%d/%m/%Y').strftime('%Y-%m-%d'),
                                        sexo=row[4],
                                        cpf=row[5],
@@ -540,8 +593,9 @@ def importacao_csv(request, pk, template_name="importar_csv.html"):
                                        cep=row[13],
                                        telefone=row[14],
                                        telefone2=row[15],
+        #                               responsavel_id=99
                                        responsavel_id=row[16]
-                                       )
+                                    )
 
                      # PROFESSOR
                      if regtabelaimportacao.nome == 'PROFESSOR':
@@ -594,13 +648,41 @@ def importacao_csv(request, pk, template_name="importar_csv.html"):
                                          aluno_id=row[1],
                                          curso=row[2],
                                          serie=row[3],
-                                         turno=row[4],
-                                         turma=row[5],
+                                         turma=row[4],
+                                         turno=row[5],
                                          disciplina=row[6],
-                                         etapa=row[7],
-                                         notas=row[8],
-                                         faltas=row[9]
-                                         )
+                                         etapa = row[7],
+                                         notas = row[8],
+                                         faltas = row[9]
+
+                         )
+
+                         # t_csv = Boletim(periodoletivo_id=row[0],
+                         #                 aluno_id=row[1],
+                         #                 curso=row[2],
+                         #                 serie=row[3],
+                         #                 turma=row[4],
+                         #                 turno=row[5],
+                         #                 disciplina=row[6],
+                         #                 notas1=row[7],
+                         #                 notas2=row[8],
+                         #                 notas3=row[9],
+                         #                 notas4=row[10],
+                         #                 faltas1=row[11],
+                         #                 faltas2=row[12],
+                         #                 faltas3=row[13],
+                         #                 faltas4=row[14],
+                         #                 media=row[15],
+                         #                 recuperacao=row[16],
+                         #                 faltas=row[17]
+                         #
+                         # # etapa=row[7],
+                         #                 # notas=row[8],
+                         #                 # faltas=row[9],
+                         #                 #
+                         #
+                         #
+                         #                 )
 
                      # RESPONSAVEL
                      if regtabelaimportacao.nome == 'RESPONSAVEL':
@@ -628,18 +710,24 @@ def importacao_csv(request, pk, template_name="importar_csv.html"):
                      # FINANCEIRO
                      if regtabelaimportacao.nome == 'FINANCEIRO':
 
-                         t_csv = Financeiro(periodoletivo_id=row[0],
+                         t_csv = Financeiro(
+                                            aluno_id=row[0],
                                             responsavel_id=row[1],
                                             documento = row[2],
                                             parcela = row[3],
-                                            historico=row[4],
-                                            dtemissao = datetime.strptime(row[5],'%d/%m/%Y').strftime('%Y-%m-%d'),
-                                            vlr_titulo = row[6],
-                                            dtbaixa = datetime.strptime(row[7],'%d/%m/%Y').strftime('%Y-%m-%d'),
-                                            vlr_baixa = row[8],
+                                            cota=row[4],
+                                            historico=row[5],
+                                           # dtemissao = datetime.strptime(row[6],'%d/%m/%Y').strftime('%Y-%m-%d'),
+                                            dtemissao = row[6],
+                                            vlr_titulo = row[7],
+                                           # dtbaixa = datetime.strptime(row[8],'%d/%m/%Y').strftime('%Y-%m-%d'),
+                                            dtbaixa = row[8],
                                             vlr_juros = row[9],
-                                            vlr_desconto = row[10]
-                                            )
+                                            vlr_desconto = row[10],
+                                            periodoletivo_id = row[11],
+                                            vlr_baixa=row[12]
+
+                         )
 
                      try:
 
@@ -652,8 +740,8 @@ def importacao_csv(request, pk, template_name="importar_csv.html"):
                          #mensagem = (dados.line_num)
                          messages.success(request, mensagem)
 
-                     except Exception:
-                     #except ValueError:
+                     #except Exception:
+                     except ValueError:
                          mensagem = "Linha: %s | %s" % (dados.line_num,row)
                          messages.error(request, mensagem)
 

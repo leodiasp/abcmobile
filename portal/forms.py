@@ -52,7 +52,7 @@ class InstituicaoForm(forms.ModelForm):
         estado = models.ForeignKey(Estado, null=True)
         cidade = models.ForeignKey(Cidade, null=True)
         fields = ['estado','cidade','razaosocial','nomefantasia','cgc','inscestadual','telefone','email','endereco','complemento',
-                   'bairro','cep','contato','imagem','telefax','codigo']
+                   'bairro','cep','contato','imagem','telefax','codigo','numero_alunos']
 
 
         widgets = {
@@ -91,7 +91,8 @@ class InstituicaoForm(forms.ModelForm):
                                           'onKeyPress': "MascaraTelefone(telefax);",
 
                                                }),
-            'codigo': forms.TextInput(attrs={'class': 'form-control','id': 'codigo', 'placeholder' : 'Código'})
+            'codigo': forms.TextInput(attrs={'class': 'form-control','id': 'codigo', 'placeholder' : 'Código'}),
+            'numero_alunos': forms.TextInput(attrs={'class': 'form-control','id': 'numero', 'placeholder' : 'Número / Aluno(s)'})
 
 
         }
@@ -111,7 +112,7 @@ class MensagemForm(forms.ModelForm):
             'titulo': forms.TextInput(attrs={
             'class': 'form-control','id': 'titulo', 'placeholder' : 'Título da Mensagem','title': 'Título', 'onblur': "SetUsuario();"
                 }),
-            'dtmensagem': forms.DateInput(attrs={
+            'dtmensagem': forms.DateInput(format='%d/%m/%Y',attrs={
                 'class': 'form-control','id': 'dtmensagem', 'placeholder' : 'Data da Mensagem','title': 'Data da Mensagem',
                 'onKeyPress': "MascaraData(dtmensagem);"
                 }),
@@ -148,9 +149,9 @@ class PeriodoLetivoForm(forms.ModelForm):
             'diasletivos': forms.TextInput(attrs={'class': 'form-control','id': 'diasletivos', 'placeholder' : 'Dias Letivo',
                                                   'title': 'Dias Letivo'
                                                   }),
-            'dtinicial':  forms.TextInput(attrs={'class': 'form-control','id': 'dtinicial', 'placeholder' : 'Data Inícial', 'title': 'Data Inicial',
+            'dtinicial':  forms.DateInput(format='%d/%m/%Y',attrs={'class': 'form-control','id': 'dtinicial', 'placeholder' : 'Data Inícial', 'title': 'Data Inicial',
                                           'onKeyPress': "MascaraData(dtinicial);"}),
-            'dtfinal':  forms.TextInput(attrs={'class': 'form-control','id': 'dtfinal', 'placeholder' : 'Data Final','title': 'Data Final',
+            'dtfinal':  forms.DateInput(format='%d/%m/%Y',attrs={'class': 'form-control','id': 'dtfinal', 'placeholder' : 'Data Final','title': 'Data Final',
                                           'onKeyPress': "MascaraData(dtfinal);"}),
             'calendario':  forms.TextInput(attrs={'class': 'form-control','id': 'calendario', 'placeholder' : 'Calendário Período Letivo',
                                                   'title': 'Calendário' }),
@@ -283,8 +284,8 @@ class AlunoForm(forms.ModelForm):
             'nome_abreviado': forms.TextInput(attrs={
                 'class': 'form-control','id': 'nome_abreviado', 'placeholder' : 'Nome Apelido', 'title': 'Nome Apelido'
             }),
-             'dtnascimento': forms.TextInput(attrs={
-                'class': 'form-control','id': 'dtnascimento', 'placeholder' : 'Data de Nascimento', 'title': 'Data de Nascimento',
+             'dtnascimento': forms.DateInput(format='%d/%m/%Y', attrs={
+                'class': 'form-control','id': 'data', 'placeholder' : 'Data de Nascimento', 'title': 'Data de Nascimento',
                  'onKeyPress':"MascaraData(dtnascimento);"
             }),
              'nomedisciplina': forms.TextInput(attrs={
@@ -336,8 +337,8 @@ class AlunoForm(forms.ModelForm):
 
             }),
             'telefone2': forms.TextInput(attrs={
-                'class': 'form-control','id': 'telefone2', 'placeholder' : 'Telefone2','title': 'Telefone2',
-                'onKeyPress': "MascaraTelefone(telefone2);"
+                'class': 'form-control','id': 'celular', 'placeholder' : 'Celular','title': 'Celular',
+                'onKeyPress': "MascaraTelefone(celular);"
 
             }),
 
@@ -372,7 +373,7 @@ class ProfessorForm(forms.ModelForm):
             'nome_abreviado': forms.TextInput(attrs={
                 'class': 'form-control','id': 'nome_abreviado', 'placeholder' : 'Nome Apelido', 'title': 'Nome Apelido'
             }),
-             'dtnascimento': forms.TextInput(attrs={
+             'dtnascimento': forms.DateInput(format='%d/%m/%Y',attrs={
                 'class': 'form-control','id': 'dtnascimento', 'placeholder' : 'Data de Nascimento', 'title': 'Data de Nascimento',
                  'onKeyPress':"MascaraData(dtnascimento);"
             }),
@@ -462,7 +463,7 @@ class ResponsavelForm(forms.ModelForm):
             'nome_abreviado': forms.TextInput(attrs={
                 'class': 'form-control','id': 'nome_abreviado', 'placeholder' : 'Nome Apelido', 'title': 'Nome Apelido'
             }),
-             'dtnascimento': forms.TextInput(attrs={
+             'dtnascimento': forms.DateInput(format='%d/%m/%Y',attrs={
                 'class': 'form-control','id': 'dtnascimento', 'placeholder' : 'Data de Nascimento', 'title': 'Data de Nascimento',
                  'onKeyPress':"MascaraData(dtnascimento);"
             }),

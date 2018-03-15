@@ -193,7 +193,7 @@
 										<h4> <b> Registro </b></h4> <i> {{ form.codigo }} </i>
 									</div>
 									<div class="col-md-4">
-										<h4 title="CNPJ"><b> CPF </b></h4> <i> {{ form.cgc }} </i>
+										<h4 title="CNPJ"><b> CNPJ </b></h4> <i> {{ form.cgc }} </i>
 									</div>
 
 								</div>
@@ -248,6 +248,11 @@
 									<div class="col-md-3">
 										<h4> <b>Cep</b> </h4> <i>{{ form.cep }}</i>
 									</div>
+									{% if request.user.is_superuser %}
+									<div class="col-md-3">
+										<h4> <b>Número / Aluno(s)</b> </h4> <i>{{ form.numero_alunos }}</i>
+									</div>
+									{% endif %}
 
 								</div>
 							</div>

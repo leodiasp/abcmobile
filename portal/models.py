@@ -87,6 +87,8 @@ class Instituicao(models.Model):
     #imagem        = models.FileField(upload_to="imagens", blank=True, null=True)
     dtcadastro    = models.DateField(auto_now=True)
 
+    numero_alunos = models.IntegerField()
+
     def __str__(self):
         return self.nomefantasia.encode('utf-8')
 
@@ -118,12 +120,14 @@ class PeriodoLetivo(models.Model):
     descricao = models.CharField(max_length=60)
     diasletivos = models.IntegerField()
     dtinicial = models.DateField()
-    dtfinal   = models.DateField()
+    dtfinal   = models.DateField(null=True, blank=True)
     calendario = models.CharField(max_length=16)
 
 class Responsavel(models.Model):
 
     #aluno = models.ManyToManyField(Aluno, related_name="aluno")
+
+    usuario = models.ForeignKey(User, related_name="usuario")
 
     registro_responsavel = models.CharField(max_length=20, primary_key=True)
     #codigo = models.IntegerField()
@@ -140,8 +144,8 @@ class Responsavel(models.Model):
     cidade = models.CharField(max_length=60)
     uf = models.CharField(max_length=3)
     cep = models.CharField(max_length=15)
-    telefone = models.CharField(max_length=20)
-    telefone2 = models.CharField(max_length=20)
+    telefone = models.CharField(max_length=20, null=True, blank=True)
+    telefone2 = models.CharField(max_length=20, null=True, blank=True)
     imagem        = models.ImageField(upload_to="responsavel",  default = 'responsavel/sem_foto.png', blank=True, null=True)
 
 class Aluno(models.Model):
@@ -155,9 +159,9 @@ class Aluno(models.Model):
     nome   = models.CharField(max_length=120)
     nome_abreviado = models.CharField(max_length=40)
     dtnascimento = models.DateField()
-    sexo         = models.CharField(max_length=3)
-    cpf = models.CharField(max_length=20)
-    identidade = models.CharField(max_length=20)
+    sexo         = models.CharField(max_length=10)
+    cpf = models.CharField(max_length=20, null=True, blank=True)
+    identidade = models.CharField(max_length=20, null=True, blank=True)
     email = models.EmailField(max_length=60, null=True, blank=True)
     endereco = models.CharField(max_length=140)
     complemento = models.CharField(max_length=60)
@@ -166,7 +170,7 @@ class Aluno(models.Model):
     uf = models.CharField(max_length=3)
     cep = models.CharField(max_length=15)
     telefone = models.CharField(max_length=20)
-    telefone2 = models.CharField(max_length=20)
+    telefone2 = models.CharField(max_length=20, null=True, blank=True)
     imagem    = models.ImageField(upload_to="alunos", default = 'alunos/sem_foto.png', blank=True, null=True)
 
 class Professor(models.Model):
@@ -189,7 +193,7 @@ class Professor(models.Model):
     uf = models.CharField(max_length=3)
     cep = models.CharField(max_length=15)
     telefone = models.CharField(max_length=20)
-    telefone2 = models.CharField(max_length=20)
+    telefone2 = models.CharField(max_length=20, null=True, blank=True)
     imagem    = models.ImageField(upload_to="professores", default = 'professores/sem_foto.png', blank=True, null=True)
 
 # class Turma(models.Model):
@@ -238,8 +242,35 @@ class Boletim(models.Model):
     disciplina = models.CharField(max_length=50)
     etapa = models.CharField(max_length=60)
 
-    notas = models.DecimalField(max_digits=4, decimal_places=2, default=Decimal('0000.00'))
-    faltas = models.IntegerField()
+    #campo = models.CharField(max_length=10)
+
+    notas = models.CharField(max_length=10)
+    faltas = models.CharField(max_length=4)
+
+    # periodoletivo = models.ForeignKey(PeriodoLetivo, on_delete=models.CASCADE)
+    # aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
+    #
+    # curso = models.CharField(max_length=30)
+    # serie = models.CharField(max_length=30)
+    # turno = models.CharField(max_length=30)
+    # turma = models.CharField(max_length=30)
+    # disciplina = models.CharField(max_length=50)
+    #
+    # notas1 = models.CharField(max_length=10)
+    # notas2 = models.CharField(max_length=10)
+    # notas3 = models.CharField(max_length=10)
+    # notas4 = models.CharField(max_length=10)
+    #
+    # media = models.CharField(max_length=10)
+    # recuperacao = models.CharField(max_length=10)
+    #
+    # faltas1 = models.CharField(max_length=4)
+    # faltas2 = models.CharField(max_length=4)
+    # faltas3 = models.CharField(max_length=4)
+    # faltas4 = models.CharField(max_length=4)
+    # faltas  = models.CharField(max_length=4)
+
+
 
 class Financeiro(models.Model):
 
@@ -247,12 +278,15 @@ class Financeiro(models.Model):
 
     responsavel = models.ForeignKey(Responsavel, on_delete=models.CASCADE)
 
+    aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
+
     documento = models.CharField(max_length=10)
     parcela = models.CharField(max_length=5)
+    cota = models.CharField(max_length=5)
     historico = models.TextField()
-    dtemissao = models.DateField()
+    dtemissao = models.CharField(max_length=10)
     vlr_titulo = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal('00000000.00'))
-    dtbaixa = models.DateField()
+    dtbaixa = models.CharField(max_length=10)
     vlr_baixa = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal('00000000.00'))
     vlr_juros = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal('00000000.00'))
     vlr_desconto = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal('00000000.00'))
