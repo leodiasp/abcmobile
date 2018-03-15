@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 from django.contrib import admin
-from portal.models import Pais,Estado,Cidade, Instituicao, TabelaImportacao,ImportacaoCSV, Aluno
+from portal.models import Pais,Estado,Cidade, Instituicao, TabelaImportacao,ImportacaoCSV, Aluno, Responsavel, Financeiro, Professor
 
 # Register your models here.
 
@@ -47,6 +47,9 @@ class AlunoAdmin(admin.ModelAdmin):
     save_on_top = True
 
 admin.site.register(Aluno, AlunoAdmin);
+admin.site.register(Professor);
+admin.site.register(Financeiro);
+admin.site.register(Responsavel);
 
 
 

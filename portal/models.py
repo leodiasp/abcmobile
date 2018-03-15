@@ -230,6 +230,7 @@ class Professor(models.Model):
 #         return self.nome.encode('utf-8')
 #
 
+
 class Boletim(models.Model):
 
     periodoletivo = models.ForeignKey(PeriodoLetivo, on_delete=models.CASCADE)

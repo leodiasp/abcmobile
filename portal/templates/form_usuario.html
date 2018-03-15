@@ -46,13 +46,19 @@
       <img src="{% static "images/lg_abcmobile.png" %}" />
       <form class="form-signin" enctype="multipart/form-data" method="post">
         {% csrf_token %}
-        <h1>Cadastrar Usuario</h1>
+        <h1>Cadastrar Usuário</h1>
+        <h1>Administrador</h1>
         <div id="crop-avatar" align="center">
-          <div class="avatar-view"  >
-            <img src="/media/{{ request.user.imagem }}" alt="Avatar">
+          <div class="avatar-view" title="Alterar Foto"  onclick="UploadFoto();" >
+            {% if fotos %}
+            <img src="/media/{{ fotos }}" id="imagem" alt="Avatar">
+            {% else %}
+            <img src="/media/instituicao/sem_foto.png" id="imagem" alt="Avatar">
+
+            {% endif %}
           </div>
           <br>
-           {{ form.imagem }}
+          {{ form.imagem }}
 
         </div>
 
@@ -141,6 +147,18 @@
   <!--<a class="hiddenanchor" id="tologin"></a>-->
 
 </div>
+
+<script language="javascript">
+
+function UploadFoto() {
+
+ var v_img = document.getElementById('id_imagem');
+
+ document.getElementById('imagem').src = $("#id_imagem").val();
+
+}
+
+</script>
 
 </body>
 
