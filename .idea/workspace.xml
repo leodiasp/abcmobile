@@ -2,17 +2,10 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7382c40c-f45f-40ee-982a-92a7d826b7f9" name="Default" comment="Commit 01">
-      <change type="DELETED" beforePath="$PROJECT_DIR$/portal/migrations/0001_initial.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/portal/migrations/0002_auto_20180314_1753.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/portal/migrations/0003_boletim.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/portal/migrations/0004_auto_20180314_1800.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/portal/migrations/0005_remove_boletim_campo.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/portal/migrations/0006_instituicao_numero_alunos.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/migrations/migrations.rar" afterPath="$PROJECT_DIR$/portal/migrations/migrations.rar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/admin.py" afterPath="$PROJECT_DIR$/portal/admin.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/models.py" afterPath="$PROJECT_DIR$/portal/models.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/templates/form_usuario.html" afterPath="$PROJECT_DIR$/portal/templates/form_usuario.html" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/templates/periodoletivo.html" afterPath="$PROJECT_DIR$/portal/templates/periodoletivo.html" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -27,41 +20,33 @@
   <component name="ExecutionTargetManager" SELECTED_TARGET="default_target" />
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="base.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/portal/templates/base.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="2142">
-              <caret line="126" column="39" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="615" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/portal/templates/index.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="591">
-              <caret line="395" column="14" lean-forward="true" selection-start-line="395" selection-start-column="14" selection-end-line="395" selection-end-column="14" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/portal/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="597" column="36" lean-forward="false" selection-start-line="597" selection-start-column="36" selection-end-line="597" selection-end-column="36" />
+            <state relative-caret-position="337">
+              <caret line="591" column="54" lean-forward="true" selection-start-line="591" selection-start-column="54" selection-end-line="592" selection-end-column="41" />
+              <folding>
+                <element signature="e#24#63#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="instituicao.html" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/portal/templates/instituicao.html">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="252">
+              <caret line="23" column="21" lean-forward="true" selection-start-line="11" selection-start-column="16" selection-end-line="23" selection-end-column="21" />
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="importar_csv.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/portal/templates/importar_csv.html">
+      <file leaf-file-name="periodoletivo.html" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/portal/templates/periodoletivo.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="367">
-              <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
+            <state relative-caret-position="167">
+              <caret line="18" column="125" lean-forward="false" selection-start-line="18" selection-start-column="125" selection-end-line="18" selection-end-column="125" />
               <folding />
             </state>
           </provider>
@@ -70,7 +55,7 @@
       <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/portal/admin.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
+            <state relative-caret-position="850">
               <caret line="51" column="31" lean-forward="false" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
               <folding>
                 <element signature="e#24#56#0" expanded="true" />
@@ -79,21 +64,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="form_usuario.html" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/portal/templates/form_usuario.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="49" column="25" lean-forward="false" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/portal/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="119">
-              <caret line="233" column="14" lean-forward="false" selection-start-line="233" selection-start-column="13" selection-end-line="233" selection-end-column="14" />
+            <state relative-caret-position="149">
+              <caret line="20" column="14" lean-forward="false" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="14" />
               <folding>
                 <element signature="e#24#63#0" expanded="true" />
               </folding>
@@ -101,11 +76,41 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
+        <entry file="file://$USER_HOME$/ABCMobile/Lib/site-packages/django/contrib/auth/models.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="4828">
+              <caret line="299" column="6" lean-forward="false" selection-start-line="299" selection-start-column="6" selection-end-line="299" selection-end-column="6" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ABCMobile/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="0">
+              <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="0001_initial.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/portal/migrations/0001_initial.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="170">
+              <caret line="15" column="64" lean-forward="false" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="64" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="forms.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/portal/forms.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1513">
-              <caret line="94" column="44" lean-forward="false" selection-start-line="94" selection-start-column="44" selection-end-line="94" selection-end-column="44" />
+            <state relative-caret-position="136">
+              <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -114,8 +119,8 @@
       <file leaf-file-name="form_instituicao.html" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/portal/templates/form_instituicao.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="243">
-              <caret line="95" column="46" lean-forward="true" selection-start-line="88" selection-start-column="40" selection-end-line="95" selection-end-column="46" />
+            <state relative-caret-position="1581">
+              <caret line="93" column="0" lean-forward="true" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
               <folding />
             </state>
           </provider>
@@ -133,17 +138,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>{{</find>
-      <find>{{ to</find>
-      <find>row</find>
-      <find>login</find>
-      <find>portal</find>
-      <find>COnfi</find>
-      <find>1</find>
-      <find>Profe</find>
-      <find>COnfigu</find>
-      <find>pag</find>
-      <find>avatar</find>
       <find>def alu</find>
       <find>form_</find>
       <find>Aluno</find>
@@ -159,10 +153,21 @@
       <find>Insti</find>
       <find>Institu</find>
       <find>Instituic</find>
-      <find>importacao_</find>
       <find>Importaca</find>
       <find>Alterar</find>
+      <find>Cadastrar</find>
+      <find>usuario_</find>
       <find>UploadFoto()</find>
+      <find>instituicao_new</find>
+      <find>Institui</find>
+      <find>User</find>
+      <find>AUTH_USER_MODEL</find>
+      <find>user</find>
+      <find>importacao_c</find>
+      <find>Estad</find>
+      <find>importacao_</find>
+      <find>Incluir</find>
+      <find>Cadastra</find>
     </findStrings>
     <replaceStrings>
       <replace>href=&quot;{% static &quot;</replace>
@@ -222,7 +227,6 @@
         <option value="$PROJECT_DIR$/portal/templates/edit_responsavel.html" />
         <option value="$PROJECT_DIR$/portal/templates/responsavel.html" />
         <option value="$PROJECT_DIR$/portal/templates/aluno.html" />
-        <option value="$PROJECT_DIR$/portal/templates/periodoletivo.html" />
         <option value="$PROJECT_DIR$/portal/migrations/0034_auto_20171129_1046.py" />
         <option value="$PROJECT_DIR$/portal/templates/financeiro.html" />
         <option value="$PROJECT_DIR$/portal/templates/form_responsavel.html" />
@@ -248,12 +252,13 @@
         <option value="$PROJECT_DIR$/portal/templates/base.html" />
         <option value="$PROJECT_DIR$/portal/templates/index.html" />
         <option value="$PROJECT_DIR$/portal/templates/form_instituicao.html" />
-        <option value="$PROJECT_DIR$/portal/forms.py" />
         <option value="$PROJECT_DIR$/portal/templates/importar_csv.html" />
-        <option value="$PROJECT_DIR$/portal/views.py" />
-        <option value="$PROJECT_DIR$/portal/models.py" />
         <option value="$PROJECT_DIR$/portal/admin.py" />
         <option value="$PROJECT_DIR$/portal/templates/form_usuario.html" />
+        <option value="$PROJECT_DIR$/portal/forms.py" />
+        <option value="$PROJECT_DIR$/portal/models.py" />
+        <option value="$PROJECT_DIR$/portal/views.py" />
+        <option value="$PROJECT_DIR$/portal/templates/periodoletivo.html" />
       </list>
     </option>
   </component>
@@ -281,6 +286,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scratches" />
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -335,18 +342,12 @@
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
-              <option name="myItemId" value="portal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="migrations" />
+              <option name="myItemId" value="ABCMobile" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
         </subPane>
       </pane>
-      <pane id="Scope" />
-      <pane id="Scratches" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -536,7 +537,7 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20163691" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
@@ -545,7 +546,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25531915" sideWeight="0.47916666" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.2913257" sideWeight="0.47916666" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -665,13 +666,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/portal/migrations/0001_initial.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="217">
-          <caret line="49" column="31" lean-forward="true" selection-start-line="49" selection-start-column="31" selection-end-line="49" selection-end-column="31" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/portal/templates/login.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="1088">
@@ -721,13 +715,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/portal/templates/instituicao.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="22" column="25" lean-forward="true" selection-start-line="13" selection-start-column="20" selection-end-line="22" selection-end-column="25" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/portal/templates/form_periodoletivo.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="120">
@@ -735,32 +722,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/ABCMobile/settings.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="163">
-          <caret line="75" column="5" lean-forward="false" selection-start-line="75" selection-start-column="5" selection-end-line="75" selection-end-column="5" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/portal/templates/form_aluno - Cópia.html" />
-    <entry file="file://$USER_HOME$/ABCMobile/Lib/site-packages/django/contrib/auth/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="994">
-          <caret line="328" column="81" lean-forward="true" selection-start-line="328" selection-start-column="81" selection-end-line="328" selection-end-column="81" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/urls.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="357">
           <caret line="22" column="0" lean-forward="false" selection-start-line="22" selection-start-column="0" selection-end-line="22" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/portal/templates/periodoletivo.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="373">
-          <caret line="64" column="14" lean-forward="false" selection-start-line="27" selection-start-column="8" selection-end-line="64" selection-end-column="14" />
         </state>
       </provider>
     </entry>
@@ -803,7 +769,6 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2703">
           <caret line="159" column="113" lean-forward="false" selection-start-line="159" selection-start-column="40" selection-end-line="159" selection-end-column="113" />
-          <folding />
         </state>
       </provider>
     </entry>
@@ -811,66 +776,21 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="2142">
           <caret line="126" column="39" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="615" selection-end-column="0" />
-          <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/portal/forms.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1513">
-          <caret line="94" column="44" lean-forward="false" selection-start-line="94" selection-start-column="44" selection-end-line="94" selection-end-column="44" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/portal/migrations/0007_auto_20180315_1800.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/portal/views.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="597" column="36" lean-forward="false" selection-start-line="597" selection-start-column="36" selection-end-line="597" selection-end-column="36" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/portal/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="119">
-          <caret line="233" column="14" lean-forward="false" selection-start-line="233" selection-start-column="13" selection-end-line="233" selection-end-column="14" />
-          <folding>
-            <element signature="e#24#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
+    <entry file="file://$PROJECT_DIR$/portal/migrations/0007_auto_20180315_1800.py" />
     <entry file="file://$PROJECT_DIR$/portal/templates/importar_csv.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="367">
+        <state relative-caret-position="1156">
           <caret line="68" column="0" lean-forward="false" selection-start-line="68" selection-start-column="0" selection-end-line="68" selection-end-column="0" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/portal/admin.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="51" column="31" lean-forward="false" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
-          <folding>
-            <element signature="e#24#56#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/portal/templates/index.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="591">
-          <caret line="395" column="14" lean-forward="true" selection-start-line="395" selection-start-column="14" selection-end-line="395" selection-end-column="14" />
+        <state relative-caret-position="6715">
+          <caret line="395" column="14" lean-forward="false" selection-start-line="395" selection-start-column="14" selection-end-line="395" selection-end-column="14" />
           <folding />
         </state>
       </provider>
@@ -879,22 +799,99 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="367">
           <caret line="275" column="43" lean-forward="false" selection-start-line="275" selection-start-column="43" selection-end-line="275" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/portal/templates/form_usuario.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="884">
+          <caret line="52" column="0" lean-forward="false" selection-start-line="52" selection-start-column="0" selection-end-line="52" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/portal/templates/form_instituicao.html">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="243">
-          <caret line="95" column="46" lean-forward="true" selection-start-line="88" selection-start-column="40" selection-end-line="95" selection-end-column="46" />
+        <state relative-caret-position="1581">
+          <caret line="93" column="0" lean-forward="true" selection-start-line="93" selection-start-column="0" selection-end-line="93" selection-end-column="0" />
           <folding />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/portal/templates/form_usuario.html">
+    <entry file="file://$PROJECT_DIR$/portal/forms.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="49" column="25" lean-forward="false" selection-start-line="49" selection-start-column="25" selection-end-line="49" selection-end-column="25" />
+        <state relative-caret-position="136">
+          <caret line="13" column="0" lean-forward="true" selection-start-line="13" selection-start-column="0" selection-end-line="13" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/portal/admin.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="850">
+          <caret line="51" column="31" lean-forward="false" selection-start-line="51" selection-start-column="31" selection-end-line="51" selection-end-column="31" />
+          <folding>
+            <element signature="e#24#56#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/portal/migrations/0001_initial.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="170">
+          <caret line="15" column="64" lean-forward="false" selection-start-line="15" selection-start-column="49" selection-end-line="15" selection-end-column="64" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ABCMobile/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="0" lean-forward="false" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$USER_HOME$/ABCMobile/Lib/site-packages/django/contrib/auth/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="4828">
+          <caret line="299" column="6" lean-forward="false" selection-start-line="299" selection-start-column="6" selection-end-line="299" selection-end-column="6" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/portal/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="149">
+          <caret line="20" column="14" lean-forward="false" selection-start-line="20" selection-start-column="9" selection-end-line="20" selection-end-column="14" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/portal/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="337">
+          <caret line="591" column="54" lean-forward="true" selection-start-line="591" selection-start-column="54" selection-end-line="592" selection-end-column="41" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/portal/templates/instituicao.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="252">
+          <caret line="23" column="21" lean-forward="true" selection-start-line="11" selection-start-column="16" selection-end-line="23" selection-end-column="21" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/portal/templates/periodoletivo.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="167">
+          <caret line="18" column="125" lean-forward="false" selection-start-line="18" selection-start-column="125" selection-end-line="18" selection-end-column="125" />
           <folding />
         </state>
       </provider>

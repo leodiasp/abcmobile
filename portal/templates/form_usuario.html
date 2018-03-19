@@ -50,12 +50,7 @@
         <h1>Administrador</h1>
         <div id="crop-avatar" align="center">
           <div class="avatar-view" title="Alterar Foto"  onclick="UploadFoto();" >
-            {% if fotos %}
-            <img src="/media/{{ fotos }}" id="imagem" alt="Avatar">
-            {% else %}
-            <img src="/media/instituicao/sem_foto.png" id="imagem" alt="Avatar">
 
-            {% endif %}
           </div>
           <br>
           {{ form.imagem }}

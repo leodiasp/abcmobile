@@ -127,7 +127,7 @@ class Responsavel(models.Model):
 
     #aluno = models.ManyToManyField(Aluno, related_name="aluno")
 
-    usuario = models.ForeignKey(User, related_name="usuario")
+    #usuario = models.ForeignKey(User, related_name="usuario")
 
     registro_responsavel = models.CharField(max_length=20, primary_key=True)
     #codigo = models.IntegerField()
