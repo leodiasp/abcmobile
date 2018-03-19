@@ -568,9 +568,29 @@ def importacao_csv(request, pk, template_name="importar_csv.html"):
 
                  for row in reader:
 
-                     print ('CSV: ', row)
+                     print ('CSV: ', row[0])
 
                      instituicao = Instituicao.objects.all()
+
+                     print("Tabela",regtabelaimportacao.nome)
+
+                     # ESTADO
+                     if regtabelaimportacao.nome == 'ESTADO':
+
+                         t_csv = Estado(nome=row[1],
+                                        uf=row[2],
+                                        ibge=row[3],
+                                        pais_id=row[4]
+                                        )
+
+                     # CIDADE
+                     if regtabelaimportacao.nome == 'CIDADE':
+
+                         t_csv = Cidade(nome=row[1],
+                                        ibge=row[2],
+                                        estado_id=row[3],
+                                        pais_id=row[4]
+                                        )
 
                      # ALUNO
                      if regtabelaimportacao.nome == 'ALUNO':
@@ -705,7 +725,6 @@ def importacao_csv(request, pk, template_name="importar_csv.html"):
                                              telefone=row[14],
                                              telefone2=row[15]
                                              )
-
 
                      # FINANCEIRO
                      if regtabelaimportacao.nome == 'FINANCEIRO':
