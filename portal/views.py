@@ -11,7 +11,7 @@ from datetime import datetime
 from portal.models import *
 from portal.forms import *
 
-from django.db.models import Sum, Avg, FloatField, Count
+from django.db.models import Sum, Avg, FloatField, Count, F
 
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
@@ -19,6 +19,9 @@ from django.core.files.uploadedfile import InMemoryUploadedFile
 
 
 from django.utils.formats import localize
+
+import json
+import decimal
 
 import csv
 import codecs
@@ -417,8 +420,6 @@ def form_aluno(request, pk, template_name="form_aluno.html"):
 
     src_imagem = alunos.imagem
 
-    print("Foto:",src_imagem)
-
     if request.method == "POST":
         form = AlunoForm(request.POST, request.FILES, instance=alunos)
         if form.is_valid():
@@ -431,30 +432,39 @@ def form_aluno(request, pk, template_name="form_aluno.html"):
         #                                        'fotos': str(src_imagem).encode('utf-8')})
 
     periodoletivo = PeriodoLetivo.objects.filter(dtfinal__isnull=True)
-    print(periodoletivo)
     boletim = Boletim.objects.filter(aluno_id=alunos,periodoletivo_id=periodoletivo)
-    #boletim = Boletim.objects.all().filter(aluno_id=alunos)
-
-    # if boletim:
-    #
-    #     for qryPeriodoLetivo in periodoletivo:
-    #         mensagem = "Boletim Acadêmico - %s" % (qryPeriodoLetivo.codigo)
-    #
-    #     return render(request, template_name, {'form': form, 'estado': estado, 'cidade': cidade,
-    #                                             'fotos': str(src_imagem).encode('utf-8'),
-    #                                             'periodoletivo':periodoletivo,
-    #                                             'boletim': boletim, 'mensagem': mensagem
-    #                                         })
 
     if boletim:
+
+        turma = boletim.values_list('turma', flat=True).distinct()
         disciplinas = boletim.values_list('disciplina', flat=True).distinct()
+        nome_disciplinas = boletim.values_list('nome_disciplina', flat=True).distinct()
+
         for qryPeriodoLetivo in periodoletivo:
             mensagem = "Boletim Acadêmico - %s" % (qryPeriodoLetivo.codigo)
 
+        mAluno = boletim.values('disciplina','nome_disciplina').annotate(media_disc=Avg(F('notas')))
+
+        #valor1 = mAluno
+
+        print("Valor1:",mAluno)
+        #mTurma = boletim.values('turma','disciplina').annotate(media_turma=Avg(F('notas')))
+        #mTurma = Boletim.objects.values('turma','disciplina').annotate(media_turma=Avg(F('notas'))).filter(turma=202)
+        mTurma = Boletim.objects.values('turma','disciplina','nome_disciplina').annotate(media_turma=Avg(F('notas'))).filter(turma=turma, periodoletivo_id=periodoletivo)
+
+        print("Valor2:",mTurma)
+        #return render(request, template_name, {'valor1': json.dumps(valor1), 'valor2': json.dumps(valor2)})
+
         return render(request, template_name, {'form': form, 'estado': estado, 'cidade': cidade,
                                                'fotos': str(src_imagem).encode('utf-8'),
-                                               'disciplina': disciplinas,'boletim': boletim, 'mensagem': mensagem
+                                               'disciplina': disciplinas,
+                                               'nome_disciplina': nome_disciplinas,
+                                               'boletim': boletim, 'mensagem': mensagem,
+                                               #'valor1': json.dumps(valor1),'valor2': json.dumps(valor2)
+                                               'valor1': mAluno,'valor2': mTurma
                                               })
+
+
     else:
         mensagem = ' '
         # return render(request, template_name, {'aluno': alunos,
@@ -465,6 +475,12 @@ def form_aluno(request, pk, template_name="form_aluno.html"):
                                                'fotos': str(src_imagem).encode('utf-8'),
                                                'mensagem': mensagem
                                               })
+
+def graficos (request, pk, template_name="graficos.html"):
+
+     valor1 = int(100)
+     valor2 = int(200)
+     return render (request,template_name, { 'valor1': json.dumps(valor1), 'valor2': json.dumps(valor2)})
 
 # CLASSE PROFESSOR ===============================================================================================
 def professor(request,template="professor.html"):
@@ -561,8 +577,6 @@ def form_responsavel(request, pk, template_name="form_responsavel.html"):
 def form_boletim(request, pk, template_name="boletim.html"):
 
     alunos = Aluno.objects.all().filter(pk=pk)
-
-    print("Aluno",aluno)
 
     return render(request, template_name, {'aluno': alunos})
 
@@ -675,28 +689,6 @@ def importacao_csv(request, pk, template_name="importar_csv.html"):
                                            telefone2=row[15]
                                            )
 
-                     # # PROFESSOR
-                     # if regtabelaimportacao.nome == 'PROFESSOR':
-                     #
-                     #     t_csv = Professor(periodoletivo=row[0],
-                     #                       aluno=row[1],
-                     #                       nome_abreviado=row[2],
-                     #                       # dtnascimento=row[3],
-                     #                       dtnascimento= datetime.strptime(row[3],'%d/%m/%Y').strftime('%Y-%m-%d'),
-                     #                       sexo=row[4],
-                     #                       cpf=row[5],
-                     #                       identidade=row[6],
-                     #                       email=row[7],
-                     #                       endereco=str(row[8]).decode('latin-1').encode('utf-8'),
-                     #                       complemento=row[9],
-                     #                       bairro=row[10],
-                     #                       cidade=row[11],
-                     #                       uf=row[12],
-                     #                       cep=row[13],
-                     #                       telefone=row[14],
-                     #                       telefone2=row[15]
-                     #                   )
-
                      # BOLETIM
                      if regtabelaimportacao.nome == 'BOLETIM':
 
@@ -707,9 +699,10 @@ def importacao_csv(request, pk, template_name="importar_csv.html"):
                                          turma=row[4],
                                          turno=row[5],
                                          disciplina=row[6],
-                                         etapa = row[7],
-                                         notas = row[8],
-                                         faltas = row[9]
+                                         nome_disciplina=row[7],
+                                         etapa = row[8],
+                                         notas = row[9],
+                                         faltas = row[10]
 
                          )
 
@@ -788,9 +781,9 @@ def importacao_csv(request, pk, template_name="importar_csv.html"):
 
                          t_csv.save()
                          # # --> Muda o STImportacao e coloca a data atual
-                         # regimportacaocsv.dtimportacao = dtatual
-                         # regimportacaocsv.stimportacao = True
-                         # regimportacaocsv.save()
+                         regimportacaocsv.dtimportacao = dtatual
+                         regimportacaocsv.stimportacao = True
+                         regimportacaocsv.save()
                          mensagem = "Processado: %s | %s" % (dados.line_num,row)
                          #mensagem = (dados.line_num)
                          messages.success(request, mensagem)

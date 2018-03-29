@@ -39,6 +39,8 @@ urlpatterns = [
 
     url(r'^aluno/', aluno, name='aluno'),
     url(r'^form_aluno/(?P<pk>[0-9]+)', form_aluno, name='form_aluno'),
+    url(r'^graficos/(?P<pk>[0-9]+)', graficos, name='grafico'),
+
     #    url(r'^importar_csv/', importar_csv, name='importar_csv'),
 
     url(r'^professor/', professor, name='professor'),

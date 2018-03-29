@@ -28,6 +28,12 @@
 	<script src="{% static "js/nprogress.js" %}"></script>
 	<script language="JavaScript" type="text/javascript" src="{% static "js/MascaraValidacao.js" %}"></script>
 
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script>
+
+	<!-- Custom Theme Style -->
+    <link href="{% static "build/css/custom.min.css" %}" rel="stylesheet">
+
+
 	<!--[if lt IE 9]>
 	<script src="{% static "../assets/js/ie8-responsive-file-warning.js" %}"></script>
 	<![endif]-->
@@ -278,8 +284,10 @@
   <script type="text/javascript" src="{% static "js/datepicker/daterangepicker.js" %}"></script>
 <!-- chart js -->
 <script src="{% static "js/chartjs/chart.min.js" %}"></script>
+<!-- Chart.js -->
+    <script src="{% static "vendors/Chart.js/dist/Chart.min.js" %}"></script>
 
-  <script src="{% static "js/custom.js" %}"></script>
+<script src="{% static "js/custom.js" %}"></script>
 
 <!-- flot js -->
 <!--[if lte IE 8]><script type="text/javascript" src="{% static "js/excanvas.min.js" %}"></script><![endif]-->
@@ -548,6 +556,33 @@
         <script src="{% static "js/datatables/dataTables.responsive.min.js" %}"></script>
 <script src="{% static "js/datatables/responsive.bootstrap.min.js" %}"></script>
         <script src="{% static "js/datatables/dataTables.scroller.min.js" %}"></script>
+
+<!-- jQuery -->
+<script src="{% static "vendors/jquery/dist/jquery.min.js" %}"></script>
+<!-- Bootstrap -->
+<script src="{% static "vendors/bootstrap/dist/js/bootstrap.min.js" %}"></script>
+
+<!-- FastClick -->
+<script src="{% static "vendors/fastclick/lib/fastclick.js" %}"></script>
+    <!-- NProgress -->
+    <script src=".{% static "vendors/nprogress/nprogress.js" %}"></script>
+<!-- Chart.js -->
+<script src="{% static "vendors/Chart.js/dist/Chart.min.js" %}"></script>
+
+
+    <!--&lt;!&ndash; jQuery &ndash;&gt;-->
+    <!--<script src="{% static "vendors/jquery/dist/jquery.min.js" %}"></script>-->
+<!--&lt;!&ndash; Bootstrap &ndash;&gt;-->
+<!--<script src="{% static "vendors/bootstrap/dist/js/bootstrap.min.js" %}></script>-->
+<!--&lt;!&ndash; FastClick &ndash;&gt;-->
+<!--<script src="{% static "vendors/fastclick/lib/fastclick.js" %}"></script>-->
+<!--&lt;!&ndash; NProgress &ndash;&gt;-->
+<!--<script src="{% static "vendors/nprogress/nprogress.js" %}"></script>-->
+<!--&lt;!&ndash; Chart.js &ndash;&gt;-->
+<!--<script src="{% static "vendors/Chart.js/dist/Chart.min.js" %}"></script>-->
+
+<!--&lt;!&ndash; Custom Theme Scripts &ndash;&gt;-->
+<!--<script src="{% static "build/js/custom.min.js" %}"></script>-->
 
 <!-- pace -->
 <script src="{% static "js/pace/pace.min.js" %}"></script>

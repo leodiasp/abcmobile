@@ -240,7 +240,8 @@ class Boletim(models.Model):
     serie = models.CharField(max_length=30)
     turno = models.CharField(max_length=30)
     turma = models.CharField(max_length=30)
-    disciplina = models.CharField(max_length=50)
+    disciplina = models.CharField(max_length=10)
+    nome_disciplina = models.CharField(max_length=50)
     etapa = models.CharField(max_length=60)
 
     #campo = models.CharField(max_length=10)

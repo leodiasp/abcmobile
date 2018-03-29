@@ -1,0 +1,556 @@
+{% extends 'base.html' %}
+<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.4.0/Chart.bundle.js"></script>
+{% block content %}
+
+<div class="x_panel">
+    <div class="x_title">
+        <a href="{% url 'portal:aluno' %}"><h2> Aluno <small></small></h2> </a>
+        <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+
+            </li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+        </ul>
+        <div class="clearfix"></div>
+    </div>
+    <form class="formulario" enctype="multipart/form-data" method="post" id="validate" >
+        {% csrf_token %}
+
+        {% if form.errors %}
+        <div class="alert alert-danger">
+            <button type="button" class="close" data-dismiss="alert" aria-hidden="true">
+                &times;
+            </button>
+            <strong>Erro !</strong> Favor Verificar os Dados Informados.
+            {{form.errors.items}}
+
+        </div>
+
+        {% endif %}
+
+        {% if messages %}
+        {% for message in messages %}
+
+        {% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+
+        <div class="alert alert-danger fade in">
+            <button data-dismiss="alert" class="close close-sm" type="button"> &times; </button>
+            <strong>ATENÇÃO ! {{ message }} </strong>
+
+        </div>
+
+        {% else %}
+
+        <div class="alert alert-success fade in">
+            <button data-dismiss="alert" class="close close-sm" type="button"> &times; </button>
+            <strong>ATENÇÃO ! {{ message }} </strong>
+
+        </div>
+
+        {% endif %}
+
+        {% endfor %}
+
+        {% endif %}
+
+        <!--<div class="x_content">-->
+            <!--<div class="row">-->
+                <!--<div class="col-md-12 col-sm-12 col-xs-12">-->
+                    <!--<div class="x_panel">-->
+                        <!--<div class="x_title">-->
+                            <!--<h2> Ficha Cadastral <small></small></h2>-->
+                            <!--<ul class="nav navbar-right panel_toolbox">-->
+                                <!--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
+                                <!--</li>-->
+                                <!--<li class="dropdown">-->
+                                    <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>-->
+
+                                <!--</li>-->
+                                <!--<li><a class="close-link"><i class="fa fa-close"></i></a>-->
+                                <!--</li>-->
+                            <!--</ul>-->
+                            <!--<div class="clearfix"></div>-->
+                        <!--</div>-->
+
+                        <!--<div class="x_content">-->
+
+                            <!--<div class="col-md-3 col-sm-3 col-xs-12 profile_left">-->
+
+                                <!--<div class="profile_img">-->
+
+                                    <!--&lt;!&ndash; end of image cropping &ndash;&gt;-->
+                                    <!--<div id="crop-avatar">-->
+                                        <!--&lt;!&ndash; Current avatar &ndash;&gt;-->
+                                        <!--<div class="avatar-view" title="Alterar Foto"  onclick="UploadFoto();" >-->
+                                            <!--{% if fotos %}-->
+                                            <!--<img src="/media/{{ fotos }}" id="imagem" alt="Avatar">-->
+                                            <!--{% else %}-->
+                                            <!--<img src="/media/instituicao/sem_foto.png" id="imagem" alt="Avatar">-->
+
+                                            <!--{% endif %}-->
+                                        <!--</div>-->
+
+                                        <!--&lt;!&ndash; Loading state &ndash;&gt;-->
+                                        <!--<div class="loading" aria-label="Loading" role="img" tabindex="-1"></div>-->
+                                    <!--</div>-->
+                                    <!--&lt;!&ndash; end of image cropping &ndash;&gt;-->
+                                <!--</div>-->
+                                <!--<ul class="list-unstyled user_data">-->
+                                <!--</ul>-->
+                                <!--<ul class="list-unstyled user_data">-->
+                                    <!--{{ form.imagem }}-->
+                                <!--</ul>-->
+
+                                <!--<label>Registro</label>-->
+                                <!--{{ form.registro_aluno }}-->
+                                <!--<br>-->
+
+                                <!--<label>* Apelido</label>-->
+                                <!--{{ form.nome_abreviado }}-->
+
+                                <!--<br />-->
+
+                                <!--<label> Sexo </label>-->
+                                <!--{{ form.sexo }}-->
+                                <!--<br>-->
+
+                                <!--<label> Telefone </label>-->
+                                <!--<i> {{ form.telefone }} </i>-->
+                                <!--<br />-->
+
+                                <!--<label> Celular </label>-->
+                                <!--<i> {{ form.telefone2 }} </i>-->
+                                <!--<br />-->
+
+                                <!--&lt;!&ndash;<ul class="list-unstyled user_data">&ndash;&gt;-->
+                                <!--&lt;!&ndash;<li><i class="fa fa-map-marker user-profile-icon"></i> UF {{ form.uf }}&ndash;&gt;-->
+                                <!--&lt;!&ndash;<li><i class="fa fa-map-marker user-profile-icon"></i> Cidade {{ form.cidade }}, BRASIL&ndash;&gt;-->
+                                <!--&lt;!&ndash;</li>&ndash;&gt;-->
+                                <!--&lt;!&ndash;</ul>&ndash;&gt;-->
+                                <!--<label> UF </label>-->
+                                <!--{{ form.uf }}-->
+                                <!--<br />-->
+                                <!--<button type="submit" class="btn btn-success"> <i class="fa fa-edit m-right-xs"></i> Confirmar </button>-->
+
+
+                            <!--</div>-->
+
+                            <!--<div class="col-md-9 col-sm-9 col-xs-12">-->
+
+                                <!--<label> Nome </label>-->
+                                <!--{{ form.nome }}-->
+
+                                <!--<br />-->
+
+                                <!--<label> Nascido em </label>-->
+                                <!--{{ form.dtnascimento }}-->
+                                <!--<br>-->
+
+                                <!--<label> CPF</label>-->
+                                <!--{{ form.cpf }}-->
+                                <!--<br>-->
+
+                                <!--<label> Identidade </label>-->
+                                <!--{{ form.identidade }}-->
+                                <!--<br>-->
+
+                                <!--<label>E-mail</label>-->
+                                <!--<i> {{ form.email }} </i>-->
+                                <!--<br>-->
+
+                                <!--<label> Endereço </label>-->
+                                <!--<i> {{ form.endereco }} </i>-->
+                                <!--<br>-->
+
+                                <!--<label> Complemento </label>-->
+                                <!--<i> {{ form.complemento }} </i>-->
+                                <!--<br />-->
+
+                                <!--<label> Bairro </label>-->
+                                <!--<i> {{ form.bairro }} </i>-->
+                                <!--<br >-->
+
+                                <!--<label> Cep </label>-->
+                                <!--<i> {{ form.cep }}</i>-->
+
+                                <!--<label> Cidade </label>-->
+                                <!--{{ form.cidade }}-->
+                                <!--<br>-->
+
+                            <!--</div>-->
+
+
+
+                            <!--&lt;!&ndash;<div class="col-md-9 col-sm-9 col-xs-12">&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;<div class="profile_title">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="col-md-2">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<h4> <b> Registro </b></h4> <i> {{ form.registro_aluno }} </i>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="col-md-2">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<h4 title="nascimento"><b> Nascido em</b></h4> <i> {{ form.dtnascimento }} </i>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<h4 title="CNPJ"><b> CPF </b></h4> <i> {{ form.cpf }} </i>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="col-md-2">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<h4 title="CNPJ"><b> Identidade </b></h4> <i> {{ form.identidade }} </i>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="col-md-2">&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;<h4 title="CNPJ"><b> Sexo </b></h4>   <i> {{ form.sexo }} </i>&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;<div class="profile_title">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="col-md-8">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<h4> <b> Nome do Aluno </b></h4> <i> {{ form.nome }}</i>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<h4> <b> Apelido </b></h4> <i> {{ form.nome_abreviado }}</i>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;<div class="profile_title">&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<h4> <b>E-mail</b></h4>  <i> {{ form.email }} </i>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<h4> <b>Telefone</b> </h4> <i> {{ form.telefone }} </i>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="col-md-4">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<h4><b>Telefone</b> </h4> <i> {{ form.telefone2 }} </i>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<hr >&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="col-md-9 col-sm-9 col-xs-12">&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;<div class="profile_title">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="col-md-9">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<h4> <b> Endereço </b></h4> <i> {{ form.endereco }} </i>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="col-md-3">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<h4> <b>Complemento</b> </h4> <i> {{ form.complemento }} </i>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;<div class="profile_title">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="col-md-6">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<h4> <b> Bairro </b> </h4> <i> {{ form.bairro }} </i>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;<div class="col-md-3">&ndash;&gt;-->
+                            <!--&lt;!&ndash;<h4> <b>Cep</b> </h4> <i>{{ form.cep }}</i>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash;</div>&ndash;&gt;-->
+                            <!--&lt;!&ndash; start of user-activity-graph &ndash;&gt;-->
+                            <!--<div id="graph_bar" style="width:100%; height:280px;"></div>-->
+                            <!--&lt;!&ndash; end of user-activity-graph &ndash;&gt;-->
+
+                        <!--</div>-->
+                    <!--</div>-->
+                <!--</div>-->
+            <!--</div>-->
+        <!--</div>-->
+
+
+        <!-- Boletim -->
+        <!--<div class="x_panel">-->
+        <!--<div class="x_title">-->
+
+        <!--{% if mensagem %}-->
+        <!--<h2> {{ mensagem }}   </h2>-->
+        <!--{% else %}-->
+        <!--<h2> Boletim   </h2>-->
+        <!--{% endif %}-->
+
+        <!--<ul class="nav navbar-right panel_toolbox">-->
+        <!--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
+        <!--</li>-->
+        <!--<li class="dropdown">-->
+        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>-->
+
+        <!--</li>-->
+        <!--<li><a class="close-link"><i class="fa fa-close"></i></a>-->
+        <!--</li>-->
+        <!--</ul>-->
+        <!--<div class="clearfix"></div>-->
+        <!--</div>-->
+        <!--<form enctype="multipart/form-data" method="post"  >-->
+        <!--{% csrf_token %}-->
+
+        <!--<div class="x_content">-->
+
+        <!--<table id="datatable-buttons" class="table table-bordered">-->
+        <!--<thead>-->
+        <!--<tr>-->
+        <!--<th width="15%">Disciplina</th>-->
+
+        <!--<th width="5%">Nota 1</th>-->
+        <!--<th width="5%">Nota 2</th>-->
+        <!--<th width="5%">Nota 3</th>-->
+        <!--<th width="5%">Nota 4</th>-->
+
+        <!--<th width="5%">Média</th>-->
+        <!--<th width="5%">Recup</th>-->
+        <!--<th width="5%">Falta 1</th>-->
+        <!--<th width="5%">Falta 2</th>-->
+        <!--<th width="5%">Falta 3</th>-->
+        <!--<th width="5%">Falta 4</th>-->
+        <!--<th width="5%">Tot. Falta</th>-->
+
+        <!--</tr>-->
+        <!--</thead>-->
+
+        <!--<tbody>-->
+
+        <!--{% for reg in boletim %}-->
+
+        <!--<tr>-->
+        <!--<td>{{ reg.disciplina  }}</td>-->
+        <!--<td>{{ reg.notas1 }}</td>-->
+        <!--<td>{{ reg.notas2  }}</td>-->
+        <!--<td>{{ reg.notas3  }}</td>-->
+        <!--<td>{{ reg.notas4  }}</td>-->
+        <!--<td>{{ reg.media  }}</td>-->
+        <!--<td>{{ reg.recuperacao  }}</td>-->
+        <!--<td>{{ reg.faltas1  }}</td>-->
+        <!--<td>{{ reg.faltas2  }}</td>-->
+        <!--<td>{{ reg.faltas3  }}</td>-->
+        <!--<td>{{ reg.faltas4  }}</td>-->
+        <!--<td>{{ reg.faltas   }}</td>-->
+
+        <!--</tr>-->
+        <!--{% endfor %}-->
+        <!--</tbody>-->
+        <!--</table>-->
+
+        <!--</div>-->
+
+        <!--</form>-->
+        <!--</div>-->
+
+        <div class="x_panel">
+            <div class="x_title">
+
+                {% if mensagem %}
+                <h2> {{ mensagem }}   </h2>
+                {% else %}
+                <h2> Boletim   </h2>
+                {% endif %}
+
+                <ul class="nav navbar-right panel_toolbox">
+                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                    </li>
+                    <li class="dropdown">
+                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+
+                    </li>
+                    <li><a class="close-link"><i class="fa fa-close"></i></a>
+                    </li>
+                </ul>
+                <div class="clearfix"></div>
+            </div>
+            <form enctype="multipart/form-data" method="post"  >
+                {% csrf_token %}
+
+                {% for regdisciplina in nome_disciplina %}
+
+                <!-- Notas -->
+
+                <div class="x_title">
+                    <div class="row">
+                        <div class="col-md-12 col-sm-12 col-xs-12">
+                            <div class="x_panel">
+                                <div class="x_title">
+
+                                    <h2> Disciplina: <a href="#">{{ regdisciplina }} </a> <small></small></h2>
+                                    <ul class="nav navbar-right panel_toolbox">
+                                        <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+                                        </li>
+                                        <li class="dropdown">
+                                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+
+                                        </li>
+                                        <li><a class="close-link"><i class="fa fa-close"></i></a>
+                                        </li>
+                                    </ul>
+
+                                    <div class="clearfix"></div>
+
+                                </div>
+                                <!-- Disciplina -->
+
+                                <div class="x_content">
+
+                                    <table id="datatable-buttons" class="table table-striped table-bordered">
+                                        <thead>
+                                        <tr>
+
+                                            <th width="60%">Etapas</th>
+                                            <th width="20%">Notas</th>
+                                            <th width="20%">Faltas</th>
+
+                                        </tr>
+                                        </thead>
+
+                                        {% for reg in boletim %}
+
+                                        {% if regdisciplina == reg.nome_disciplina %}
+
+                                        <tbody>
+
+                                        <tr>
+
+                                            <td> {{ reg.etapa  }}</td>
+                                            <td> {{ reg.notas  }}</td>
+                                            <td> {{ reg.faltas  }}</td>
+
+                                        </tr>
+
+                                        </tbody>
+
+                                        {% endif %}
+
+                                        {% endfor %}
+                                    </table>
+                                </div>
+
+                                <!-- Fim - Disciplina -->
+
+                            </div>
+                        </div>
+
+                    </div>
+                </div>
+
+                <!-- Fim Notas -->
+
+
+
+                {% endfor %}
+
+
+            </form>
+        </div>
+
+        <!-- FIM - Boletim -->
+</div>
+<script language="javascript">
+
+function UploadFoto() {
+
+ var v_img = document.getElementById('id_imagem');
+
+ document.getElementById('imagem').src = $("#id_imagem").val();
+
+}
+
+
+function CarregaUF() {
+
+  var selectUF = document.getElementById('uf');
+
+  {% for l_estado in estado %}
+
+    var option = document.createElement('option');
+        option.value = ""
+        option.value = "{{ l_estado.id }}"
+        option.text  = "{{ l_estado.uf }}"
+
+    selectUF.add(option);
+
+
+  {% endfor %}
+
+
+}
+
+function CarregaCidade() {
+
+ var select = document.getElementById('uf');
+
+// alert('UF: | ' + $("#uf").val());
+
+ var selectCidade = document.getElementById('cidade');
+
+ $("#cidade").empty();
+
+ {% for l_cidade in cidade %}
+
+ if ($("#uf").val() == {{ l_cidade.estado_id }}) {
+
+    var option = document.createElement('option');
+        option.value = "{{ l_cidade.id }}"
+        option.text  = "{{ l_cidade.nome }}"
+
+    selectCidade.add(option);
+
+    }
+
+   {% endfor %}
+
+}
+
+
+// Grafico Aluno x Turma
+
+
+	if ($('#mybarChart').length ){
+
+	alert('Entrou no Grafico!!!!!!!');
+
+	  var ctx = document.getElementById("mybarChart");
+
+	  var names  = JSON.parse('100');
+	  var prices = JSON.parse('{{ valor2 }}');
+
+	  var mybarChart = new Chart(ctx, {
+		type: 'bar',
+		data: {
+		  labels: ["Aluno x Turma"],
+		  datasets: [{
+			label: '# aluno',
+			backgroundColor: "#26B99A",
+			data: [names]
+		  }, {
+			label: '# turma',
+			backgroundColor: "#03586A",
+			data: [prices]
+		  }]
+		},
+
+		options: {
+		  scales: {
+			yAxes: [{
+			  ticks: {
+				beginAtZero: true
+			  }
+			}]
+		  }
+		}
+
+	  });
+
+
+
+
+}
+
+</script>
+
+{% endblock %}
+
+
