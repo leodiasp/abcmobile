@@ -250,13 +250,33 @@ def usuario_new(request, template="form_usuario.html"):
 
 def usuario_edit(request, pk, template="form_usuario.html"):
 
-    #usuario = get_object_or_404(User, pk=pk)
-    #usuario = User.objects.filter(pk=pk)
+    usuario = User.objects.all().filter(pk=pk)
 
-    #if (usuario):
-    if pk!=0:
+    if not (usuario):
 
-        #print("Usuario",usuario)
+        responsavel = Responsavel.objects.all()
+
+        for reg in responsavel:
+
+            usu = User.objects.filter(responsavel_id=reg.registro_responsavel)
+
+            if not (usu):
+
+                username = reg.cpf
+                #username = reg.email
+                email =    reg.email
+                password = reg.cpf
+                first_name = reg.nome
+                imagem = reg.imagem
+                reg_id = reg.pk
+                usuario = User.objects.create_user(username=username, email=email, password=password, first_name=first_name,
+                                                   imagem=imagem,responsavel_id=reg_id )
+                usuario.save()
+                messages.success(request, " Usuários x Responsável Criado com Sucesso ! ")
+
+
+        #return redirect('/responsavel_usuario/')
+    else:
 
         usuario = get_object_or_404(User, pk=pk)
 
@@ -270,52 +290,78 @@ def usuario_edit(request, pk, template="form_usuario.html"):
             form = UserForm(instance=usuario)
         return render(request, template, {'form': form})
 
-        # if request.method =="POST":
-        #
-        #     #form = UserForm(request.POST, request.FILES or None)
-        #
-        #     username =  request.POST['username']
-        #     email    =  request.POST['email']
-        #     password =   request.POST['password']
-        #     first_name = request.POST['first_name']
-        #     last_name = request.POST['last_name']
-        #     imagem = request.FILES['imagem']
-        #     print("Imagem: ",imagem)
-        #
-        #     usuario = User.objects.create_superuser(username=username,email=email,password=password,first_name=first_name,
-        #                                             last_name=last_name, imagem=imagem)
-        #     usuario.save()
-        #     messages.success(request, " Operação Realizada com Sucesso ! ")
-        #     return redirect('/portal/')
-        # else:
-        #     form = UserForm(request.POST, request.FILES or None)
-        #
-        # return render(request,template,{'form':form})
-    else:
-
-        responsavel = Responsavel.objects.all()
-
-        for reg in responsavel:
-
-            username = reg.cpf
-            #username = reg.email
-            email =    reg.email
-            password = reg.cpf
-            first_name = reg.nome
-        #    last_name = request.POST['last_name']
-            imagem = reg.imagem
-
-            reg_id = reg.pk
-
-            usuario = User.objects.create_user(username=username, email=email, password=password, first_name=first_name,
-                                               imagem=imagem,responsavel_id=reg_id )
-            usuario.save()
-
-            # reg.usuario = request.user.pk
-            # reg.save()
-
-    messages.success(request, " Usuários x Responsável Criado com Sucesso ! ")
     return redirect('/responsavel_usuario/')
+
+
+
+
+
+# #usuario = get_object_or_404(User, pk=pk)
+    # #usuario = User.objects.filter(pk=pk)
+    #
+    # #if (usuario):
+    # if pk!=0:
+    #
+    #     #print("Usuario",usuario)
+    #
+    #     usuario = get_object_or_404(User, pk=pk)
+    #
+    #     if request.method == "POST":
+    #         form = UserForm(request.POST, request.FILES, instance=usuario)
+    #         if form.is_valid():
+    #             usuario = form.save()
+    #             messages.success(request, " Operação Realizada com Sucesso ! ")
+    #             return redirect('/portal/')
+    #     else:
+    #         form = UserForm(instance=usuario)
+    #     return render(request, template, {'form': form})
+    #
+    #     # if request.method =="POST":
+    #     #
+    #     #     #form = UserForm(request.POST, request.FILES or None)
+    #     #
+    #     #     username =  request.POST['username']
+    #     #     email    =  request.POST['email']
+    #     #     password =   request.POST['password']
+    #     #     first_name = request.POST['first_name']
+    #     #     last_name = request.POST['last_name']
+    #     #     imagem = request.FILES['imagem']
+    #     #     print("Imagem: ",imagem)
+    #     #
+    #     #     usuario = User.objects.create_superuser(username=username,email=email,password=password,first_name=first_name,
+    #     #                                             last_name=last_name, imagem=imagem)
+    #     #     usuario.save()
+    #     #     messages.success(request, " Operação Realizada com Sucesso ! ")
+    #     #     return redirect('/portal/')
+    #     # else:
+    #     #     form = UserForm(request.POST, request.FILES or None)
+    #     #
+    #     # return render(request,template,{'form':form})
+    # else:
+    #
+    #     responsavel = Responsavel.objects.all()
+    #
+    #     for reg in responsavel:
+    #
+    #         username = reg.cpf
+    #         #username = reg.email
+    #         email =    reg.email
+    #         password = reg.cpf
+    #         first_name = reg.nome
+    #     #    last_name = request.POST['last_name']
+    #         imagem = reg.imagem
+    #
+    #         reg_id = reg.pk
+    #
+    #         usuario = User.objects.create_user(username=username, email=email, password=password, first_name=first_name,
+    #                                            imagem=imagem,responsavel_id=reg_id )
+    #         usuario.save()
+    #
+    #         # reg.usuario = request.user.pk
+    #         # reg.save()
+    #
+    # messages.success(request, " Usuários x Responsável Criado com Sucesso ! ")
+    # return redirect('/responsavel_usuario/')
 
 
 def instituicao(request,template="instituicao.html"):
