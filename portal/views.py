@@ -314,8 +314,8 @@ def usuario_edit(request, pk, template="form_usuario.html"):
             # reg.usuario = request.user.pk
             # reg.save()
 
-        messages.success(request, " Usuários x Responsável Criado com Sucesso ! ")
-        return redirect('/responsavel_usuario/')
+    messages.success(request, " Usuários x Responsável Criado com Sucesso ! ")
+    return redirect('/responsavel_usuario/')
 
 
 def instituicao(request,template="instituicao.html"):
