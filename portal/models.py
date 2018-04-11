@@ -182,7 +182,7 @@ class Professor(models.Model):
     nome   = models.CharField(max_length=120)
     nome_abreviado = models.CharField(max_length=40)
     dtnascimento = models.DateField()
-    sexo         = models.CharField(max_length=2)
+    sexo         = models.CharField(max_length=10)
     cpf = models.CharField(max_length=20)
     identidade = models.CharField(max_length=20)
     email = models.EmailField(max_length=60)
