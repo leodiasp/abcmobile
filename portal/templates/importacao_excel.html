@@ -1,0 +1,212 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+<div class="x_panel">
+	<div class="x_title">
+		<a href="{% url 'portal:importacao_excel' pk=0 %}"><h2>Importação de Dados - Excel <small></small></h2> </a>
+		<ul class="nav navbar-right panel_toolbox">
+			<li>
+				<a class="collapse-link"> <i class="fa fa-chevron-up"></i></a>
+			</li>
+			<li class="dropdown">
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+				<ul id="menu1" class="dropdown-menu list-unstyled msg_list animated fadeInDown" role="menubar">
+					<li>
+						<div class="text-left">
+							<a href="{%  url 'portal:upload'  %}" target="_blank">
+								<button class="btn btn-success btn-xm"><i class="glyphicon glyphicon-pencil"></i> CADASTRAR </button>
+							</a>
+						</div>
+					</li>
+				</ul>
+			</li>
+			<li><a class="close-link"><i class="fa fa-close"></i></a>
+			</li>
+		</ul>
+		<div class="clearfix"></div>
+	</div>
+	{% if importacaoxls %}
+
+	<div class="x_content">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2> Planilhas <small></small></h2>
+						<ul class="nav navbar-right panel_toolbox">
+							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+
+							</li>
+							<li><a class="close-link"><i class="fa fa-close"></i></a>
+							</li>
+						</ul>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="x_content">
+						<table id="datatable-buttons" class="table table-striped table-bordered">
+							<thead>
+							<tr>
+
+								<th width="30%">Nome da Importação</th>
+								<th width="1">Data Upload</th>
+								<th width="10%">Status</th>
+								<th width="10%">Planilha</th>
+								<th width="10%">Ação</th>
+							</tr>
+							</thead>
+
+							<tbody>
+							{% for regimportacaoxls in importacaoxls %}
+
+							<tr>
+								<form method="post" enctype="multipart/form-data">
+									{% csrf_token %}
+
+									<td> {{ regimportacaoxls.nome_importacao }} </td>
+									<td> {{ regimportacaoxls.dtupload|date:'d/m/Y' }}</td>
+									<td> {{ regimportacaoxls.stimportacao }} </td>
+									<td> <a href="/media/{{ regimportacaoxls.arquivo }}" >{{ regimportacaoxls.arquivo }} </a></td>
+									<!--<td> <input type="checkbox" name="excluir" >  </td>-->
+									<td>
+
+										<button type="submit" formaction="{% url 'portal:importacao_excel' pk=regimportacaoxls.pk  %}" class="btn btn-success btn-sm"><i class="icon-pencil icon-white"></i> Importar </button>
+
+									</td>
+								</form>
+
+							</tr>
+							{% endfor %}
+
+							</tbody>
+
+						</table>
+					</div>
+
+
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+	{% else %}
+
+	{% endif %}
+	<!-- Mensagens -->
+
+	{% if messages %}
+
+	<div class="x_content">
+		<div class="row">
+			<div class="col-md-12 col-sm-12 col-xs-12">
+				<div class="x_panel">
+					<div class="x_title">
+						<h2> Log de Importação <small></small></h2>
+						<ul class="nav navbar-right panel_toolbox">
+							<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+							</li>
+							<li class="dropdown">
+								<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+
+							</li>
+							<li><a class="close-link"><i class="fa fa-close"></i></a>
+							</li>
+						</ul>
+						<div class="clearfix"></div>
+					</div>
+
+					<div class="x_content">
+						{% for message in messages %}
+						{% if message.level == DEFAULT_MESSAGE_LEVELS.ERROR %}
+
+						<div class="alert alert-danger fade in">
+							<button data-dismiss="alert" class="close close-sm" type="button"> &times; </button>
+							<strong>ERRO ! {{ message }} {{ erro }} </strong>
+
+						</div>
+
+						{% else %}
+
+						<div class="alert alert-success fade in">
+						<button data-dismiss="alert" class="close close-sm" type="button"> &times; </button>
+						<strong>CONCLUÍDO ! {{ message }} </strong>
+
+
+						</div>
+
+						{% endif %}
+						{% endfor %}
+					</div>
+
+				</div>
+
+			</div>
+
+		</div>
+	</div>
+
+	{% endif %}
+	<!-- Fim -->
+
+</div>
+
+
+</div>
+
+<script language="javascript">
+
+function CarregaUF() {
+
+  var selectUF = document.getElementById('uf');
+
+  {% for l_estado in estado %}
+
+    var option = document.createElement('option');
+        option.value = ""
+        option.value = "{{ l_estado.id }}"
+        option.text  = "{{ l_estado.uf }}"
+
+    selectUF.add(option);
+
+
+  {% endfor %}
+
+
+}
+
+function CarregaCidade() {
+
+ var select = document.getElementById('uf');
+
+// alert('UF: | ' + $("#uf").val());
+
+ var selectCidade = document.getElementById('cidade');
+
+ $("#cidade").empty();
+
+ {% for l_cidade in cidade %}
+
+ if ($("#uf").val() == {{ l_cidade.estado_id }}) {
+
+    var option = document.createElement('option');
+        option.value = "{{ l_cidade.id }}"
+        option.text  = "{{ l_cidade.nome }}"
+
+    selectCidade.add(option);
+
+    }
+
+   {% endfor %}
+
+}
+
+</script>
+
+{% endblock %}

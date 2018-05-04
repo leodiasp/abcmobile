@@ -25,6 +25,9 @@ SECRET_KEY = '!5#(7b7t^y6qul_q2^5icxa#$=$3w9lank9%#e8t#wjcs)(da-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+# FOI EU - LEO DIAS
+DATA_UPLOAD_MAX_NUMBER_FIELDS = None
+
 ALLOWED_HOSTS = []
 
 
@@ -86,6 +89,7 @@ WSGI_APPLICATION = 'ABCMobile.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        'CONN_MAX_AGE': 3600,
         'NAME': 'abcmobile',
         'USER': 'root',
         'PASSWORD': '',
@@ -143,6 +147,6 @@ STATIC_FILES_DIRS=[
     os.path.join(BASE_DIR, "static")
 ]
 
-MEDIA_URL = "/media/"
+MEDIA_URL = "media/"
 #MEDIA_ROOT = "{}/media/".format(BASE_DIR)
 MEDIA_ROOT = os.path.join(BASE_DIR,'media')

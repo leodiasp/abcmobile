@@ -14,6 +14,8 @@ class Pais(models.Model):
 
     nome = models.CharField(max_length=40, verbose_name="Nome do País")
     abreviacao = models.CharField(max_length=3, verbose_name="Abreviação do País")
+    stativo = models.BooleanField(default=False)
+
 
     def __str__(self):
         return self.nome.encode('utf-8')
@@ -24,9 +26,11 @@ class Estado(models.Model):
 
     pais = models.ForeignKey(Pais)
 
+    ibge = models.CharField(max_length=2, primary_key=True)
     nome = models.CharField(max_length=40)
     uf = models.CharField(max_length=2)
-    ibge = models.CharField(max_length=2, default=0)
+    arquivo_importado = models.CharField(max_length=200)
+
 
     def __str__(self):
         return (self.uf.encode('utf-8'))
@@ -39,8 +43,11 @@ class Cidade(models.Model):
     pais = models.ForeignKey(Pais,null=True)
     estado = models.ForeignKey(Estado, null=True)
 
+    ibge = models.CharField(max_length=10, primary_key=True, default=0)
     nome = models.CharField(max_length=60, null=True)
-    ibge = models.CharField(max_length=10, default=0)
+    arquivo_importado = models.CharField(max_length=200)
+
+
 
     def __str__(self):
         return (self.nome.encode('utf-8'))
@@ -70,7 +77,6 @@ class Instituicao(models.Model):
     estado = models.ForeignKey(Estado)
     cidade = models.ForeignKey(Cidade)
 
-    codigo        = models.CharField(max_length=10, primary_key=True)
     razaosocial   = models.CharField(max_length=100, null=True)
     nomefantasia  = models.CharField(max_length=100)
     cgc           = models.CharField(max_length=20)
@@ -100,17 +106,28 @@ class TabelaImportacao(models.Model):
     def __str__(self):
         return self.nome.encode('utf-8')
 
-class ImportacaoCSV(models.Model):
+# class ImportacaoCSV(models.Model):
+#
+#     tabelaimportacao = models.ForeignKey(TabelaImportacao)
+#
+#     nome_importacao = models.CharField(max_length=100)
+#     observacao = models.TextField()
+#     dtupload = models.DateField()
+#     stimportacao = models.BooleanField(default=False)
+#     dtimportacao = models.DateField(null=True, blank=True)
+#     arquivo = models.FileField(upload_to='csv')
+
+class ImportacaoXLS(models.Model):
 
     tabelaimportacao = models.ForeignKey(TabelaImportacao)
 
     nome_importacao = models.CharField(max_length=100)
     observacao = models.TextField()
     dtupload = models.DateField()
+    #posicao_xls  = models.IntegerField()
+    arquivo = models.FileField(upload_to='csv')
     stimportacao = models.BooleanField(default=False)
     dtimportacao = models.DateField(null=True, blank=True)
-    arquivo = models.FileField(upload_to='csv')
-
 
 class PeriodoLetivo(models.Model):
 
@@ -147,6 +164,8 @@ class Responsavel(models.Model):
     telefone = models.CharField(max_length=20, null=True, blank=True)
     telefone2 = models.CharField(max_length=20, null=True, blank=True)
     imagem        = models.ImageField(upload_to="responsavel",  default = 'responsavel/sem_foto.png', blank=True, null=True)
+    arquivo_importado = models.CharField(max_length=200)
+
 
 class Aluno(models.Model):
 
@@ -159,6 +178,7 @@ class Aluno(models.Model):
     nome   = models.CharField(max_length=120)
     nome_abreviado = models.CharField(max_length=40)
     dtnascimento = models.DateField()
+    #dtnascimento = models.CharField(max_length=10)
     sexo         = models.CharField(max_length=10)
     cpf = models.CharField(max_length=20, null=True, blank=True)
     identidade = models.CharField(max_length=20, null=True, blank=True)
@@ -172,6 +192,7 @@ class Aluno(models.Model):
     telefone = models.CharField(max_length=20)
     telefone2 = models.CharField(max_length=20, null=True, blank=True)
     imagem    = models.ImageField(upload_to="alunos", default = 'alunos/sem_foto.png', blank=True, null=True)
+    arquivo_importado = models.CharField(max_length=200)
 
 class Professor(models.Model):
 
@@ -195,6 +216,11 @@ class Professor(models.Model):
     telefone = models.CharField(max_length=20)
     telefone2 = models.CharField(max_length=20, null=True, blank=True)
     imagem    = models.ImageField(upload_to="professores", default = 'professores/sem_foto.png', blank=True, null=True)
+
+    arquivo_importado = models.CharField(max_length=200)
+
+    def __str__(self):
+        return self.nome.encode('utf-8')
 
 # class Turma(models.Model):
 #
@@ -233,6 +259,9 @@ class Professor(models.Model):
 
 class Boletim(models.Model):
 
+
+    registro_boletim = models.CharField(max_length=50, primary_key=True)
+
     periodoletivo = models.ForeignKey(PeriodoLetivo, on_delete=models.CASCADE)
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
 
@@ -242,12 +271,18 @@ class Boletim(models.Model):
     turma = models.CharField(max_length=30)
     disciplina = models.CharField(max_length=10)
     nome_disciplina = models.CharField(max_length=50)
-    etapa = models.CharField(max_length=60)
+
+    professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
+
+    etapa = models.CharField(max_length=10)
+    nome_etapa = models.CharField(max_length=40)
 
     #campo = models.CharField(max_length=10)
 
     notas = models.CharField(max_length=10)
     faltas = models.CharField(max_length=4)
+
+    arquivo_importado = models.CharField(max_length=200)
 
     # periodoletivo = models.ForeignKey(PeriodoLetivo, on_delete=models.CASCADE)
     # aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
@@ -272,6 +307,9 @@ class Boletim(models.Model):
     # faltas4 = models.CharField(max_length=4)
     # faltas  = models.CharField(max_length=4)
 
+    def __str__(self):
+        return self.registro_boletim.encode('utf-8')
+
 
 
 class Financeiro(models.Model):
@@ -292,3 +330,4 @@ class Financeiro(models.Model):
     vlr_baixa = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal('00000000.00'))
     vlr_juros = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal('00000000.00'))
     vlr_desconto = models.DecimalField(max_digits=8, decimal_places=2, default=Decimal('00000000.00'))
+    arquivo_importado = models.CharField(max_length=200)

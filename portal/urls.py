@@ -58,8 +58,11 @@ urlpatterns = [
     url(r'^upload/', upload, name='upload'),
     url(r'^administracao/', administracao,   name='administracao'),
 
-    url(r'^importacao_csv/(?P<pk>[0-9]+)', importacao_csv, name='importacao_csv'),
+    #url(r'^importacao_csv/(?P<pk>[0-9]+)', importacao_csv, name='importacao_csv'),
+    url(r'^importacao_excel/(?P<pk>[0-9]+)', importacao_excel, name='importacao_excel'),
     url(r'^upload_csv/', upload_csv, name='upload_csv'),
+
+   # url(r'^importacao_excel/', importacao_excel, name='importacao_excel'),
 
     url(r'^mensagem/', mensagem, name='mensagem'),
     url(r'^mensagem_new/', mensagem_new, name='mensagem_new'),

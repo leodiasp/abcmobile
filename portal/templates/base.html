@@ -71,7 +71,8 @@
 				<div class="profile">
 					<div class="profile_pic">
 						<!--<img src="/media/{{ img.imagem }}" alt="Avatar" class="img-circle profile_img">-->
-						<a href="{% url 'portal:usuario_edit' pk=request.user.pk %}" >
+						<!--<a href="#" >-->
+						<a href="{% url 'portal:usuario_edit' pk=request.user.pk %}" target="_blank" >
 							<img src="/media/{{ request.user.imagem }}" alt="Avatar" class="img-circle profile_img">
 						</a>
 
@@ -188,7 +189,7 @@
 									<a href="{% url 'portal:responsavel_usuario' %}">Usuários</a>
 								</li>
 								<li>
-									<a href="{% url 'portal:importacao_csv' pk=0 %}">
+									<a href="{% url 'portal:importacao_excel' pk=0 %}">
 										<!--span class="badge bg-red pull-right">50%</span-->
 										<span>Importação de Dados</span>
 									</a>

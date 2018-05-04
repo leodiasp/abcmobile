@@ -23,12 +23,16 @@ from django.utils.formats import localize
 import json
 import decimal
 
+from django.conf import settings
+
 import csv
 import codecs
 import xlrd
 import sys
 reload(sys)
 sys.setdefaultencoding('utf8')
+
+import os
 
 
 from datetime import datetime
@@ -42,50 +46,55 @@ def mobile(request):
 def portal(request):
 
    #Instituicao
-    instituicao = Instituicao.objects.all()
+   instituicao = Instituicao.objects.all()
 
-   # Alunos
+   if instituicao:
 
-    if request.user.is_superuser:
-        alunos = Aluno.objects.all()
-    else:
-        alunos = Aluno.objects.filter(responsavel_id=request.user.responsavel_id)
+       # Alunos
+
+       if request.user.is_superuser:
+           alunos = Aluno.objects.all()
+       else:
+           alunos = Aluno.objects.filter(responsavel_id=request.user.responsavel_id)
 
 
-    # Total Alunos
-    totAlunos = alunos.count()
+       #Total Alunos
+       totAlunos = alunos.count()
 
-    professores = Professor.objects.all()
+       professores = Professor.objects.all()
 
-    # Total Professor
-    totProfessores = professores.count()
+       # Total Professor
+       totProfessores = professores.count()
 
-    # Total Responsavel
-    responsavel = Responsavel.objects.all()
-    totResponsavel = responsavel.count()
+       # Total Responsavel
+       responsavel = Responsavel.objects.all()
+       totResponsavel = responsavel.count()
 
-    # Pagtos Confirmados
-#    totTitulosPagos = Financeiro.objects.filter(dtbaixa__isnull= False).aggregate(total=Sum('vlr_titulo'))
-    totTitulosPagos = Financeiro.objects.all().exclude(dtbaixa= 'NULL')
+       # Pagtos Confirmados
+    #   totTitulosPagos = Financeiro.objects.filter(dtbaixa__isnull= False).aggregate(total=Sum('vlr_titulo'))
+       totTitulosPagos = Financeiro.objects.all().exclude(dtbaixa= 'NULL')
 
-    # Pagtos Pendentes
-#    totTitulosAbertos = Financeiro.objects.filter(dtbaixa__isnull= True).aggregate(total=Sum('vlr_titulo'))
-    totTitulosAbertos = Financeiro.objects.filter(dtbaixa = 'NULL')
+       # Pagtos Pendentes
+    #   totTitulosAbertos = Financeiro.objects.filter(dtbaixa__isnull= True).aggregate(total=Sum('vlr_titulo'))
+       totTitulosAbertos = Financeiro.objects.filter(dtbaixa = 'NULL')
 
-    #Mensagem
-    totMensagem = Mensagem.objects.all()
+       #Mensagem
+       totMensagem = Mensagem.objects.all()
 
-    return render(request,'index.html',{'instituicao': instituicao,
-                                        'alunos': alunos,
-                                        'professores': professores,
-                                        'totAlunos': totAlunos,
-                                        'totProfessor': totProfessores,
-                                        'totResponsavel': totResponsavel,
-                                        'totTitulosPagos': totTitulosPagos.count(),
-                                        'totTitulosAbertos':totTitulosAbertos.count(),
-                                        'totMensagem': totMensagem
+       return render(request,'index.html',{'instituicao': instituicao,
+                                           'alunos': alunos,
+                                           'professores': professores,
+                                           'totAlunos': totAlunos,
+                                           'totProfessor': totProfessores,
+                                           'totResponsavel': totResponsavel,
+                                           'totTitulosPagos': totTitulosPagos.count(),
+                                           'totTitulosAbertos':totTitulosAbertos.count(),
+                                           'totMensagem': totMensagem
 
-                                        })
+                                           })
+   else:
+
+       return redirect('/instituicao_new/')
 
 def mensagem(request, template="mensagem.html"):
 
@@ -93,7 +102,7 @@ def mensagem(request, template="mensagem.html"):
     # print("Usuario", request.user.pk)
     mensagem = Mensagem.objects.all()
 
-    return render (request,template,{'alerta':mensagem})
+    return render (request,template)
 
 def mensagem_new(request,template='form_mensagem.html'):
 
@@ -159,7 +168,7 @@ def perfil(request):
 def upload(request):
 
     if request.user.is_superuser:
-        return redirect ('/admin/portal/importacaocsv/')
+        return redirect ('/admin/portal/importacaoxls/')
     else:
         return redirect('/portal/')
 
@@ -250,47 +259,60 @@ def usuario_new(request, template="form_usuario.html"):
 
 def usuario_edit(request, pk, template="form_usuario.html"):
 
-    usuario = User.objects.all().filter(pk=pk)
+    link = ('/admin/auth/user/%s/password/' % str(pk))
 
-    if not (usuario):
-
-        responsavel = Responsavel.objects.all()
-
-        for reg in responsavel:
-
-            usu = User.objects.filter(responsavel_id=reg.registro_responsavel)
-
-            if not (usu):
-
-                username = reg.cpf
-                #username = reg.email
-                email =    reg.email
-                password = reg.cpf
-                first_name = reg.nome
-                imagem = reg.imagem
-                reg_id = reg.pk
-                usuario = User.objects.create_user(username=username, email=email, password=password, first_name=first_name,
-                                                   imagem=imagem,responsavel_id=reg_id )
-                usuario.save()
-                messages.success(request, " Usuários x Responsável Criado com Sucesso ! ")
+    return redirect(link)
 
 
-        #return redirect('/responsavel_usuario/')
-    else:
 
-        usuario = get_object_or_404(User, pk=pk)
+    # if request.user.is_superuser:
+    #     link = ('/admin/auth/user/%s/password/' % str(pk))
+    #     #return redirect('/admin/auth/user/pk/change/')
+    #     return redirect(link)
+    # else:
+    #     return redirect('admin/auth/user/')
 
-        if request.method == "POST":
-            form = UserForm(request.POST, request.FILES, instance=usuario)
-            if form.is_valid():
-                usuario = form.save()
-                messages.success(request, " Operação Realizada com Sucesso ! ")
-                return redirect('/portal/')
-        else:
-            form = UserForm(instance=usuario)
-        return render(request, template, {'form': form})
-
-    return redirect('/responsavel_usuario/')
+    # usuario = User.objects.all().filter(pk=pk)
+    #
+    # if not (usuario):
+    #
+    #     responsavel = Responsavel.objects.all()
+    #
+    #     for reg in responsavel:
+    #
+    #         usu = User.objects.filter(responsavel_id=reg.registro_responsavel)
+    #
+    #         if not (usu):
+    #
+    #             username = reg.cpf
+    #             #username = reg.email
+    #             email =    reg.email
+    #             password = reg.cpf
+    #             first_name = reg.nome
+    #             imagem = reg.imagem
+    #             reg_id = reg.pk
+    #             usuario = User.objects.create_user(username=username, email=email, password=password, first_name=first_name,
+    #                                                imagem=imagem,responsavel_id=reg_id )
+    #             usuario.save()
+    #             messages.success(request, " Usuários x Responsável Criado com Sucesso ! ")
+    #
+    #
+    #     #return redirect('/responsavel_usuario/')
+    # else:
+    #
+    #     usuario = get_object_or_404(User, pk=pk)
+    #
+    #     if request.method == "POST":
+    #         form = UserForm(request.POST, request.FILES, instance=usuario)
+    #         if form.is_valid():
+    #             usuario = form.save()
+    #             messages.success(request, " Operação Realizada com Sucesso ! ")
+    #             return redirect('/portal/')
+    #     else:
+    #         form = UserForm(instance=usuario)
+    #     return render(request, template, {'form': form})
+    #
+    # return redirect('/responsavel_usuario/')
 
 
 
@@ -372,7 +394,6 @@ def instituicao(request,template="instituicao.html"):
 
 def instituicao_new(request,template='form_instituicao.html'):
 
-    #estado = Estado.objects.all()
     estado = Estado.objects.all()
     cidade = Cidade.objects.all()
 
@@ -478,6 +499,7 @@ def form_aluno(request, pk, template_name="form_aluno.html"):
         #                                        'fotos': str(src_imagem).encode('utf-8')})
 
     periodoletivo = PeriodoLetivo.objects.filter(dtfinal__isnull=True)
+
     boletim = Boletim.objects.filter(aluno_id=alunos,periodoletivo_id=periodoletivo)
 
     if boletim:
@@ -626,77 +648,145 @@ def form_boletim(request, pk, template_name="boletim.html"):
 
     return render(request, template_name, {'aluno': alunos})
 
-# CLASSE IMPORTACAO CSV ===============================================================================================
-
+# CLASSE UPLOAD ARQUIVO ======================================================================================
 def upload_csv (request):
 
-    return redirect('admin/portal/importacaocsv/')
-    #return redirect('/admin/auth/user/')
+    return redirect('admin/portal/importacaoxls/')
 
-def importacao_csv(request, pk, template_name="importar_csv.html"):
+# CLASSE IMPORTACAO EXCEL ======================================================================================
 
-     importacaocsv = ImportacaoCSV.objects.all().filter(pk=pk)
+def importacao_excel (request,pk, template_name="importacao_excel.html"):
 
-     if not(importacaocsv):
+    importacaoxls = ImportacaoXLS.objects.all().filter(pk=pk)
 
-         importacaocsv = ImportacaoCSV.objects.all().filter(stimportacao=False)
-         return render(request, template_name, {'importacaocsv': importacaocsv})
+    if not (importacaoxls):
 
-     else:
+        #importacaoxls = ImportacaoXLS.objects.filter(stimportacao=False).order_by('posicao_xls')
+        importacaoxls = ImportacaoXLS.objects.filter(stimportacao=False)
+        return render(request, template_name, {'importacaoxls': importacaoxls})
 
-         tabelaimportacao = TabelaImportacao.objects.all().filter(importacaocsv=importacaocsv)
+    else:
 
-         for regtabelaimportacao in tabelaimportacao:
+        tabelaimportacao = TabelaImportacao.objects.all().filter(importacaoxls=importacaoxls)
 
-             for regimportacaocsv in importacaocsv:
+        # pais = Pais.objects.all().filter(stativo=True)
+        # print ("Pais",pais)
 
-                 dtatual = datetime.now().strftime('%Y-%m-%d')
+        for pais_ativo in Pais.objects.all().filter(stativo=True):
+            pass
 
-                 arquivo = regimportacaocsv.arquivo
-                 csvfile = arquivo
-                 dialect = csv.Sniffer().sniff(codecs.EncodedFile(csvfile, "utf-8").read(1024))
-                 csvfile.open()
-                 reader = csv.reader(codecs.EncodedFile(csvfile, "utf-8"), delimiter=str(u';').encode('utf-8'), dialect=dialect)
-                 csvfile.read(3)
-                 dados = reader
+        for regimportacaoxls in importacaoxls:
 
-                 arquivo = dados
+            caminho_xls = 'media/'+str(regimportacaoxls.arquivo)
+            print "Caminho %s" % str(caminho_xls)
 
-                 for row in reader:
+            #arquivo_xls = xlrd.open_workbook('media/csv/ABCMOBILE.xlsx')
 
-                     print ('CSV: ', row[0])
+            #arquivo_xls = xlrd.open_workbook('media/'+str(caminho_xls))
+            #arquivo_xls = xlrd.open_workbook(str(caminho_xls))
+            arquivo_xls = xlrd.open_workbook(caminho_xls)
+            print ("Arquivo: %s | %s" % (regimportacaoxls.tabelaimportacao.nome, str(arquivo_xls)))
 
-                     instituicao = Instituicao.objects.all()
+            planilha = arquivo_xls.sheet_by_index(0)
 
-                     print("Tabela",regtabelaimportacao.nome)
+            #excluir = request.POST['excluir']
 
-                     # ESTADO
-                     if regtabelaimportacao.nome == 'ESTADO':
+            for row_num in xrange(planilha.nrows):
 
-                         t_csv = Estado(nome=row[1],
-                                        uf=row[2],
-                                        ibge=row[3],
-                                        pais_id=row[4]
+                if row_num == 0: #cabecalho
+                    continue
+
+                row = planilha.row_values(row_num)
+
+                #ESTADO
+                if regimportacaoxls.tabelaimportacao.nome == 'ESTADO':
+
+                    t_csv = Estado(ibge=int(row[0]),
+                                   nome=row[1],
+                                   uf=row[2],
+                                   pais_id=int(pais_ativo.id),
+                                   arquivo_importado=str(caminho_xls)
+
+                                   )
+
+
+                #CIDADE
+                if regimportacaoxls.tabelaimportacao.nome == 'CIDADE':
+                    t_csv = Cidade(ibge=int(row[0]),
+                                   nome=str(row[1]),
+                                   estado_id=int(row[2]),
+                                   pais_id=int(pais_ativo.id),
+                                   arquivo_importado=str(caminho_xls)
+
+                                   )
+
+                #RESPONSAVEL
+                if regimportacaoxls.tabelaimportacao.nome == 'RESPONSAVEL':
+
+                    datemode = arquivo_xls.datemode
+                    dtnascimento = datetime(*xlrd.xldate_as_tuple(row[3],datemode))
+
+                    t_csv = Responsavel(registro_responsavel=int(row[0]),
+                                        nome=row[1],
+                                        nome_abreviado=row[2],
+                                        dtnascimento = dtnascimento,
+                                        sexo=row[4],
+                                        cpf=row[5],
+                                        identidade=row[6],
+                                        email=row[7],
+                                        endereco=str(row[8]).decode('latin-1').encode('utf-8'),
+                                        complemento=row[9],
+                                        bairro=row[10],
+                                        cidade=row[11],
+                                        uf=row[12],
+                                        cep=row[13],
+                                        telefone=row[14],
+                                        telefone2=row[15],
+                                        arquivo_importado=str(caminho_xls)
+
                                         )
 
-                     # CIDADE
-                     if regtabelaimportacao.nome == 'CIDADE':
+                #ALUNO
+                if regimportacaoxls.tabelaimportacao.nome == 'ALUNO':
 
-                         t_csv = Cidade(nome=row[1],
-                                        ibge=row[2],
-                                        estado_id=row[3],
-                                        pais_id=row[4]
-                                        )
+                    datemode = arquivo_xls.datemode
+                    dtnascimento = datetime(*xlrd.xldate_as_tuple(row[3],datemode))
 
-                     # ALUNO
-                     if regtabelaimportacao.nome == 'ALUNO':
+                    print ("Registro Aluno: %s " % int(row[0]))
+
+                    t_csv = Aluno(registro_aluno=int(row[0]),
+                                  nome=row[1],
+                                  nome_abreviado=row[2],
+                                  dtnascimento=dtnascimento,
+                                  sexo=row[4],
+                                  cpf=row[5],
+                                  identidade=row[6],
+                                  email=row[7],
+                                  endereco=str(row[8]).decode('latin-1').encode('utf-8'),
+                                  complemento=row[9],
+                                  bairro=row[10],
+                                  cidade=row[11],
+                                  uf=row[12],
+                                  cep=row[13],
+                                  telefone=row[14],
+                                  telefone2=row[15],
+                                  responsavel_id=row[16],
+                                  arquivo_importado = str(caminho_xls)
+
+                    )
+
+                # PROFESSOR
+                if regimportacaoxls.tabelaimportacao.nome == 'PROFESSOR':
+
+                    datemode = arquivo_xls.datemode
+                    dtnascimento = datetime(*xlrd.xldate_as_tuple(row[3], datemode))
 
 
-                         t_csv = Aluno(registro_aluno=row[0],
+
+                    t_csv = Professor(registro_professor=int(row[0]),
                                        nome=row[1],
                                        nome_abreviado=row[2],
-                                       # dtna   cimento=row[3],
-                                       dtnascimento= datetime.strptime(row[3],'%d/%m/%Y').strftime('%Y-%m-%d'),
+                                       dtnascimento= dtnascimento,
                                        sexo=row[4],
                                        cpf=row[5],
                                        identidade=row[6],
@@ -709,134 +799,263 @@ def importacao_csv(request, pk, template_name="importar_csv.html"):
                                        cep=row[13],
                                        telefone=row[14],
                                        telefone2=row[15],
-        #                               responsavel_id=99
-                                       responsavel_id=row[16]
-                                    )
+                                       arquivo_importado = str(caminho_xls)
+                                       )
 
-                     # PROFESSOR
-                     if regtabelaimportacao.nome == 'PROFESSOR':
+                #BOLETIM
+                if regimportacaoxls.tabelaimportacao.nome == 'BOLETIM':
 
-                         t_csv = Professor(registro_professor=row[0],
-                                           nome=row[1],
-                                           nome_abreviado=row[2],
-                                           # dtnascimento=row[3],
-                                           dtnascimento= datetime.strptime(row[3],'%d/%m/%Y').strftime('%Y-%m-%d'),
-                                           sexo=row[4],
-                                           cpf=row[5],
-                                           identidade=row[6],
-                                           email=row[7],
-                                           endereco=str(row[8]).decode('latin-1').encode('utf-8'),
-                                           complemento=row[9],
-                                           bairro=row[10],
-                                           cidade=row[11],
-                                           uf=row[12],
-                                           cep=row[13],
-                                           telefone=row[14],
-                                           telefone2=row[15]
-                                           )
+                    alunos = Aluno.objects.filter(registro_aluno=int(row[2]))
 
-                     # BOLETIM
-                     if regtabelaimportacao.nome == 'BOLETIM':
+                    if alunos:
 
-                         t_csv = Boletim(periodoletivo_id=row[0],
-                                         aluno_id=row[1],
-                                         curso=row[2],
-                                         serie=row[3],
-                                         turma=row[4],
-                                         turno=row[5],
-                                         disciplina=row[6],
-                                         nome_disciplina=row[7],
-                                         etapa = row[8],
-                                         notas = row[9],
-                                         faltas = row[10]
+                        t_csv = Boletim(registro_boletim = int(row[0]),
+                                        periodoletivo_id=int(row[1]),
+                                        aluno_id=int(row[2]),
+                                        curso=int(row[3]),
+                                        serie=int(row[4]),
+                                        turno=int(row[5]),
+                                        turma=str(row[6]),
+                                        disciplina=int(row[7]),
+                                        nome_disciplina=str(row[8]),
+                                        professor_id = int(row[9]),
+                                        etapa = int(row[10]),
+                                        nome_etapa = str(row[11]),
+                                        notas = row[12],
+                                        faltas =int(row[13]),
+                                        #arquivo_importado = str(caminho_xls)
+                                        arquivo_importado = regimportacaoxls.pk
+                                        )
+                    else:
+                        continue
 
-                         )
 
-                         # t_csv = Boletim(periodoletivo_id=row[0],
-                         #                 aluno_id=row[1],
-                         #                 curso=row[2],
-                         #                 serie=row[3],
-                         #                 turma=row[4],
-                         #                 turno=row[5],
-                         #                 disciplina=row[6],
-                         #                 notas1=row[7],
-                         #                 notas2=row[8],
-                         #                 notas3=row[9],
-                         #                 notas4=row[10],
-                         #                 faltas1=row[11],
-                         #                 faltas2=row[12],
-                         #                 faltas3=row[13],
-                         #                 faltas4=row[14],
-                         #                 media=row[15],
-                         #                 recuperacao=row[16],
-                         #                 faltas=row[17]
-                         #
-                         # # etapa=row[7],
-                         #                 # notas=row[8],
-                         #                 # faltas=row[9],
-                         #                 #
-                         #
-                         #
-                         #                 )
+                try:
 
-                     # RESPONSAVEL
-                     if regtabelaimportacao.nome == 'RESPONSAVEL':
+                    t_csv.save()
 
-                         t_csv = Responsavel(registro_responsavel=row[0],
-                                             nome=row[1],
-                                             nome_abreviado=row[2],
-                                             # dtnascimento=row[3],
-                                             dtnascimento= datetime.strptime(row[3],'%d/%m/%Y').strftime('%Y-%m-%d'),
-                                             sexo=row[4],
-                                             cpf=row[5],
-                                             identidade=row[6],
-                                             email=row[7],
-                                             endereco=str(row[8]).decode('latin-1').encode('utf-8'),
-                                             complemento=row[9],
-                                             bairro=row[10],
-                                             cidade=row[11],
-                                             uf=row[12],
-                                             cep=row[13],
-                                             telefone=row[14],
-                                             telefone2=row[15]
-                                             )
+                    # # --> Muda o STImportacao e coloca a data atual
+                    regimportacaoxls.dtimportacao = datetime.now().strftime('%Y-%m-%d')
+                    regimportacaoxls.stimportacao = True
+                    #regimportacaoxls.save()
+                    mensagem = "Processado: %s | %s" % (int(row_num),str(row))
+                    # mensagem = (dados.line_num)
+                    messages.success(request, mensagem)
 
-                     # FINANCEIRO
-                     if regtabelaimportacao.nome == 'FINANCEIRO':
+                # except Exception:
+                except ValueError:
+                    mensagem = "Linha: %s | %s" % (int(row_num),str(row))
+                    messages.error(request, mensagem)
 
-                         t_csv = Financeiro(
-                                            aluno_id=row[0],
-                                            responsavel_id=row[1],
-                                            documento = row[2],
-                                            parcela = row[3],
-                                            cota=row[4],
-                                            historico=row[5],
-                                           # dtemissao = datetime.strptime(row[6],'%d/%m/%Y').strftime('%Y-%m-%d'),
-                                            dtemissao = row[6],
-                                            vlr_titulo = row[7],
-                                           # dtbaixa = datetime.strptime(row[8],'%d/%m/%Y').strftime('%Y-%m-%d'),
-                                            dtbaixa = row[8],
-                                            vlr_juros = row[9],
-                                            vlr_desconto = row[10],
-                                            periodoletivo_id = row[11],
-                                            vlr_baixa=row[12]
+            return render(request, template_name, {'importacaoxls': importacaoxls})
 
-                         )
 
-                     try:
+# CLASSE IMPORTACAO CSV ===============================================================================================
 
-                         t_csv.save()
-                         # # --> Muda o STImportacao e coloca a data atual
-                         regimportacaocsv.dtimportacao = dtatual
-                         regimportacaocsv.stimportacao = True
-                         regimportacaocsv.save()
-                         mensagem = "Processado: %s | %s" % (dados.line_num,row)
-                         #mensagem = (dados.line_num)
-                         messages.success(request, mensagem)
-
-                     #except Exception:
-                     except ValueError:
-                         mensagem = "Linha: %s | %s" % (dados.line_num,row)
-                         messages.error(request, mensagem)
-
-                 return render(request, template_name,{'importacaocsv': importacaocsv})
+# def importacao_csv(request, pk, template_name="importar_csv.html"):
+#
+#      importacaocsv = ImportacaoCSV.objects.all().filter(pk=pk)
+#
+#      if not(importacaocsv):
+#
+#          importacaocsv = ImportacaoCSV.objects.all().filter(stimportacao=False)
+#          return render(request, template_name, {'importacaocsv': importacaocsv})
+#
+#      else:
+#
+#          tabelaimportacao = TabelaImportacao.objects.all().filter(importacaocsv=importacaocsv)
+#
+#          for regtabelaimportacao in tabelaimportacao:
+#
+#              for regimportacaocsv in importacaocsv:
+#
+#                  dtatual = datetime.now().strftime('%Y-%m-%d')
+#
+#                  arquivo = regimportacaocsv.arquivo
+#                  csvfile = arquivo
+#                  dialect = csv.Sniffer().sniff(codecs.EncodedFile(csvfile, "utf-8").read(1024))
+#                  csvfile.open()
+#                  reader = csv.reader(codecs.EncodedFile(csvfile, "utf-8"), delimiter=str(u';').encode('utf-8'), dialect=dialect)
+#                  csvfile.read(3)
+#                  dados = reader
+#
+#                  arquivo = dados
+#
+#                  for row in reader:
+#
+#                      print ('CSV: ', row[0])
+#
+#                      instituicao = Instituicao.objects.all()
+#
+#                      print("Tabela",regtabelaimportacao.nome)
+#
+#                      # ESTADO
+#                      if regtabelaimportacao.nome == 'ESTADO':
+#
+#                          t_csv = Estado(nome=row[1],
+#                                         uf=row[2],
+#                                         ibge=row[3],
+#                                         pais_id=row[4]
+#                                         )
+#
+#                      # CIDADE
+#                      if regtabelaimportacao.nome == 'CIDADE':
+#
+#                          t_csv = Cidade(nome=row[1],
+#                                         ibge=row[2],
+#                                         estado_id=row[3],
+#                                         pais_id=row[4]
+#                                         )
+#
+#                      # ALUNO
+#                      if regtabelaimportacao.nome == 'ALUNO':
+#
+#
+#                          t_csv = Aluno(registro_aluno=row[0],
+#                                        nome=row[1],
+#                                        nome_abreviado=row[2],
+#                                        # dtna   cimento=row[3],
+#                                        dtnascimento= datetime.strptime(row[3],'%d/%m/%Y').strftime('%Y-%m-%d'),
+#                                        sexo=row[4],
+#                                        cpf=row[5],
+#                                        identidade=row[6],
+#                                        email=row[7],
+#                                        endereco=str(row[8]).decode('latin-1').encode('utf-8'),
+#                                        complemento=row[9],
+#                                        bairro=row[10],
+#                                        cidade=row[11],
+#                                        uf=row[12],
+#                                        cep=row[13],
+#                                        telefone=row[14],
+#                                        telefone2=row[15],
+#         #                               responsavel_id=99
+#                                        responsavel_id=row[16]
+#                                     )
+#
+#                      # PROFESSOR
+#                      if regtabelaimportacao.nome == 'PROFESSOR':
+#
+#                          t_csv = Professor(registro_professor=row[0],
+#                                            nome=row[1],
+#                                            nome_abreviado=row[2],
+#                                            # dtnascimento=row[3],
+#                                            dtnascimento= datetime.strptime(row[3],'%d/%m/%Y').strftime('%Y-%m-%d'),
+#                                            sexo=row[4],
+#                                            cpf=row[5],
+#                                            identidade=row[6],
+#                                            email=row[7],
+#                                            endereco=str(row[8]).decode('latin-1').encode('utf-8'),
+#                                            complemento=row[9],
+#                                            bairro=row[10],
+#                                            cidade=row[11],
+#                                            uf=row[12],
+#                                            cep=row[13],
+#                                            telefone=row[14],
+#                                            telefone2=row[15]
+#                                            )
+#
+#                      # BOLETIM
+#                      if regtabelaimportacao.nome == 'BOLETIM':
+#
+#                          t_csv = Boletim(periodoletivo_id=row[0],
+#                                          aluno_id=row[1],
+#                                          curso=row[2],
+#                                          serie=row[3],
+#                                          turma=row[4],
+#                                          turno=row[5],
+#                                          disciplina=row[6],
+#                                          nome_disciplina=row[7],
+#                                          etapa = row[8],
+#                                          notas = row[9],
+#                                          faltas = row[10]
+#
+#                          )
+#
+#                          # t_csv = Boletim(periodoletivo_id=row[0],
+#                          #                 aluno_id=row[1],
+#                          #                 curso=row[2],
+#                          #                 serie=row[3],
+#                          #                 turma=row[4],
+#                          #                 turno=row[5],
+#                          #                 disciplina=row[6],
+#                          #                 notas1=row[7],
+#                          #                 notas2=row[8],
+#                          #                 notas3=row[9],
+#                          #                 notas4=row[10],
+#                          #                 faltas1=row[11],
+#                          #                 faltas2=row[12],
+#                          #                 faltas3=row[13],
+#                          #                 faltas4=row[14],
+#                          #                 media=row[15],
+#                          #                 recuperacao=row[16],
+#                          #                 faltas=row[17]
+#                          #
+#                          # # etapa=row[7],
+#                          #                 # notas=row[8],
+#                          #                 # faltas=row[9],
+#                          #                 #
+#                          #
+#                          #
+#                          #                 )
+#
+#                      # RESPONSAVEL
+#                      if regtabelaimportacao.nome == 'RESPONSAVEL':
+#
+#                          t_csv = Responsavel(registro_responsavel=row[0],
+#                                              nome=row[1],
+#                                              nome_abreviado=row[2],
+#                                              # dtnascimento=row[3],
+#                                              dtnascimento= datetime.strptime(row[3],'%d/%m/%Y').strftime('%Y-%m-%d'),
+#                                              sexo=row[4],
+#                                              cpf=row[5],
+#                                              identidade=row[6],
+#                                              email=row[7],
+#                                              endereco=str(row[8]).decode('latin-1').encode('utf-8'),
+#                                              complemento=row[9],
+#                                              bairro=row[10],
+#                                              cidade=row[11],
+#                                              uf=row[12],
+#                                              cep=row[13],
+#                                              telefone=row[14],
+#                                              telefone2=row[15]
+#                                              )
+#
+#                      # FINANCEIRO
+#                      if regtabelaimportacao.nome == 'FINANCEIRO':
+#
+#                          t_csv = Financeiro(
+#                                             aluno_id=row[0],
+#                                             responsavel_id=row[1],
+#                                             documento = row[2],
+#                                             parcela = row[3],
+#                                             cota=row[4],
+#                                             historico=row[5],
+#                                            # dtemissao = datetime.strptime(row[6],'%d/%m/%Y').strftime('%Y-%m-%d'),
+#                                             dtemissao = row[6],
+#                                             vlr_titulo = row[7],
+#                                            # dtbaixa = datetime.strptime(row[8],'%d/%m/%Y').strftime('%Y-%m-%d'),
+#                                             dtbaixa = row[8],
+#                                             vlr_juros = row[9],
+#                                             vlr_desconto = row[10],
+#                                             periodoletivo_id = row[11],
+#                                             vlr_baixa=row[12]
+#
+#                          )
+#
+#                      try:
+#
+#                          t_csv.save()
+#                          # # --> Muda o STImportacao e coloca a data atual
+#                          regimportacaocsv.dtimportacao = dtatual
+#                          regimportacaocsv.stimportacao = True
+#                          regimportacaocsv.save()
+#                          mensagem = "Processado: %s | %s" % (dados.line_num,row)
+#                          #mensagem = (dados.line_num)
+#                          messages.success(request, mensagem)
+#
+#                      #except Exception:
+#                      except ValueError:
+#                          mensagem = "Linha: %s | %s" % (dados.line_num,row)
+#                          messages.error(request, mensagem)
+#
+#                  return render(request, template_name,{'importacaocsv': importacaocsv})

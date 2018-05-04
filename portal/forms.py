@@ -45,21 +45,19 @@ class UserForm(forms.ModelForm):
         }
 
 class InstituicaoForm(forms.ModelForm):
-    imagem = forms.ImageField(widget=ClearableFileInput)
+    imagem = forms.ImageField(widget=ClearableFileInput, required=False)
     class Meta:
 
         model = Instituicao
         estado = models.ForeignKey(Estado, null=True)
         cidade = models.ForeignKey(Cidade, null=True)
         fields = ['estado','cidade','razaosocial','nomefantasia','cgc','inscestadual','telefone','email','endereco','complemento',
-                   'bairro','cep','contato','imagem','telefax','codigo','numero_alunos']
+                   'bairro','cep','contato','imagem','telefax','numero_alunos']
 
 
         widgets = {
 
-            'estado': forms.Select(attrs={
-                'class': 'form-control', 'id': 'uf', 'onfocus': "CarregaUF();", 'onclick': "CarregaCidade();"
-            }),
+            'estado': forms.Select(attrs={'class': 'form-control', 'id': 'uf', 'onfocus': "CarregaUF();", 'onclick': "CarregaCidade();"}),
             'cidade': forms.Select(attrs={'class': 'form-control', 'id': 'cidade'}),
             'razaosocial': forms.TextInput(attrs={
                 'class': 'form-control','id': 'razaosocial', 'placeholder' : 'Razao Social'
@@ -91,7 +89,7 @@ class InstituicaoForm(forms.ModelForm):
                                           'onKeyPress': "MascaraTelefone(telefax);",
 
                                                }),
-            'codigo': forms.TextInput(attrs={'class': 'form-control','id': 'codigo', 'placeholder' : 'Código'}),
+            #'codigo': forms.TextInput(attrs={'class': 'form-control','id': 'codigo', 'placeholder' : 'Código'}),
             'numero_alunos': forms.TextInput(attrs={'class': 'form-control','id': 'numero', 'placeholder' : 'Número / Aluno(s)'})
 
 
@@ -131,7 +129,6 @@ class PeriodoLetivoForm(forms.ModelForm):
     class Meta:
 
         model = PeriodoLetivo
-        instituicao = models.ForeignKey(Instituicao, null=True)
 
         fields = ['codigo','descricao','diasletivos','dtinicial','dtfinal','calendario']
 
@@ -260,7 +257,6 @@ class AlunoForm(forms.ModelForm):
     class Meta:
 
         model = Aluno
-        instituicao = models.ForeignKey(Instituicao, null=True)
 
         fields = ['registro_aluno','nome','nome_abreviado','dtnascimento','sexo','cpf','identidade','email',
                   'endereco','complemento','bairro','cidade','uf','cep','telefone','telefone2', 'imagem']
@@ -349,7 +345,6 @@ class ProfessorForm(forms.ModelForm):
     class Meta:
 
         model = Professor
-        instituicao = models.ForeignKey(Instituicao, null=True)
 
         fields = ['registro_professor','nome','nome_abreviado','dtnascimento','sexo','cpf','identidade','email',
                   'endereco','complemento','bairro','cidade','uf','cep','telefone','telefone2', 'imagem']
@@ -439,7 +434,6 @@ class ResponsavelForm(forms.ModelForm):
     class Meta:
 
         model = Responsavel
-        instituicao = models.ForeignKey(Instituicao, null=True)
 
         fields = ['registro_responsavel','nome','nome_abreviado','dtnascimento','sexo','cpf','identidade','email',
                   'endereco','complemento','bairro','cidade','uf','cep','telefone','telefone2', 'imagem']

@@ -216,7 +216,7 @@ class PortalInstituicao(models.Model):
     imagem = models.CharField(max_length=100, blank=True, null=True)
     cidade_id = models.IntegerField()
     estado_id = models.IntegerField()
-    codigo = models.CharField(primary_key=True, max_length=10)
+    #codigo = models.CharField(max_length=10)
 
     class Meta:
         managed = False

@@ -25,6 +25,8 @@ SECRET_KEY = '!5#(7b7t^y6qul_q2^5icxa#$=$3w9lank9%#e8t#wjcs)(da-'
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
+
+
 ALLOWED_HOSTS = []
 
 
@@ -85,6 +87,7 @@ WSGI_APPLICATION = 'ABCMobile.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        'CONN_MAX_AGE': 3600,
         'NAME': 'abcmobile',
         'USER': 'root',
         'PASSWORD': '',
