@@ -495,8 +495,6 @@ def form_aluno(request, pk, template_name="form_aluno.html"):
             #return redirect('portal:alunos')
     else:
         form = AlunoForm(instance=alunos)
-        # return render(request, template_name, {'form': form, 'estado': estado, 'cidade': cidade,
-        #                                        'fotos': str(src_imagem).encode('utf-8')})
 
     periodoletivo = PeriodoLetivo.objects.filter(dtfinal__isnull=True)
 
@@ -513,15 +511,7 @@ def form_aluno(request, pk, template_name="form_aluno.html"):
 
         mAluno = boletim.values('disciplina','nome_disciplina').annotate(media_disc=Avg(F('notas')))
 
-        #valor1 = mAluno
-
-        print("Valor1:",mAluno)
-        #mTurma = boletim.values('turma','disciplina').annotate(media_turma=Avg(F('notas')))
-        #mTurma = Boletim.objects.values('turma','disciplina').annotate(media_turma=Avg(F('notas'))).filter(turma=202)
         mTurma = Boletim.objects.values('turma','disciplina','nome_disciplina').annotate(media_turma=Avg(F('notas'))).filter(turma=turma, periodoletivo_id=periodoletivo)
-
-        print("Valor2:",mTurma)
-        #return render(request, template_name, {'valor1': json.dumps(valor1), 'valor2': json.dumps(valor2)})
 
         return render(request, template_name, {'form': form, 'estado': estado, 'cidade': cidade,
                                                'fotos': str(src_imagem).encode('utf-8'),
@@ -530,6 +520,7 @@ def form_aluno(request, pk, template_name="form_aluno.html"):
                                                'boletim': boletim, 'mensagem': mensagem,
                                                #'valor1': json.dumps(valor1),'valor2': json.dumps(valor2)
                                                'valor1': mAluno,'valor2': mTurma
+
                                               })
 
 

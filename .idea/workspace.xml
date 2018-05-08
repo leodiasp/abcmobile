@@ -2,36 +2,8 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="7382c40c-f45f-40ee-982a-92a7d826b7f9" name="Default" comment="Commit 01">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/portal/templates/importacao_excel.html" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/csv/_boletim.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/csv/aluno.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/csv/boletim.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/csv/cidade.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/csv/estado.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/csv/financeiro.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/csv/professor.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/csv/responsavel.csv" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/instituicao/lg_santos_anjos.jpg" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/media/instituicao/lg_santos_anjos.png" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/portal/migrations/0002_remove_responsavel_usuario.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/portal/migrations/0003_auto_20180321_1818.py" afterPath="" />
-      <change type="DELETED" beforePath="$PROJECT_DIR$/portal/migrations/0004_auto_20180411_1530.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/media/csv/csv.rar" afterPath="$PROJECT_DIR$/media/csv/csv.rar" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/migrations/migrations.rar" afterPath="$PROJECT_DIR$/portal/migrations/migrations.rar" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ABCMobile/settings.py" afterPath="$PROJECT_DIR$/ABCMobile/settings.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/ABCMobile/settings_dev.py" afterPath="$PROJECT_DIR$/ABCMobile/settings_dev.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/models.py" afterPath="$PROJECT_DIR$/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/admin.py" afterPath="$PROJECT_DIR$/portal/admin.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/forms.py" afterPath="$PROJECT_DIR$/portal/forms.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/migrations/0001_initial.py" afterPath="$PROJECT_DIR$/portal/migrations/0001_initial.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/models.py" afterPath="$PROJECT_DIR$/portal/models.py" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/templates/base.html" afterPath="$PROJECT_DIR$/portal/templates/base.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/templates/form_instituicao.html" afterPath="$PROJECT_DIR$/portal/templates/form_instituicao.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/templates/index.html" afterPath="$PROJECT_DIR$/portal/templates/index.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/templates/professor.html" afterPath="$PROJECT_DIR$/portal/templates/professor.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/templates/responsavel.html" afterPath="$PROJECT_DIR$/portal/templates/responsavel.html" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/urls.py" afterPath="$PROJECT_DIR$/portal/urls.py" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/templates/form_aluno.html" afterPath="$PROJECT_DIR$/portal/templates/form_aluno.html" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/portal/views.py" afterPath="$PROJECT_DIR$/portal/views.py" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
@@ -60,7 +32,7 @@
       <file leaf-file-name="models.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/portal/models.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4369">
+            <state relative-caret-position="-34">
               <caret line="262" column="30" lean-forward="false" selection-start-line="262" selection-start-column="30" selection-end-line="262" selection-end-column="30" />
               <folding>
                 <element signature="e#24#63#0" expanded="true" />
@@ -69,24 +41,24 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/portal/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="310">
-              <caret line="829" column="32" lean-forward="false" selection-start-line="829" selection-start-column="32" selection-end-line="829" selection-end-column="32" />
+            <state relative-caret-position="174">
+              <caret line="497" column="0" lean-forward="true" selection-start-line="497" selection-start-column="0" selection-end-line="497" selection-end-column="0" />
               <folding>
                 <element signature="e#24#63#0" expanded="true" />
-                <marker date="1525460785423" expanded="true" signature="19078:19182" ph="..." />
+                <marker date="1525805141005" expanded="true" signature="18476:18580" ph="..." />
               </folding>
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="form_aluno.html" pinned="false" current-in-tab="false">
+      <file leaf-file-name="form_aluno.html" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/portal/templates/form_aluno.html">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="925">
-              <caret line="342" column="0" lean-forward="false" selection-start-line="342" selection-start-column="0" selection-end-line="342" selection-end-column="0" />
+            <state relative-caret-position="238">
+              <caret line="323" column="52" lean-forward="false" selection-start-line="323" selection-start-column="52" selection-end-line="323" selection-end-column="52" />
               <folding />
             </state>
           </provider>
@@ -95,7 +67,7 @@
       <file leaf-file-name="admin.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/portal/admin.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="398">
+            <state relative-caret-position="1564">
               <caret line="94" column="24" lean-forward="false" selection-start-line="94" selection-start-column="24" selection-end-line="94" selection-end-column="24" />
               <folding>
                 <element signature="e#24#56#0" expanded="true" />
@@ -107,7 +79,7 @@
       <file leaf-file-name="settings.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/ABCMobile/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="211">
+            <state relative-caret-position="1547">
               <caret line="91" column="8" lean-forward="false" selection-start-line="91" selection-start-column="8" selection-end-line="91" selection-end-column="8" />
               <folding />
             </state>
@@ -129,16 +101,6 @@
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="3077">
               <caret line="181" column="136" lean-forward="false" selection-start-line="181" selection-start-column="32" selection-end-line="181" selection-end-column="136" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="professor.html" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/portal/templates/professor.html">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1683">
-              <caret line="99" column="9" lean-forward="false" selection-start-line="71" selection-start-column="0" selection-end-line="99" selection-end-column="9" />
               <folding />
             </state>
           </provider>
@@ -166,9 +128,6 @@
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>form.cidade</find>
-      <find>importacao_csv</find>
-      <find>instituicao_ne</find>
       <find>admin/portal/importacaocsv/</find>
       <find>importacao_</find>
       <find>Professor</find>
@@ -196,6 +155,9 @@
       <find>importacao_ex</find>
       <find>DATA</find>
       <find>DATA_UPLOAD_MAX_NUMBER_FIELDS</find>
+      <find>Bole</find>
+      <find>order</find>
+      <find>form_aluno</find>
     </findStrings>
     <replaceStrings>
       <replace>href=&quot;{% static &quot;</replace>
@@ -269,7 +231,6 @@
         <option value="$PROJECT_DIR$/portal/templates/form_usuario.html" />
         <option value="$PROJECT_DIR$/portal/templates/periodoletivo.html" />
         <option value="$PROJECT_DIR$/portal/templates/graficos.html" />
-        <option value="$PROJECT_DIR$/portal/templates/form_aluno.html" />
         <option value="$PROJECT_DIR$/portal/templates/base---erro.html" />
         <option value="$PROJECT_DIR$/portal/templates/usuario.html" />
         <option value="$PROJECT_DIR$/portal/templates/importar_csv.html" />
@@ -287,6 +248,7 @@
         <option value="$PROJECT_DIR$/ABCMobile/settings_dev.py" />
         <option value="$PROJECT_DIR$/ABCMobile/settings.py" />
         <option value="$PROJECT_DIR$/portal/admin.py" />
+        <option value="$PROJECT_DIR$/portal/templates/form_aluno.html" />
         <option value="$PROJECT_DIR$/portal/views.py" />
       </list>
     </option>
@@ -324,38 +286,6 @@
             </PATH_ELEMENT>
             <PATH_ELEMENT>
               <option name="myItemId" value="ABCMobile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ABCMobile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ABCMobile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="portal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-          </PATH>
-          <PATH>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ABCMobile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="ABCMobile" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="portal" />
-              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
-            </PATH_ELEMENT>
-            <PATH_ELEMENT>
-              <option name="myItemId" value="templates" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
           </PATH>
@@ -554,7 +484,7 @@
   </component>
   <component name="ToolWindowManager">
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
-    <editor active="false" />
+    <editor active="true" />
     <layout>
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.25223213" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
@@ -562,7 +492,7 @@
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3289689" sideWeight="0.5" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" x="281" y="157" width="336" height="477" />
-      <window_info id="Terminal" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21931261" sideWeight="0.47619048" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.21931261" sideWeight="0.47619048" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="DB Browser" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
@@ -810,13 +740,6 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/portal/migrations/0008_auto_20180424_1725.py" />
     <entry file="file://$PROJECT_DIR$/portal/migrations/0009_auto_20180425_1454.py" />
-    <entry file="file://$PROJECT_DIR$/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="178">
-          <caret line="218" column="45" lean-forward="true" selection-start-line="218" selection-start-column="45" selection-end-line="218" selection-end-column="45" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/portal/forms.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="935">
@@ -878,16 +801,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/portal/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4369">
-          <caret line="262" column="30" lean-forward="false" selection-start-line="262" selection-start-column="30" selection-end-line="262" selection-end-column="30" />
-          <folding>
-            <element signature="e#24#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/ABCMobile/settings_dev.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="311">
@@ -897,7 +810,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/ABCMobile/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="211">
+        <state relative-caret-position="1547">
           <caret line="91" column="8" lean-forward="false" selection-start-line="91" selection-start-column="8" selection-end-line="91" selection-end-column="8" />
           <folding />
         </state>
@@ -905,7 +818,7 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/portal/admin.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="398">
+        <state relative-caret-position="1564">
           <caret line="94" column="24" lean-forward="false" selection-start-line="94" selection-start-column="24" selection-end-line="94" selection-end-column="24" />
           <folding>
             <element signature="e#24#56#0" expanded="true" />
@@ -913,22 +826,40 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/portal/templates/form_aluno.html">
+    <entry file="file://$PROJECT_DIR$/portal/models.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="925">
-          <caret line="342" column="0" lean-forward="false" selection-start-line="342" selection-start-column="0" selection-end-line="342" selection-end-column="0" />
+        <state relative-caret-position="-34">
+          <caret line="262" column="30" lean-forward="false" selection-start-line="262" selection-start-column="30" selection-end-line="262" selection-end-column="30" />
+          <folding>
+            <element signature="e#24#63#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/models.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="0">
+          <caret line="0" column="11" lean-forward="false" selection-start-line="0" selection-start-column="10" selection-end-line="0" selection-end-column="11" />
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/portal/views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="310">
-          <caret line="829" column="32" lean-forward="false" selection-start-line="829" selection-start-column="32" selection-end-line="829" selection-end-column="32" />
+        <state relative-caret-position="174">
+          <caret line="497" column="0" lean-forward="true" selection-start-line="497" selection-start-column="0" selection-end-line="497" selection-end-column="0" />
           <folding>
             <element signature="e#24#63#0" expanded="true" />
-            <marker date="1525460785423" expanded="true" signature="19078:19182" ph="..." />
+            <marker date="1525805141005" expanded="true" signature="18476:18580" ph="..." />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/portal/templates/form_aluno.html">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="238">
+          <caret line="323" column="52" lean-forward="false" selection-start-line="323" selection-start-column="52" selection-end-line="323" selection-end-column="52" />
+          <folding />
         </state>
       </provider>
     </entry>
