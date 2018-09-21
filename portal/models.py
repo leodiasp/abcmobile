@@ -47,10 +47,16 @@ class Cidade(models.Model):
     nome = models.CharField(max_length=60, null=True)
     arquivo_importado = models.CharField(max_length=200)
 
+    class Meta:
+        ordering = ['nome']
+
 
 
     def __str__(self):
-        return (self.nome.encode('utf-8'))
+        #return (self.nome.encode('utf-8'))
+        return  ('%s %s' % (self.nome.encode('utf-8'), self.arquivo_importado.encode('utf-8')))
+
+
 
 class Mensagem(models.Model):
 
@@ -74,7 +80,7 @@ class Mensagem(models.Model):
 
 class Instituicao(models.Model):
 
-    estado = models.ForeignKey(Estado)
+    #estado = models.ForeignKey(Estado)
     cidade = models.ForeignKey(Cidade)
 
     razaosocial   = models.CharField(max_length=100, null=True)
@@ -256,11 +262,10 @@ class Professor(models.Model):
 #         return self.nome.encode('utf-8')
 #
 
-
 class Boletim(models.Model):
 
 
-    registro_boletim = models.CharField(max_length=50, primary_key=True)
+    #registro_boletim = models.IntegerField()
 
     periodoletivo = models.ForeignKey(PeriodoLetivo, on_delete=models.CASCADE)
     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
@@ -277,39 +282,72 @@ class Boletim(models.Model):
     etapa = models.CharField(max_length=10)
     nome_etapa = models.CharField(max_length=40)
 
+
     #campo = models.CharField(max_length=10)
 
-    notas = models.CharField(max_length=10)
-    faltas = models.CharField(max_length=4)
+    # notas = models.CharField(max_length=10)
+    # faltas = models.CharField(max_length=4)
+
+    notas  = models.DecimalField(max_digits=5, decimal_places=1)
+    faltas = models.IntegerField()
 
     arquivo_importado = models.CharField(max_length=200)
 
-    # periodoletivo = models.ForeignKey(PeriodoLetivo, on_delete=models.CASCADE)
-    # aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
-    #
-    # curso = models.CharField(max_length=30)
-    # serie = models.CharField(max_length=30)
-    # turno = models.CharField(max_length=30)
-    # turma = models.CharField(max_length=30)
-    # disciplina = models.CharField(max_length=50)
-    #
-    # notas1 = models.CharField(max_length=10)
-    # notas2 = models.CharField(max_length=10)
-    # notas3 = models.CharField(max_length=10)
-    # notas4 = models.CharField(max_length=10)
-    #
-    # media = models.CharField(max_length=10)
-    # recuperacao = models.CharField(max_length=10)
-    #
-    # faltas1 = models.CharField(max_length=4)
-    # faltas2 = models.CharField(max_length=4)
-    # faltas3 = models.CharField(max_length=4)
-    # faltas4 = models.CharField(max_length=4)
-    # faltas  = models.CharField(max_length=4)
 
-    def __str__(self):
-        return self.registro_boletim.encode('utf-8')
-
+# class Boletim(models.Model):
+#
+#
+#     registro_boletim = models.IntegerField()
+#
+#     periodoletivo = models.ForeignKey(PeriodoLetivo, on_delete=models.CASCADE)
+#     aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
+#
+#     curso = models.CharField(max_length=30)
+#     serie = models.CharField(max_length=30)
+#     turno = models.CharField(max_length=30)
+#     turma = models.CharField(max_length=30)
+#     disciplina = models.CharField(max_length=10)
+#     nome_disciplina = models.CharField(max_length=50)
+#
+#     professor = models.ForeignKey(Professor, on_delete=models.CASCADE)
+#
+#     etapa = models.CharField(max_length=10)
+#     nome_etapa = models.CharField(max_length=40)
+#
+#
+#     #campo = models.CharField(max_length=10)
+#
+#     notas = models.CharField(max_length=10)
+#     faltas = models.CharField(max_length=4)
+#
+#     arquivo_importado = models.CharField(max_length=200)
+#
+#     # periodoletivo = models.ForeignKey(PeriodoLetivo, on_delete=models.CASCADE)
+#     # aluno = models.ForeignKey(Aluno, on_delete=models.CASCADE)
+#     #
+#     # curso = models.CharField(max_length=30)
+#     # serie = models.CharField(max_length=30)
+#     # turno = models.CharField(max_length=30)
+#     # turma = models.CharField(max_length=30)
+#     # disciplina = models.CharField(max_length=50)
+#     #
+#     # notas1 = models.CharField(max_length=10)
+#     # notas2 = models.CharField(max_length=10)
+#     # notas3 = models.CharField(max_length=10)
+#     # notas4 = models.CharField(max_length=10)
+#     #
+#     # media = models.CharField(max_length=10)
+#     # recuperacao = models.CharField(max_length=10)
+#     #
+#     # faltas1 = models.CharField(max_length=4)
+#     # faltas2 = models.CharField(max_length=4)
+#     # faltas3 = models.CharField(max_length=4)
+#     # faltas4 = models.CharField(max_length=4)
+#     # faltas  = models.CharField(max_length=4)
+#     #
+#     # def __str__(self):
+#     #     return self.registro_boletim.encode('utf-8')
+#
 
 
 class Financeiro(models.Model):

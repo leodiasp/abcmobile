@@ -54,8 +54,8 @@ def portal(request):
 
        if request.user.is_superuser:
            alunos = Aluno.objects.all()
-       else:
-           alunos = Aluno.objects.filter(responsavel_id=request.user.responsavel_id)
+       # else: ######### REVER ESTA SITUACAO
+       #     alunos = Aluno.objects.filter(responsavel_id=request.user.responsavel_id)
 
 
        #Total Alunos
@@ -92,9 +92,10 @@ def portal(request):
                                            'totMensagem': totMensagem
 
                                            })
-   else:
-
-       return redirect('/instituicao_new/')
+   # else:
+   #
+   #     #return redirect('/instituicao_new/')
+   #     return redirect('/instituicao_edit/')
 
 def mensagem(request, template="mensagem.html"):
 
@@ -190,7 +191,11 @@ def do_login(request, *args, **kwargs):
             if user.is_active:
                 login(request, user)
                 #if user.is_superuser:
-                return redirect('/portal/')
+                if not user.first_name:
+                    return  redirect('/admin/auth/user/%s/change/' % str(request.user.pk))
+                else:
+                    if user.is_superuser:
+                        return redirect('/portal/')
                 # else:
                 #     return redirect('mobile:index')
 
@@ -259,11 +264,12 @@ def usuario_new(request, template="form_usuario.html"):
 
 def usuario_edit(request, pk, template="form_usuario.html"):
 
-    link = ('/admin/auth/user/%s/password/' % str(pk))
+    #link = ('/admin/auth/user/%s/password/' % str(pk))
+    # link = ('/admin/auth/user/%s/change/' % str(pk))
+    #
+    # return redirect(link)
 
-    return redirect(link)
-
-
+    #return redirect('/responsavel_usuario/')
 
     # if request.user.is_superuser:
     #     link = ('/admin/auth/user/%s/password/' % str(pk))
@@ -272,47 +278,46 @@ def usuario_edit(request, pk, template="form_usuario.html"):
     # else:
     #     return redirect('admin/auth/user/')
 
-    # usuario = User.objects.all().filter(pk=pk)
-    #
-    # if not (usuario):
-    #
-    #     responsavel = Responsavel.objects.all()
-    #
-    #     for reg in responsavel:
-    #
-    #         usu = User.objects.filter(responsavel_id=reg.registro_responsavel)
-    #
-    #         if not (usu):
-    #
-    #             username = reg.cpf
-    #             #username = reg.email
-    #             email =    reg.email
-    #             password = reg.cpf
-    #             first_name = reg.nome
-    #             imagem = reg.imagem
-    #             reg_id = reg.pk
-    #             usuario = User.objects.create_user(username=username, email=email, password=password, first_name=first_name,
-    #                                                imagem=imagem,responsavel_id=reg_id )
-    #             usuario.save()
-    #             messages.success(request, " Usuários x Responsável Criado com Sucesso ! ")
-    #
-    #
-    #     #return redirect('/responsavel_usuario/')
-    # else:
-    #
-    #     usuario = get_object_or_404(User, pk=pk)
-    #
-    #     if request.method == "POST":
-    #         form = UserForm(request.POST, request.FILES, instance=usuario)
-    #         if form.is_valid():
-    #             usuario = form.save()
-    #             messages.success(request, " Operação Realizada com Sucesso ! ")
-    #             return redirect('/portal/')
-    #     else:
-    #         form = UserForm(instance=usuario)
-    #     return render(request, template, {'form': form})
-    #
-    # return redirect('/responsavel_usuario/')
+    usuario = User.objects.all().filter(pk=pk)
+
+    if not (usuario):
+
+        responsavel = Responsavel.objects.all()
+
+        for reg in responsavel:
+
+            #usu = User.objects.filter(username=reg.cpf)
+
+            if not (User.objects.filter(username=reg.cpf)):
+
+                username = reg.cpf
+                #username = reg.email
+                email =    reg.email
+                password = reg.cpf
+                first_name = reg.nome
+                #imagem = reg.imagem
+                reg_id = reg.pk
+                usuario = User.objects.create_user(username=username, email=email, password=password, first_name=first_name )
+                usuario.save()
+                messages.success(request, " Usuários x Responsável Criado com Sucesso ! ")
+
+
+        #return redirect('/responsavel_usuario/')
+    else:
+
+        usuario = get_object_or_404(User, pk=pk)
+
+        if request.method == "POST":
+            form = UserForm(request.POST, request.FILES, instance=usuario)
+            if form.is_valid():
+                usuario = form.save()
+                messages.success(request, " Operação Realizada com Sucesso ! ")
+                return redirect('/portal/')
+        else:
+            form = UserForm(instance=usuario)
+        return render(request, template, {'form': form})
+
+    #return redirect('/responsavel_usuario/')
 
 
 
@@ -415,23 +420,23 @@ def instituicao_edit(request,pk,template_name='form_instituicao.html'):
 
     instituicao = get_object_or_404(Instituicao, pk=pk)
 
-    estado = Estado.objects.all()
-    cidade = Cidade.objects.all()
+    #estado = Estado.objects.all()
+    cidade = Cidade.objects.all().order_by('nome')
 
     src_imagem = instituicao.imagem
 
-    print(src_imagem)
 
     if request.method == "POST":
         form = InstituicaoForm(request.POST, request.FILES, instance=instituicao)
         if form.is_valid():
             instituicao = form.save()
             messages.success(request, " Operação Realizada com Sucesso ! ")
-            #return redirect('portal:instituicao_new')
+        return render(request, template_name, {'form': form, 'cidade': cidade})
+        #return redirect('/portal/')
     else:
         form = InstituicaoForm(instance=instituicao)
-    return render(request, template_name, {'form': form,'estado': estado,'cidade': cidade,
-                                           'fotos': str(src_imagem).encode('utf-8')})
+
+    return render(request, template_name, {'form': form, 'cidade': cidade, 'foto': src_imagem})
 
 # CLASSE PERIODO LETIVO ===============================================================================================
 def periodoletivo(request,template="periodoletivo.html"):
@@ -501,6 +506,8 @@ def form_aluno(request, pk, template_name="form_aluno.html"):
     boletim = Boletim.objects.filter(aluno_id=alunos,periodoletivo_id=periodoletivo)
 
     if boletim:
+
+        print("entrou no boletim ------")
 
         turma = boletim.values_list('turma', flat=True).distinct()
         disciplinas = boletim.values_list('disciplina', flat=True).distinct()
@@ -689,33 +696,12 @@ def importacao_excel (request,pk, template_name="importacao_excel.html"):
 
                 row = planilha.row_values(row_num)
 
-                #ESTADO
-                if regimportacaoxls.tabelaimportacao.nome == 'ESTADO':
-
-                    t_csv = Estado(ibge=int(row[0]),
-                                   nome=row[1],
-                                   uf=row[2],
-                                   pais_id=int(pais_ativo.id),
-                                   arquivo_importado=str(caminho_xls)
-
-                                   )
-
-
-                #CIDADE
-                if regimportacaoxls.tabelaimportacao.nome == 'CIDADE':
-                    t_csv = Cidade(ibge=int(row[0]),
-                                   nome=str(row[1]),
-                                   estado_id=int(row[2]),
-                                   pais_id=int(pais_ativo.id),
-                                   arquivo_importado=str(caminho_xls)
-
-                                   )
-
                 #RESPONSAVEL
                 if regimportacaoxls.tabelaimportacao.nome == 'RESPONSAVEL':
 
                     datemode = arquivo_xls.datemode
                     dtnascimento = datetime(*xlrd.xldate_as_tuple(row[3],datemode))
+
 
                     t_csv = Responsavel(registro_responsavel=int(row[0]),
                                         nome=row[1],
@@ -733,7 +719,7 @@ def importacao_excel (request,pk, template_name="importacao_excel.html"):
                                         cep=row[13],
                                         telefone=row[14],
                                         telefone2=row[15],
-                                        arquivo_importado=str(caminho_xls)
+                                        #arquivo_importado=str(caminho_xls)
 
                                         )
 
@@ -742,8 +728,6 @@ def importacao_excel (request,pk, template_name="importacao_excel.html"):
 
                     datemode = arquivo_xls.datemode
                     dtnascimento = datetime(*xlrd.xldate_as_tuple(row[3],datemode))
-
-                    print ("Registro Aluno: %s " % int(row[0]))
 
                     t_csv = Aluno(registro_aluno=int(row[0]),
                                   nome=row[1],
@@ -772,8 +756,6 @@ def importacao_excel (request,pk, template_name="importacao_excel.html"):
                     datemode = arquivo_xls.datemode
                     dtnascimento = datetime(*xlrd.xldate_as_tuple(row[3], datemode))
 
-
-
                     t_csv = Professor(registro_professor=int(row[0]),
                                        nome=row[1],
                                        nome_abreviado=row[2],
@@ -796,45 +778,58 @@ def importacao_excel (request,pk, template_name="importacao_excel.html"):
                 #BOLETIM
                 if regimportacaoxls.tabelaimportacao.nome == 'BOLETIM':
 
-                    alunos = Aluno.objects.filter(registro_aluno=int(row[2]))
+                    alunos = Aluno.objects.filter(registro_aluno=int(row[1]))
+
+                    print(alunos.values('registro_aluno','nome'))
 
                     if alunos:
 
-                        t_csv = Boletim(registro_boletim = int(row[0]),
-                                        periodoletivo_id=int(row[1]),
-                                        aluno_id=int(row[2]),
-                                        curso=int(row[3]),
-                                        serie=int(row[4]),
-                                        turno=int(row[5]),
-                                        turma=str(row[6]),
-                                        disciplina=int(row[7]),
-                                        nome_disciplina=str(row[8]),
-                                        professor_id = int(row[9]),
-                                        etapa = int(row[10]),
-                                        nome_etapa = str(row[11]),
-                                        notas = row[12],
-                                        faltas =int(row[13]),
+                        #Boletim.objects.all().filter(aluno_id=alunos.values('registro_aluno'),periodoletivo_id= ).delete()
+                        #Boletim.objects.all().filter(aluno_id=int(row[1]),periodoletivo_id=int(row[0]), ).delete()
+
+                        t_csv = Boletim(#registro_boletim = int(row[0]),
+                                        periodoletivo_id=int(row[0]),
+                                        aluno_id=int(row[1]),
+                                        curso= (row[2]),
+                                        serie=(row[3]),
+                                        turno=str(row[4]),
+                                        turma=str(row[5]),
+                                        disciplina=int(row[6]),
+                                        nome_disciplina=str(row[7]),
+                                        professor_id = int(row[8]),
+                                        etapa = int(row[9]),
+                                        nome_etapa = str(row[10]),
+                                        notas = row[11],
+                                        #faltas =int(row[12]),
+                                        faltas =row[12],
                                         #arquivo_importado = str(caminho_xls)
                                         arquivo_importado = regimportacaoxls.pk
                                         )
-                    else:
-                        continue
+                    # else:
+                    #     continue
 
+
+                #if t_csv:
 
                 try:
 
+                    t_csv.arquivo_importado = str(caminho_xls)
+                    #arquivo_importado = str(caminho_xls)
                     t_csv.save()
 
                     # # --> Muda o STImportacao e coloca a data atual
                     regimportacaoxls.dtimportacao = datetime.now().strftime('%Y-%m-%d')
                     regimportacaoxls.stimportacao = True
-                    #regimportacaoxls.save()
+                    regimportacaoxls.save()
                     mensagem = "Processado: %s | %s" % (int(row_num),str(row))
                     # mensagem = (dados.line_num)
                     messages.success(request, mensagem)
 
-                # except Exception:
+                #except Exception:
                 except ValueError:
+                    #regimportacaoxls.dtimportacao = ''
+                    regimportacaoxls.stimportacao = False
+                    regimportacaoxls.save()
                     mensagem = "Linha: %s | %s" % (int(row_num),str(row))
                     messages.error(request, mensagem)
 

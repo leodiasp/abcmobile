@@ -88,9 +88,9 @@ admin.site.register(ImportacaoXLS, ImportacaoXLSAdmin);
 class BoletimAdmin(admin.ModelAdmin):
 
     model = Boletim
-    list_display  = ['registro_boletim']
-    list_filter   = ['registro_boletim']
-    search_fields = ['registro_boletim']
+    list_display  = ['id']
+    list_filter   = ['id']
+    search_fields = ['id']
     save_on_top = True
     delete_on_top = True
 

@@ -26,6 +26,7 @@
 				&times;
 			</button>
 			<strong>Erro !</strong> Favor Verificar os Dados Informados.
+
 			{{form.errors.items}}
 
 
@@ -163,15 +164,15 @@
 									<!-- end of image cropping -->
 
 								</div>
-								<ul class="list-unstyled user_data">
-								</ul>
+
 								<ul class="list-unstyled user_data">
 									{{ form.imagem }}
 								</ul>
 
 								<ul class="list-unstyled user_data">
-									<li><i class="fa fa-map-marker user-profile-icon"></i> UF {{ form.estado }}
-									<li><i class="fa fa-map-marker user-profile-icon"></i> Cidade {{ form.cidade }}, BRASIL
+
+
+									<li><i class="fa fa-map-marker user-profile-icon"></i> Cidade {{ form.cidade }}
 									</li>
 									<li class="m-top-xs">
 										<i class="fa fa-external-link user-profile-icon"></i>
@@ -179,7 +180,7 @@
 									</li>
 								</ul>
 
-								<button type="submit" class="btn btn-success"> <i class="fa fa-edit m-right-xs"></i> Confirmar </button>
+								<button type="submit" class="btn btn-success btn-block"> <i class="fa fa-edit m-right-xs"></i> Confirmar </button>
 								<br />
 
 								<!-- start skills -->
@@ -286,7 +287,7 @@ function CarregaUF() {
 
     var option = document.createElement('option');
         option.value = ""
-        option.value = "{{ l_estado.id }}"
+        option.value = "{{ l_estado.ibge }}"
         option.text  = "{{ l_estado.uf }}"
 
     selectUF.add(option);
@@ -300,9 +301,10 @@ function CarregaCidade() {
 
  var select = document.getElementById('uf');
 
- var selectCidade = document.getElementById('cidade');
 
- $("#cidade").empty();
+ var selectCidade = document.getElementById('municipio');
+
+ $("#municipio").empty();
 
  {% for l_cidade in cidade %}
 

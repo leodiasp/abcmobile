@@ -5,59 +5,47 @@
 <!-- top tiles -->
 {% if request.user.is_superuser %}
 <div class="row tile_count">
+
     <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
         <div class="left"></div>
         <a href="{% url 'portal:aluno' %} ">
-        <div class="right">
-            <span class="count_top"><i class="fa fa-user"></i> Aluno(s)</span>
-            <div class="count">{{ totAlunos }}</div>
-            <!--<span class="count_bottom"><i class="green">4% </i> From last Week</span>-->
-        </div>
+            <div class="right">
+                <span class="count_top"><i class="fa fa-user"></i> Aluno(s)</span>
+                <div class="count">{{ totAlunos }}</div>
+                <!--<span class="count_bottom"><i class="green">4% </i> From last Week</span>-->
+            </div>
         </a>
+
     </div>
 
     <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
         <div class="left"></div>
         <a href="{% url 'portal:professor' %} ">
-        <div class="right">
-            <span class="count_left"><i class="fa fa-user"></i> Professores</span>
-            <div class="count">{{ totProfessor }}</div>
-            <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>-->
-        </div>
+            <div class="right">
+                <span class="count_top"><i class="fa fa-user"></i> Professores </span>
+                <div class="count">{{ totProfessor }}</div>
+                <!--<span class="count_bottom"><i class="green">4% </i> From last Week</span>-->
+            </div>
         </a>
+
     </div>
 
     <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
         <div class="left"></div>
         <a href="{% url 'portal:responsavel' %} ">
-        <div class="right">
-            <span class="count_left"><i class="fa fa-user"></i> Responsável </span>
-            <div class="count">{{ totResponsavel }}</div>
-            <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>-->
-        </div>
-             </a>
-    </div>
-
-    <div class="animated flipInY col-md-3 col-sm-2 col-xs-2 tile_stats_count">
-        <div class="left"></div>
-        <div class="right">
-            <span class="count_top"><i class="fa fa-money"></i> Pagtos Confirmados </span>
-            <div class="count">
-
-                {{ totTitulosPagos }}
-
+            <div class="right">
+                <span class="count_top"><i class="fa fa-user"></i> Responsável </span>
+                <div class="count">{{ totResponsavel }}</div>
+                <!--<span class="count_bottom"><i class="green">4% </i> From last Week</span>-->
             </div>
-            <!--<span class="count_bottom"><i class="red"><i class="fa fa-sort-desc"></i>12% </i> From last Week</span>-->
-        </div>
+        </a>
+
     </div>
-    <div class="animated flipInY col-md-3 col-sm-2 col-xs-2 tile_stats_count">
+    <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
         <div class="left"></div>
-        <div class="right">
-            <span class="count_top"><i class="fa fa-user"></i> Pagtos Pendentes</span>
-            <div class="count">{{ totTitulosAbertos }}</div>
-            <!--<span class="count_bottom"><i class="green"><i class="fa fa-sort-asc"></i>34% </i> From last Week</span>-->
-        </div>
     </div>
+
+
 
 
 </div>
@@ -68,7 +56,7 @@
     <div class="x_content">
         <div class="x_title">
             {% if request.user.is_superuser %}
-            <h2> Olá {{ request.user.first_name }} (Administrador) - Bem Vindo ao Portal ABC Mobile. <small></small></h2>
+            <h2> Olá {{ request.user.first_name }} {{ request.user.last_name }} , Seja Bem Vindo ao Portal ABC Mobile. <small></small></h2>
             {% else %}
             <h2> Olá {{ request.user.first_name }}. <small></small></h2>
             {% endif %}
@@ -198,20 +186,17 @@
 
                     </ul>
 
-                    <ul class="list-unstyled user_data">
-                        <li><i class="fa fa-map-marker user-profile-icon"></i> UF {{ reginstituicao.estado }}
-                        <li><i class="fa fa-map-marker user-profile-icon"></i> Cidade {{ reginstituicao.cidade }}, BRASIL
-                        </li>
-                        <li class="m-top-xs">
-                            <i class="fa fa-external-link user-profile-icon"></i>
-                            E-mail:{{ reginstituicao.email }}
-                        </li>
-                    </ul>
+                    <!--<ul class="list-unstyled user_data">-->
+
+                        <!--<li><i class="fa fa-map-marker user-profile-icon"></i> Cidade {{ reginstituicao.cidade }}, BRASIL-->
+                        <!--</li>-->
+
+                    <!--</ul>-->
 
                     {% if request.user.is_superuser %}
 
                     <a href="{% url 'portal:instituicao_edit' pk=reginstituicao.pk %}" >
-                        <button type="submit" class="btn btn-success"> <i class="fa fa-edit m-right-xs"></i> Alterar </button>
+                        <button type="submit" class="btn btn-success btn-block"> <i class="fa fa-edit m-right-xs"></i> Alterar </button>
                     </a>
                     <br />
 
@@ -226,40 +211,34 @@
                     <h3> <b> <i>  {{ reginstituicao.nomefantasia }} ( {{ reginstituicao.razaosocial }} )</i> </b> </h3>
 
                     <h4> <b> <i> CNPJ: {{ reginstituicao.cgc }} </i> </b></h4>
+                    <h4> <b> <i> INSC. ESTADUAL: {{ reginstituicao.inscestadual }} </i> </b></h4>
+
                 </div>
 
-                <div class="fa user-profile-icon">
-                    <h4> <b> <i> Telefone: {{ reginstituicao.telefone }} </i> </b></h4>
-
-                    <h4> <b> <i> Telefax: {{ reginstituicao.telefax }} </i> </b></h4>
-                </div>
-                <br />
-                <div class="fa user-profile-icon">
-
-                    <h4> <b> <i> Insc. Estadual: {{ reginstituicao.inscestadual }} </i> </b></h4>
+                <div class="fa user-profile-icon ">
+                    <h4> <b> <i> TELEFONE: {{ reginstituicao.telefone }} </i> </b></h4>
+                    <h4> <b> <i> TELEFAX: {{ reginstituicao.telefax }} </i> </b></h4>
+                    <h4> <b> <i> E-MAIL: {{ reginstituicao.email }} </i> </b></h4>
 
                 </div>
 
                 <hr >
 
                 <!--<div class="col-md-9 col-sm-9 col-xs-12">-->
-
-                    <div class="fa user-profile-icon">
-
-                            <h4> <b>  <i> Endereço : {{ reginstituicao.endereco }} </i> </b></h4>
-
-                            <h4> <b>  <i> Complemento : {{ reginstituicao.complemento }} </i> </b></h4>
-
-                    </div>
-
-                    <div class="fa user-profile-icon">
-
-                            <h4> <b>  <i> Bairro : {{ reginstituicao.bairro }} </i> </b></h4>
-
-                            <h4> <b>  <i> Cep : {{ reginstituicao.cep }} </i> </b></h4>
+                <div class="fa user-profile-icon col-md-6">
+                    <h4> <b> <i> ENDEREÇO: {{ reginstituicao.endereco }} </i> </b></h4>
+                    <h4> <b> <i> COMPLEMENTO:   {{ reginstituicao.complemento }} </i> </b></h4>
 
 
-                    </div>
+                </div>
+
+                <div class="fa user-profile-icon ">
+                    <h4> <b> <i> CEP : {{ reginstituicao.cep }} </i> </b></h4>
+                    <h4> <b> <i> BAIRRO:   {{ reginstituicao.bairro }} </i> </b></h4>
+
+                </div>
+
+                <hr >
                 <!--</div>-->
                 <!-- start of user-activity-graph -->
                 <!--<div id="graph_bar" style="width:100%; height:280px;"></div>-->

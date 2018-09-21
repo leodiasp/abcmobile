@@ -41,8 +41,8 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'portal',
-    'mobile',
-
+    'api',
+    'rest_framework',
 ]
 
 MIDDLEWARE = [
@@ -89,6 +89,9 @@ WSGI_APPLICATION = 'ABCMobile.wsgi.application'
 DATABASES = {
     'default': {
         'ENGINE': 'django.db.backends.mysql',
+        'OPTIONS': {
+            "init_command": "SET foreign_key_checks = 0;",
+        },
         'CONN_MAX_AGE': 3600,
         'NAME': 'abcmobile',
         'USER': 'root',
