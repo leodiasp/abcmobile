@@ -8,6 +8,53 @@
 
     <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
         <div class="left"></div>
+        <!--<a href="{% url 'portal:aluno' %} ">-->
+        <!--<div class="right">-->
+        <!--<span class="count_top"><i class="fa fa-user"></i> Aluno(s)</span>-->
+        <!--<div class="count">{{ totAlunos }}</div>-->
+        <!--&lt;!&ndash;<span class="count_bottom"><i class="green">4% </i> From last Week</span>&ndash;&gt;-->
+        <!--</div>-->
+        <!--</a>-->
+
+    </div>
+
+    <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+        <!--<div class="left"></div>-->
+        <!--<a href="{% url 'portal:aluno' %} ">-->
+        <!--<div class="right">-->
+        <!--<span class="count_top"><i class="fa fa-user"></i> Aluno(s)</span>-->
+        <!--<div class="count">{{ totAlunos }}</div>-->
+        <!--&lt;!&ndash;<span class="count_bottom"><i class="green">4% </i> From last Week</span>&ndash;&gt;-->
+        <!--</div>-->
+        <!--</a>-->
+
+    </div>
+
+    <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+        <!--<div class="left"></div>-->
+        <!--<a href="{% url 'portal:aluno' %} ">-->
+        <!--<div class="right">-->
+        <!--<span class="count_top"><i class="fa fa-user"></i> Aluno(s)</span>-->
+        <!--<div class="count">{{ totAlunos }}</div>-->
+        <!--&lt;!&ndash;<span class="count_bottom"><i class="green">4% </i> From last Week</span>&ndash;&gt;-->
+        <!--</div>-->
+        <!--</a>-->
+
+    </div>
+    <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+        <div class="left"></div>
+        <a href="{% url 'portal:responsavel' %} ">
+            <div class="right">
+                <span class="count_top"><i class="fa fa-user"></i> Responsável(s)</span>
+                <div class="count">{{ totResponsavel }}</div>
+                <!--<span class="count_bottom"><i class="green">4% </i> From last Week</span>-->
+            </div>
+        </a>
+
+    </div>
+
+    <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
+        <div class="left"></div>
         <a href="{% url 'portal:aluno' %} ">
             <div class="right">
                 <span class="count_top"><i class="fa fa-user"></i> Aluno(s)</span>
@@ -30,23 +77,21 @@
 
     </div>
 
-    <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
-        <div class="left"></div>
-        <a href="{% url 'portal:responsavel' %} ">
-            <div class="right">
-                <span class="count_top"><i class="fa fa-user"></i> Responsável </span>
-                <div class="count">{{ totResponsavel }}</div>
-                <!--<span class="count_bottom"><i class="green">4% </i> From last Week</span>-->
-            </div>
-        </a>
 
-    </div>
-    <div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">
-        <div class="left"></div>
-    </div>
+    <!--<div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">-->
+    <!--<div class="left"></div>-->
+    <!--&lt;!&ndash;<a href="{% url 'portal:responsavel' %} ">&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="right">&ndash;&gt;-->
+    <!--&lt;!&ndash;<span class="count_top"><i class="fa fa-user"></i> Responsável </span>&ndash;&gt;-->
+    <!--&lt;!&ndash;<div class="count">{{ totResponsavel }}</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;&lt;!&ndash;<span class="count_bottom"><i class="green">4% </i> From last Week</span>&ndash;&gt;&ndash;&gt;-->
+    <!--&lt;!&ndash;</div>&ndash;&gt;-->
+    <!--&lt;!&ndash;</a>&ndash;&gt;-->
 
-
-
+    <!--</div>-->
+    <!--<div class="animated flipInY col-md-2 col-sm-4 col-xs-4 tile_stats_count">-->
+    <!--<div class="left"></div>-->
+    <!--</div>-->
 
 </div>
 {% endif %}
@@ -188,8 +233,8 @@
 
                     <!--<ul class="list-unstyled user_data">-->
 
-                        <!--<li><i class="fa fa-map-marker user-profile-icon"></i> Cidade {{ reginstituicao.cidade }}, BRASIL-->
-                        <!--</li>-->
+                    <!--<li><i class="fa fa-map-marker user-profile-icon"></i> Cidade {{ reginstituicao.cidade }}, BRASIL-->
+                    <!--</li>-->
 
                     <!--</ul>-->
 
@@ -207,46 +252,58 @@
 
                 </div>
 
-                <div class="fa user-profile-icon col-md-6">
+                <div class="fa user-profile-icon">
                     <h3> <b> <i>  {{ reginstituicao.nomefantasia }} ( {{ reginstituicao.razaosocial }} )</i> </b> </h3>
 
-                    <h4> <b> <i> CNPJ: {{ reginstituicao.cgc }} </i> </b></h4>
-                    <h4> <b> <i> INSC. ESTADUAL: {{ reginstituicao.inscestadual }} </i> </b></h4>
+                </div>
+
+                <div class="fa user-profile-icon col-md-5">
+                    <h4> <b>  CNPJ: {{ reginstituicao.cgc }}   </b></h4>
 
                 </div>
 
-                <div class="fa user-profile-icon ">
-                    <h4> <b> <i> TELEFONE: {{ reginstituicao.telefone }} </i> </b></h4>
-                    <h4> <b> <i> TELEFAX: {{ reginstituicao.telefax }} </i> </b></h4>
-                    <h4> <b> <i> E-MAIL: {{ reginstituicao.email }} </i> </b></h4>
+                <div class="fa user-profile-icon col-md-4">
+                    <h4> <b>  INSC. ESTADUAL: {{ reginstituicao.inscestadual }}  </b></h4>
 
                 </div>
 
-                <hr >
+                <div class="fa user-profile-icon col-md-3">
+                    <h4> <b>    TELEFONE: {{ reginstituicao.telefone }}    </b></h4>
+                </div>
 
-                <!--<div class="col-md-9 col-sm-9 col-xs-12">-->
+                <div class="fa user-profile-icon col-md-3">
+                    <h4> <b>  TELEFAX: {{ reginstituicao.telefax }} </b></h4>
+                </div>
+
                 <div class="fa user-profile-icon col-md-6">
-                    <h4> <b> <i> ENDEREÇO: {{ reginstituicao.endereco }} </i> </b></h4>
-                    <h4> <b> <i> COMPLEMENTO:   {{ reginstituicao.complemento }} </i> </b></h4>
-
-
+                    <h4> <b>   E-MAIL: {{ reginstituicao.email }}  </b></h4>
                 </div>
 
-                <div class="fa user-profile-icon ">
-                    <h4> <b> <i> CEP : {{ reginstituicao.cep }} </i> </b></h4>
-                    <h4> <b> <i> BAIRRO:   {{ reginstituicao.bairro }} </i> </b></h4>
+                <hr>
 
+                <div class="fa user-profile-icon col-md-6">
+                    <h4> <b>   ENDEREÇO: {{ reginstituicao.endereco }} , COMPLEMENTO:{{ reginstituicao.complemento }}  </b></h4>
                 </div>
 
-                <hr >
-                <!--</div>-->
-                <!-- start of user-activity-graph -->
-                <!--<div id="graph_bar" style="width:100%; height:280px;"></div>-->
-                <!-- end of user-activity-graph -->
+
+                <div class="fa user-profile-icon col-md-4">
+                    <h4> <b>   BAIRRO: {{ reginstituicao.bairro }}   </b></h4>
+                </div>
+
+                <div class="fa user-profile-icon col-md-2">
+                    <h4> <b>  CEP: {{ reginstituicao.cep }} </b></h4>
+                </div>
+
+                <div class="fa user-profile-icon col-md-3">
+                    <h4> <b>   CIDADE: {{ reginstituicao.cidade }}  </b></h4>
+                </div>
 
             </div>
             <!-- Fim Teste -->
         </div>
+
+        <!-- Começou aqui - Aluno ! -->
+
         <div class="x_panel" >
             <div class="x_title">
                 <h2> Galeria de Alunos <small></small></h2>
@@ -265,84 +322,167 @@
                 <div class="clearfix"></div>
             </div>
 
-            <div class="x_content" align="center">
 
-                <div class="x_content" >
 
-                    <div class="row">
+            <div class="x_content" >
+                <table id="datatable-buttons" class="table table-striped table-bordered center"  >
 
-                        {% for regAlunos in alunos %}
-                        <div class="col-md-55">
-                            <div class="thumbnail">
-                                <div class="image view view-first">
-                                    <!--<img style="width: 100%; display: block;" src="images/4.jpg" alt="image" />-->
-                                    <a href="{% url 'portal:form_aluno' pk=regAlunos.pk %}">
-                                        <img style="width: 100%; display: block;" src="/media/{{ regAlunos.imagem }}" alt="image">
-                                    </a>
-                                </div>
-                                <div class="caption">
-                                    <p>{{ regAlunos.nome }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <!-- Fim - Galeria de Alunos -->
+                    <thead>
 
-                </div>
+                    <tr>
+                        <th>Foto</th>
+                        <th>Nome</th>
+                        <th>E-mail</th>
+                        <th>Celular</th>
+                        <th>Whatsapp</th>
+                        <th>Ação</th>
+                        <!--s-->
+
+                    </tr>
+
+                    </thead>
+
+                    <tbody>
+
+                    {% for regAlunos in alunos %}
+
+                    <tr>
+                        <td>
+
+                            <a href="{% url 'portal:form_aluno' pk=regAlunos.pk %}">
+
+                                <img style="width: 100%; display: block;" src="/media/{{ regAlunos.imagem }}" alt="image">
+
+                            </a>
+
+
+                        </td>
+
+                        <td class="col-md-4"> {{ regAlunos.nome }}     </td>
+                        <td class="col-md-3"> {{ regAlunos.email }}    </td>
+                        <td class="col-md-3"> {{ regAlunos.celular }}  </td>
+                        <td class="col-md-3"> {{ regAlunos.whatsapp }} </td>
+
+                       <td>
+                        <a href="{% url 'portal:form_aluno' pk=regAlunos.pk %}">
+                        <button class="btn btn-success btn-sm" title="Visualizar Dados"><i class="glyphicon glyphicon-search"></i>  </button>
+                        </a>
+
+                        </td>
+
+
+                    </tr>
+
+                    {% endfor %}
+
+                    </tbody>
+
+
+                </table>
+
             </div>
-
         </div>
-        <div class="x_panel" >
-            <div class="x_title">
-                <h2> Galeria de Professores <small></small></h2>
 
-                <ul class="nav navbar-right panel_toolbox">
-                    <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
-                    </li>
-                    <li class="dropdown">
-                        <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+        <!-- Terminou Aqui - Aluno -->
 
-                    </li>
-                    <li><a class="close-link"><i class="fa fa-close"></i></a>
-                    </li>
-                </ul>
+        <!-- Começou aqui - Professor ! -->
 
-                <div class="clearfix"></div>
-            </div>
+        <!--<div class="x_panel" >-->
+        <!--<div class="x_title">-->
+        <!--<h2> Galeria de Professor <small></small></h2>-->
 
-            <div class="x_content" align="center">
+        <!--<ul class="nav navbar-right panel_toolbox">-->
+        <!--<li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>-->
+        <!--</li>-->
+        <!--<li class="dropdown">-->
+        <!--<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>-->
 
-                <div class="x_content" >
-                    <!-- Inicio Galeria Professores-->
+        <!--</li>-->
+        <!--<li><a class="close-link"><i class="fa fa-close"></i></a>-->
+        <!--</li>-->
+        <!--</ul>-->
 
-                    <div class="row">
+        <!--<div class="clearfix"></div>-->
+        <!--</div>-->
 
 
-                        <!--<p>Galeria de Aluno</p>-->
-                        {% for regProfessores in professores %}
-                        <div class="col-md-55">
-                            <div class="thumbnail">
-                                <div class="image view view-first">
-                                    <!--<img style="width: 100%; display: block;" src="images/4.jpg" alt="image" />-->
-                                    <a href="{% url 'portal:form_professor' pk=regProfessores.pk %}">
-                                        <img style="width: 100%; display: block;" src="/media/{{ regProfessores.imagem }}" alt="image">
-                                    </a>
 
-                                </div>
-                                <div class="caption">
-                                    <p>{{ regProfessores.nome }}</p>
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    </div>
-                    <!-- Fim - Galeria de Professores -->
+        <!--<div class="x_content" >-->
+        <!--<table id="datatable-buttons1" class="table table-striped table-bordered center"  >-->
 
-                </div>
-            </div>
+        <!--<thead>-->
 
-        </div>
+        <!--<tr>-->
+        <!--<th>Foto</th>-->
+        <!--<th>Nome</th>-->
+        <!--<th>E-mail</th>-->
+        <!--<th>Celular</th>-->
+        <!--<th>Whatsapp</th>-->
+        <!--&lt;!&ndash;s&ndash;&gt;-->
+
+        <!--</tr>-->
+
+        <!--</thead>-->
+
+        <!--<tbody>-->
+
+        <!--{% for regProfessores in professores %}-->
+
+        <!--<tr>-->
+
+        <!--<td>-->
+
+        <!--&lt;!&ndash;<div class="thumbnail">&ndash;&gt;-->
+        <!--&lt;!&ndash;<div class="image view view-first">&ndash;&gt;-->
+        <!--&lt;!&ndash;<img style="width: 100%; display: block;" src="images/4.jpg" alt="image" />&ndash;&gt;-->
+        <!--<a href="{% url 'portal:form_professor' pk=regProfessores.pk %}">-->
+        <!--<img style="width: 100%; display: block;" src="/media/{{ regProfessores.imagem }}" alt="image">-->
+        <!--</a>-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+        <!--&lt;!&ndash;</div>&ndash;&gt;-->
+
+
+        <!--</td>-->
+
+        <!--<td class="col-md-4">-->
+        <!--{{ regProfessores.nome }}-->
+        <!--</td>-->
+
+        <!--<td class="col-md-3">-->
+        <!--{{ regProfessores.email }}-->
+        <!--</td>-->
+
+        <!--<td class="col-md-3">-->
+        <!--{{ regProfessores.celular }}-->
+        <!--</td>-->
+
+        <!--<td class="col-md-3">-->
+        <!--{{ regProfessores.whatsapp }}-->
+        <!--</td>-->
+
+
+
+
+        <!--</td>-->
+
+
+
+        <!--</tr>-->
+        <!--{% endfor %}-->
+
+        <!--</tbody>-->
+
+
+        <!--</table>-->
+
+        <!--</div>-->
+        <!--</div>-->
+
+
+
+
+        <!-- Terminou Aqui - Professor -->
+
 
         {% endfor %}
 

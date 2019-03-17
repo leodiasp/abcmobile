@@ -2,101 +2,94 @@
 
 {% block content %}
 
-<div class="col-md-12 col-sm-12 col-xs-12">
-	<div class="x_panel">
-		<div class="x_title">
-			<h2>Lista de Professor(s) <small></small></h2>
-			<ul class="nav navbar-right panel_toolbox">
-				<li><a href="#"><i class="fa fa-chevron-up"></i></a>
-				</li>
-				<li class="dropdown">
-					<a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
-					<ul class="dropdown-menu" role="menu">
-						<li>
-							<a href="{% url 'portal:importacao_excel' pk=0 %}"><strong>INCLUIR</strong></a>
-						</li>
+<div class="x_panel" >
+    <div class="x_title">
+        <h2> Lista de Professor(s) <small></small></h2>
 
-					</ul>
-				</li>
-				<li><a href="#"><i class="fa fa-close"></i></a>
-				</li>
-			</ul>
-			<div class="clearfix"></div>
-		</div>
+        <ul class="nav navbar-right panel_toolbox">
+            <li><a class="collapse-link"><i class="fa fa-chevron-up"></i></a>
+            </li>
+            <li class="dropdown">
+                <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false"><i class="fa fa-wrench"></i></a>
+
+            </li>
+            <li><a class="close-link"><i class="fa fa-close"></i></a>
+            </li>
+        </ul>
+
+        <div class="clearfix"></div>
+    </div>
 
 
-		<div class="x_content">
 
-			<table id="datatable-buttons" class="table table-striped table-bordered">
-				<thead>
-				<tr>
-					<th width="10%">Registro</th>
-					<th width="40%">Nome do Professor </th>
-					<th width="20%">Bairro </th>
-					<th width="20%">Cidade </th>
-					<!--<th width="5%"> <a href="#" title="Selecionar Todos"  id="acao" onclick="marcarTodos(this.checked);" > Todos </a> </th>-->
-					<!--<th width="5%"> <input type="checkbox" title="Selecionar Todos"  id="cores" onclick="marcarTodos(this.checked);" >  </input> </th>-->
-					<th width="5%"> Ação </th>
+    <div class="x_content" >
+        <table id="datatable-buttons" class="table table-striped table-bordered center"  >
 
-				</tr>
-				</thead>
+            <thead>
 
+            <tr>
+                <th>Registro</th>
+                <th>Nome</th>
+                <th>E-mail</th>
+                <th>Celular</th>
+                <th>Whatsapp</th>
+                <th>Ação</th>
+                <!--s-->
 
-				<tbody>
-				{% for reg in dados %}
+            </tr>
 
-				<tr>
-					<td>{{ reg.registro_professor  }}</td>
-					<td>{{ reg.nome  }}</td>
-					<td>{{ reg.bairro  }}</td>
-					<td>{{ reg.cidade }} / {{ reg.uf }}</td>
-					<!--<td align="center"><input type="checkbox" name="cores[]" ></td>-->
-					<td>
-						<a href="{% url 'portal:form_professor' pk=reg.pk %}">
-							<button class="btn btn-success btn-sm"><i class="glyphicon glyphicon-search"></i> Visualizar </button>
-						</a>
+            </thead>
+
+            <tbody>
+
+            {% for regProfessor in dados %}
+
+            <tr>
+
+                <td>
+
+                    {{ regProfessor.registro_professor }}
 
 
-					</td>
+                </td>
 
-				</tr>
-				{% endfor %}
-				</tbody>
-			</table>
+                <td class="col-md-4">
+                    {{ regProfessor.nome }}
+                </td>
+
+                <td class="col-md-3">
+                    {{ regProfessor.email }}
+                </td>
+
+                <td class="col-md-3">
+                    {{ regProfessor.celular }}
+                </td>
+
+                <td class="col-md-3">
+                    {{ regProfessor.whatsapp }}
+                </td>
+
+                <td>
+                    <a href="{% url 'portal:form_professor' pk=regProfessor.pk %}">
+                        <button class="btn btn-success btn-sm"><i class="glyphicon glyphicon-search"></i> Visualizar </button>
+                    </a>
 
 
-		</div>
-	</div>
+                </td>
+
+
+
+            </tr>
+            {% endfor %}
+
+            </tbody>
+
+
+        </table>
+
+    </div>
 </div>
 
-<script language="javascript">
 
-function marcarTodos(marcar){
-
-//  alert('Entrou na Funcao - Marcar Todos');
-
-  var item  = document.getElementById('cores');
-  var itens = document.getElementsByName('cores[]');
-
-
-  if(item.checked){
-      //document.getElementById('acao').innerHTML = 'Desmarcar Todos';
-      var i = 0;
-      for(i=0; i<itens.length;i++){
-         itens[i].checked = 1;
-         }
-
-  }else{
-     // document.getElementById('acao').innerHTML = 'Marcar Todos';
-      var i = 0;
-      for(i=0; i<itens.length;i++){
-         itens[i].checked = 0;
-         }
-   }
-
-
-}
-
-</script>
 
 {% endblock %}

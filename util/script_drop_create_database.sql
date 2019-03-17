@@ -4,25 +4,32 @@ DROP DATABASE IF EXISTS abcmobile;
 CREATE DATABASE abcmobile;
 ***/
 /**************************************/
-select * from abcmobile.auth_user;
-select * from abcmobile.portal_pais;
-select * from abcmobile.portal_estado;
-select * from abcmobile.portal_cidade where 1=1 and estado_id = '33';
-select * from abcmobile.portal_instituicao;
-/***
+/* User */
+select * from abcmobile.auth_user u 
+ where 1=1
+ --  and u.username = '2586809629.0' -- ; '0829.168.572-4'
+   and u.is_superuser = 0
+   ;
+ALTER TABLE `abcmobile`.`auth_user` 
+AUTO_INCREMENT = 1 ;
+
+
+/* Periodo Letivo */
 select * from abcmobile.portal_periodoletivo;
 
-select * from abcmobile.portal_responsavel r where 1=1 and r.registro_responsavel = 3;
-select * from abcmobile.portal_aluno WHERE 1=1 AND REGISTRO_ALUNO = '3989';
-select * from abcmobile.portal_professor;
+/* Aluno */
+select * from abcmobile.portal_aluno;
 
-select * 
--- delete
-from abcmobile.portal_boletim
- where 1=1
-   and aluno_id = 3989
- ;
-select * from abcmobile.portal_boletim2;
-**/
-select * from abcmobile.portal_tabelaimportacao;
-select * from abcmobile.portal_importacaoxls;
+/* Professor */
+select * from abcmobile.portal_professor P 
+ WHERE 1=1 
+  AND P.nome = 'Josinês Luz Santos';
+
+/* Boletim */
+select * from abcmobile.portal_boletim b where 1=1 ;
+-- delete from abcmobile.portal_boletim
+
+ALTER TABLE `abcmobile`.`portal_boletim` 
+AUTO_INCREMENT = 1 ;
+
+

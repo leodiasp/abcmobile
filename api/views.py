@@ -4,9 +4,9 @@ from rest_framework.decorators import api_view
 
 from rest_framework import generics, status
 from rest_framework.response import Response
-from portal.models import User, Responsavel
+from portal.models import User #, Responsavel
 
-from .serializers import UserSerializer, ResponsavelSerializer
+from .serializers import UserSerializer #, ResponsavelSerializer
 
 from rest_framework.views import APIView
 from rest_framework.response import Response
@@ -68,18 +68,35 @@ def ResponsavelList(request):
     #         return Response(serializer.data, status=status.HTTP_201_CREATED)
     #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
+@api_view(['GET', 'POST'])
+def UsuarioList(request):
+    """
+    List all code snippets, or create a new snippet.
+    """
+    if request.method == 'GET':
+        usuario = User.objects.all()
+        serializer = UserSerializer(usuario, many=True)
+        return Response(serializer.data)
 
-class UserList(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin,generics.GenericAPIView):
+    # elif request.method == 'POST':
+    #     serializer = SnippetSerializer(data=request.data)
+    #     if serializer.is_valid():
+    #         serializer.save()
+    #         return Response(serializer.data, status=status.HTTP_201_CREATED)
+    #     return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
-    queryset = User.objects.all()
-    #queryset = User.objects.filter(pk=pk)
-    serializer_class = UserSerializer
 
-    def get(self, request, *args, **kwargs):
-        return self.retrieve(request, *args, **kwargs)
-
-    def put(self, request, *args, **kwargs):
-        return self.update(request, *args, **kwargs)
-
-    def delete(self, request, *args, **kwargs):
-        return self.destroy(request, *args, **kwargs)
+# class UserList(mixins.RetrieveModelMixin, mixins.UpdateModelMixin, mixins.DestroyModelMixin,generics.GenericAPIView):
+#
+#     queryset = User.objects.all()
+#
+#     serializer_class = UserSerializer
+#
+#     def get(self, request, *args, **kwargs):
+#         return self.retrieve(request, *args, **kwargs)
+#
+#     def put(self, request, *args, **kwargs):
+#         return self.update(request, *args, **kwargs)
+#
+#     def delete(self, request, *args, **kwargs):
+#         return self.destroy(request, *args, **kwargs)

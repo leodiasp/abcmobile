@@ -1,9 +1,64 @@
 # -*- coding: utf-8 -*-
+from __future__ import unicode_literals
+
 from django.contrib import admin
 #from portal.models import Pais, Estado,Cidade, Instituicao, TabelaImportacao,ImportacaoCSV, Aluno, Responsavel, Financeiro, Professor
 from portal.models import *
 
+
+from import_export import resources
+
+from import_export.admin import ImportExportModelAdmin
+
+from django.contrib.auth.models import User
+
+import sys
+reload(sys)
+sys.setdefaultencoding('utf8')
+# from portal.models import Estado
+
+
+
 # Register your models here.
+class EstadoResource(resources.ModelResource):
+
+    class Meta:
+        model = Estado
+
+class EstadoAdmin(ImportExportModelAdmin):
+    resource_class = EstadoResource
+
+
+
+class AlunoResource(resources.ModelResource):
+
+    class Meta:
+        model = Aluno
+        #fields = ('registro_aluno','nome','nome_abreviado','email','celular','whatsapp')
+        import_id_fields = ('registro_aluno','nome','nome_abreviado','email','celular','whatsapp',)
+        exclude = (' id ',)
+        # skip_unchanged = True
+        # report_skipped = True
+        # exclude = ('id')
+
+
+class AlunoAdmin(ImportExportModelAdmin):
+
+    resource_class = AlunoResource
+
+admin.site.register(Aluno, AlunoAdmin);
+
+
+class UserResource(resources.ModelResource):
+
+    class Meta:
+        model = User
+        #fields = ('id','username','password','email','first_name','last_name')
+
+# Import/Export
+class UserAdmin(ImportExportModelAdmin):
+    resource_class = UserResource
+
 
 class PaisAdmin(admin.ModelAdmin):
 
@@ -15,8 +70,12 @@ class PaisAdmin(admin.ModelAdmin):
 
 admin.site.register(Pais);
 
-admin.site.register(Estado);
+#admin.site.register(Estado);
+admin.site.register(Estado, EstadoAdmin);
 admin.site.register(Cidade);
+admin.site.register(TipoUser);
+
+
 
 # class InstituicaoAdmin(admin.ModelAdmin):
 #
@@ -39,28 +98,19 @@ admin.site.register(Cidade);
 #
 # admin.site.register(TabelaImportacao, TabelaImportacaoAdmin)
 
-class AlunoAdmin(admin.ModelAdmin):
 
-    model = Aluno
-    list_display = ['nome','imagem']
-    list_filter  = ['nome']
-    search_fields = ['nome']
-    save_on_top = True
-
-admin.site.register(Aluno, AlunoAdmin);
-
-class ProfessorAdmin(admin.ModelAdmin):
-
-    model = Professor
-    list_display = ['registro_professor','nome']
-    list_filter  = ['registro_professor','nome']
-    search_fields = ['registro_professor','nome']
-    save_on_top = True
-
-admin.site.register(Professor,ProfessorAdmin);
-
-admin.site.register(Financeiro);
-admin.site.register(Responsavel);
+# class ProfessorAdmin(admin.ModelAdmin):
+#
+#     model = Professor
+#     list_display = ['registro_professor','nome']
+#     list_filter  = ['registro_professor','nome']
+#     search_fields = ['registro_professor','nome']
+#     save_on_top = True
+#
+# admin.site.register(Professor,ProfessorAdmin);
+#
+# admin.site.register(Financeiro);
+# admin.site.register(Responsavel);
 
 
 # class ImportacaoCSVAdmin(admin.ModelAdmin):

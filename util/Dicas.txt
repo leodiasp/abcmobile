@@ -1,0 +1,5 @@
+
+python manage.py shell
+from portal.admin import UserResource
+dataset = UserResource().export()
+print(dataset.csv)

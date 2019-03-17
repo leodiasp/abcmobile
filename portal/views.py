@@ -1,6 +1,7 @@
 # -*- coding: utf-8 -*-
+
 from __future__ import unicode_literals
-from django.shortcuts import render, redirect,get_object_or_404, render_to_response # funcoes de renderizacao dos templates
+from django.shortcuts import render, redirect,get_object_or_404, HttpResponseRedirect, render_to_response # funcoes de renderizacao dos templates
 from django.contrib.auth import authenticate,login,logout
 from django.template import RequestContext
 from django.contrib.auth.decorators import login_required
@@ -11,7 +12,7 @@ from datetime import datetime
 from portal.models import *
 from portal.forms import *
 
-from django.db.models import Sum, Avg, FloatField, Count, F
+from django.db.models import Sum, Avg, FloatField, Count, F, Max, Min
 
 from django.core.files.storage import default_storage
 from django.core.files.base import ContentFile
@@ -38,6 +39,13 @@ import os
 from datetime import datetime
 # Create your views here.
 
+def getPeriodoLetivo():
+
+    periodoletivo = PeriodoLetivo.objects.filter(dtfinal__isnull=True)
+
+    return periodoletivo
+
+
 def mobile(request):
 
     return redirect('mobile:index')
@@ -54,8 +62,10 @@ def portal(request):
 
        if request.user.is_superuser:
            alunos = Aluno.objects.all()
-       # else: ######### REVER ESTA SITUACAO
-       #     alunos = Aluno.objects.filter(responsavel_id=request.user.responsavel_id)
+       else: ######### REVER ESTA SITUACAO
+           alunos = Aluno.objects.filter(usuario_id=request.user.pk)
+           #alunos = Aluno.objects.all()
+
 
 
        #Total Alunos
@@ -67,7 +77,8 @@ def portal(request):
        totProfessores = professores.count()
 
        # Total Responsavel
-       responsavel = Responsavel.objects.all()
+       #responsavel = User.objects.all()
+       responsavel = User.objects.filter(is_superuser=False)
        totResponsavel = responsavel.count()
 
        # Pagtos Confirmados
@@ -194,8 +205,9 @@ def do_login(request, *args, **kwargs):
                 if not user.first_name:
                     return  redirect('/admin/auth/user/%s/change/' % str(request.user.pk))
                 else:
-                    if user.is_superuser:
-                        return redirect('/portal/')
+                    # if user.is_superuser:
+                    #     return redirect('/portal/')
+                    return redirect('/portal/')
                 # else:
                 #     return redirect('mobile:index')
 
@@ -264,42 +276,30 @@ def usuario_new(request, template="form_usuario.html"):
 
 def usuario_edit(request, pk, template="form_usuario.html"):
 
-    #link = ('/admin/auth/user/%s/password/' % str(pk))
-    # link = ('/admin/auth/user/%s/change/' % str(pk))
-    #
-    # return redirect(link)
-
-    #return redirect('/responsavel_usuario/')
-
-    # if request.user.is_superuser:
-    #     link = ('/admin/auth/user/%s/password/' % str(pk))
-    #     #return redirect('/admin/auth/user/pk/change/')
-    #     return redirect(link)
-    # else:
-    #     return redirect('admin/auth/user/')
-
     usuario = User.objects.all().filter(pk=pk)
 
     if not (usuario):
 
-        responsavel = Responsavel.objects.all()
+        pass
 
-        for reg in responsavel:
-
-            #usu = User.objects.filter(username=reg.cpf)
-
-            if not (User.objects.filter(username=reg.cpf)):
-
-                username = reg.cpf
-                #username = reg.email
-                email =    reg.email
-                password = reg.cpf
-                first_name = reg.nome
-                #imagem = reg.imagem
-                reg_id = reg.pk
-                usuario = User.objects.create_user(username=username, email=email, password=password, first_name=first_name )
-                usuario.save()
-                messages.success(request, " Usuários x Responsável Criado com Sucesso ! ")
+        # responsavel = Responsavel.objects.all()
+        #
+        # for reg in responsavel:
+        #
+        #     #usu = User.objects.filter(username=reg.cpf)
+        #
+        #     if not (User.objects.filter(username=reg.cpf)):
+        #
+        #         username = reg.cpf
+        #         #username = reg.email
+        #         email =    reg.email
+        #         password = reg.cpf
+        #         first_name = reg.nome
+        #         #imagem = reg.imagem
+        #         reg_id = reg.pk
+        #         usuario = User.objects.create_user(username=username, email=email, password=password, first_name=first_name )
+        #         usuario.save()
+        #         messages.success(request, " Usuários x Responsável Criado com Sucesso ! ")
 
 
         #return redirect('/responsavel_usuario/')
@@ -318,78 +318,6 @@ def usuario_edit(request, pk, template="form_usuario.html"):
         return render(request, template, {'form': form})
 
     #return redirect('/responsavel_usuario/')
-
-
-
-
-
-# #usuario = get_object_or_404(User, pk=pk)
-    # #usuario = User.objects.filter(pk=pk)
-    #
-    # #if (usuario):
-    # if pk!=0:
-    #
-    #     #print("Usuario",usuario)
-    #
-    #     usuario = get_object_or_404(User, pk=pk)
-    #
-    #     if request.method == "POST":
-    #         form = UserForm(request.POST, request.FILES, instance=usuario)
-    #         if form.is_valid():
-    #             usuario = form.save()
-    #             messages.success(request, " Operação Realizada com Sucesso ! ")
-    #             return redirect('/portal/')
-    #     else:
-    #         form = UserForm(instance=usuario)
-    #     return render(request, template, {'form': form})
-    #
-    #     # if request.method =="POST":
-    #     #
-    #     #     #form = UserForm(request.POST, request.FILES or None)
-    #     #
-    #     #     username =  request.POST['username']
-    #     #     email    =  request.POST['email']
-    #     #     password =   request.POST['password']
-    #     #     first_name = request.POST['first_name']
-    #     #     last_name = request.POST['last_name']
-    #     #     imagem = request.FILES['imagem']
-    #     #     print("Imagem: ",imagem)
-    #     #
-    #     #     usuario = User.objects.create_superuser(username=username,email=email,password=password,first_name=first_name,
-    #     #                                             last_name=last_name, imagem=imagem)
-    #     #     usuario.save()
-    #     #     messages.success(request, " Operação Realizada com Sucesso ! ")
-    #     #     return redirect('/portal/')
-    #     # else:
-    #     #     form = UserForm(request.POST, request.FILES or None)
-    #     #
-    #     # return render(request,template,{'form':form})
-    # else:
-    #
-    #     responsavel = Responsavel.objects.all()
-    #
-    #     for reg in responsavel:
-    #
-    #         username = reg.cpf
-    #         #username = reg.email
-    #         email =    reg.email
-    #         password = reg.cpf
-    #         first_name = reg.nome
-    #     #    last_name = request.POST['last_name']
-    #         imagem = reg.imagem
-    #
-    #         reg_id = reg.pk
-    #
-    #         usuario = User.objects.create_user(username=username, email=email, password=password, first_name=first_name,
-    #                                            imagem=imagem,responsavel_id=reg_id )
-    #         usuario.save()
-    #
-    #         # reg.usuario = request.user.pk
-    #         # reg.save()
-    #
-    # messages.success(request, " Usuários x Responsável Criado com Sucesso ! ")
-    # return redirect('/responsavel_usuario/')
-
 
 def instituicao(request,template="instituicao.html"):
 
@@ -420,7 +348,6 @@ def instituicao_edit(request,pk,template_name='form_instituicao.html'):
 
     instituicao = get_object_or_404(Instituicao, pk=pk)
 
-    #estado = Estado.objects.all()
     cidade = Cidade.objects.all().order_by('nome')
 
     src_imagem = instituicao.imagem
@@ -432,7 +359,6 @@ def instituicao_edit(request,pk,template_name='form_instituicao.html'):
             instituicao = form.save()
             messages.success(request, " Operação Realizada com Sucesso ! ")
         return render(request, template_name, {'form': form, 'cidade': cidade})
-        #return redirect('/portal/')
     else:
         form = InstituicaoForm(instance=instituicao)
 
@@ -497,28 +423,33 @@ def form_aluno(request, pk, template_name="form_aluno.html"):
         if form.is_valid():
             alunos = form.save()
             messages.success(request, " Operação Realizada com Sucesso ! ")
-            #return redirect('portal:alunos')
     else:
         form = AlunoForm(instance=alunos)
 
-    periodoletivo = PeriodoLetivo.objects.filter(dtfinal__isnull=True)
+    # periodoletivo = PeriodoLetivo.objects.filter(dtfinal__isnull=True)
 
-    boletim = Boletim.objects.filter(aluno_id=alunos,periodoletivo_id=periodoletivo)
+    # boletim = Boletim.objects.filter(aluno_id=alunos,periodoletivo_id=periodoletivo)
+    boletim = Boletim.objects.filter(aluno_id=alunos,periodoletivo_id=getPeriodoLetivo())
 
     if boletim:
 
-        print("entrou no boletim ------")
+        #periodoletivo = getPeriodoLetivo()
 
         turma = boletim.values_list('turma', flat=True).distinct()
         disciplinas = boletim.values_list('disciplina', flat=True).distinct()
         nome_disciplinas = boletim.values_list('nome_disciplina', flat=True).distinct()
 
-        for qryPeriodoLetivo in periodoletivo:
+        for qryPeriodoLetivo in getPeriodoLetivo():
+
             mensagem = "Boletim Acadêmico - %s" % (qryPeriodoLetivo.codigo)
 
-        mAluno = boletim.values('disciplina','nome_disciplina').annotate(media_disc=Avg(F('notas')))
+        # mAluno = boletim.values('disciplina','nome_disciplina').annotate(media_disc=Avg(F('notas')))
+        mAluno = boletim.values('disciplina','nome_disciplina').annotate(media_disc=Avg(F('notas'))).filter(turma=turma, periodoletivo_id=qryPeriodoLetivo.codigo)
 
-        mTurma = Boletim.objects.values('turma','disciplina','nome_disciplina').annotate(media_turma=Avg(F('notas'))).filter(turma=turma, periodoletivo_id=periodoletivo)
+        mTurma = Boletim.objects.values('turma','disciplina','nome_disciplina').annotate(media_turma=Avg(F('notas'))).filter(turma=turma, periodoletivo_id=qryPeriodoLetivo.codigo)
+        # mTurma = Boletim.objects.aggregate(media_turma=Sum('notas'))
+        # mTurma = Boletim.objects.aggregate(Max('notas'), Min('notas'))
+        print("Nova mTurma: ", mTurma)
 
         return render(request, template_name, {'form': form, 'estado': estado, 'cidade': cidade,
                                                'fotos': str(src_imagem).encode('utf-8'),
@@ -533,9 +464,6 @@ def form_aluno(request, pk, template_name="form_aluno.html"):
 
     else:
         mensagem = ' '
-        # return render(request, template_name, {'aluno': alunos,
-        #                                        'img_usuario': set_imagem(request.user),
-        #                                        'mensagem': mensagem})
 
         return render(request, template_name, {'form': form, 'estado': estado, 'cidade': cidade,
                                                'fotos': str(src_imagem).encode('utf-8'),
@@ -582,51 +510,51 @@ def form_professor(request, pk, template_name="form_professor.html"):
 # CLASSE RESPONSAVEL ===============================================================================================
 def responsavel(request,template="responsavel.html"):
 
-    dados = Responsavel.objects.all()
+    # dados = Responsavel.objects.all()
+    dados = User.objects.filter(is_superuser=False)
 
     return render(request,template,{'dados': dados})
 
 def form_responsavel(request, pk, template_name="form_responsavel.html"):
 
-    responsavel = get_object_or_404(Responsavel, pk=pk)
+    responsavel = get_object_or_404(User, pk=pk)
 
     estado = Estado.objects.all()
     cidade = Cidade.objects.all()
 
-    src_imagem = responsavel.imagem
+    # src_imagem = responsavel.imagem
 
-    print(src_imagem)
+    # print(src_imagem)
 
     if request.method == "POST":
         form = ResponsavelForm(request.POST, request.FILES, instance=responsavel)
         if form.is_valid():
-            instituicao = form.save()
+            responsavel = form.save()
             messages.success(request, " Operação Realizada com Sucesso ! ")
     else:
         form = ResponsavelForm(instance=responsavel)
-    # return render(request, template_name, {'form': form,'estado': estado,'cidade': cidade, 'responsavel': responsavel
-    #                                        ,'img_usuario':set_imagem(request.user),'fotos': str(src_imagem).encode('utf-8')})
+    return render(request, template_name, {'form': form,'responsavel': responsavel})
 
-    financeiro = Financeiro.objects.all().filter(responsavel_id=responsavel)
-
-    if financeiro:
-        # nome_responsavel = responsavel.nome
-        # mensagem = 'Boletim Acadêmico'
-
-        return render(request, template_name, {'form': form, 'estado': estado, 'cidade': cidade,
-                                               'fotos': str(src_imagem).encode('utf-8'),
-                                               'financeiro': financeiro, 'responsavel': responsavel
-                                              })
-    else:
-        mensagem = ' '
-        # return render(request, template_name, {'aluno': alunos,
-        #                                        'img_usuario': set_imagem(request.user),
-        #                                        'mensagem': mensagem})
-
-        return render(request, template_name, {'form': form, 'estado': estado, 'cidade': cidade,
-                                               'fotos': str(src_imagem).encode('utf-8'),
-                                               'responsavel': responsavel
-                                              })
+    # financeiro = Financeiro.objects.all().filter(responsavel_id=responsavel)
+    #
+    # if financeiro:
+    #     # nome_responsavel = responsavel.nome
+    #     # mensagem = 'Boletim Acadêmico'
+    #
+    #     return render(request, template_name, {'form': form, 'estado': estado, 'cidade': cidade,
+    #                                            'fotos': str(src_imagem).encode('utf-8'),
+    #                                            'financeiro': financeiro, 'responsavel': responsavel
+    #                                           })
+    # else:
+    #     mensagem = ' '
+    #     # return render(request, template_name, {'aluno': alunos,
+    #     #                                        'img_usuario': set_imagem(request.user),
+    #     #                                        'mensagem': mensagem})
+    #
+    #     return render(request, template_name, {'form': form, 'estado': estado, 'cidade': cidade,
+    #                                            'fotos': str(src_imagem).encode('utf-8'),
+    #                                            'responsavel': responsavel
+    #                                           })
 
 
 # CLASSE FINANCEIRO ===============================================================================================
@@ -653,22 +581,57 @@ def upload_csv (request):
 
 # CLASSE IMPORTACAO EXCEL ======================================================================================
 
+def excluir_dados_importacao(request, pk,template_name="importacao_excel.html"):
+
+    importacaoxls = ImportacaoXLS.objects.filter(pk=pk)
+
+    for regimportacaoxls in importacaoxls:
+
+        caminho_xls = 'media/' + str(regimportacaoxls.arquivo)
+
+        if regimportacaoxls.tabelaimportacao.nome == 'BOLETIM':
+
+            boletim = Boletim.objects.filter(arquivo_importado=caminho_xls)
+
+            if boletim:
+
+                print("Ectrou no IF do Boletim")
+                print("Dt Importacao: %s" % str(regimportacaoxls.dtimportacao))
+
+                regimportacaoxls.dtimportacao.False
+                regimportacaoxls.stimportacao = False
+                regimportacaoxls.save()
+                mensagem = "Registro Excluído - Planilha: [%s] !" % str(regimportacaoxls.arquivo)
+                messages.success(request, mensagem)
+
+            else:
+                # regimportacaoxls.dtimportacao = ""
+                regimportacaoxls.stimportacao = False
+                regimportacaoxls.save()
+                mensagem = "Não Existe Registro para Exclusão - Planilha: [%s] !" % str(regimportacaoxls.arquivo)
+                messages.error(request, mensagem)
+
+        return render(request, template_name, {'importacaoxls': importacaoxls})
+
 def importacao_excel (request,pk, template_name="importacao_excel.html"):
 
-    importacaoxls = ImportacaoXLS.objects.all().filter(pk=pk)
+    importacaoxls = ImportacaoXLS.objects.filter(pk=pk)
 
     if not (importacaoxls):
 
-        #importacaoxls = ImportacaoXLS.objects.filter(stimportacao=False).order_by('posicao_xls')
-        importacaoxls = ImportacaoXLS.objects.filter(stimportacao=False)
+        # importacaoxls = ImportacaoXLS.objects.filter(stimportacao=False)
+        importacaoxls = ImportacaoXLS.objects.all().order_by('-dtimportacao')
         return render(request, template_name, {'importacaoxls': importacaoxls})
 
     else:
 
-        tabelaimportacao = TabelaImportacao.objects.all().filter(importacaoxls=importacaoxls)
 
-        # pais = Pais.objects.all().filter(stativo=True)
-        # print ("Pais",pais)
+        def getUsuario(registro):
+            usuario = User.objects.filter(username=registro)
+            return usuario
+
+        instituicao = Instituicao.objects.all()
+        tabelaimportacao = TabelaImportacao.objects.all().filter(importacaoxls=importacaoxls)
 
         for pais_ativo in Pais.objects.all().filter(stativo=True):
             pass
@@ -676,18 +639,10 @@ def importacao_excel (request,pk, template_name="importacao_excel.html"):
         for regimportacaoxls in importacaoxls:
 
             caminho_xls = 'media/'+str(regimportacaoxls.arquivo)
-            print "Caminho %s" % str(caminho_xls)
 
-            #arquivo_xls = xlrd.open_workbook('media/csv/ABCMOBILE.xlsx')
-
-            #arquivo_xls = xlrd.open_workbook('media/'+str(caminho_xls))
-            #arquivo_xls = xlrd.open_workbook(str(caminho_xls))
             arquivo_xls = xlrd.open_workbook(caminho_xls)
-            print ("Arquivo: %s | %s" % (regimportacaoxls.tabelaimportacao.nome, str(arquivo_xls)))
 
             planilha = arquivo_xls.sheet_by_index(0)
-
-            #excluir = request.POST['excluir']
 
             for row_num in xrange(planilha.nrows):
 
@@ -700,80 +655,53 @@ def importacao_excel (request,pk, template_name="importacao_excel.html"):
                 if regimportacaoxls.tabelaimportacao.nome == 'RESPONSAVEL':
 
                     datemode = arquivo_xls.datemode
-                    dtnascimento = datetime(*xlrd.xldate_as_tuple(row[3],datemode))
 
-
-                    t_csv = Responsavel(registro_responsavel=int(row[0]),
-                                        nome=row[1],
-                                        nome_abreviado=row[2],
-                                        dtnascimento = dtnascimento,
-                                        sexo=row[4],
-                                        cpf=row[5],
-                                        identidade=row[6],
-                                        email=row[7],
-                                        endereco=str(row[8]).decode('latin-1').encode('utf-8'),
-                                        complemento=row[9],
-                                        bairro=row[10],
-                                        cidade=row[11],
-                                        uf=row[12],
-                                        cep=row[13],
-                                        telefone=row[14],
-                                        telefone2=row[15],
-                                        #arquivo_importado=str(caminho_xls)
-
-                                        )
+                    if not getUsuario(row[2]):
+                        t_csv = User.objects.create_user(username=row[2], email=row[3], password=row[2],
+                                                         first_name=row[1])
+                        t_csv.save()
 
                 #ALUNO
                 if regimportacaoxls.tabelaimportacao.nome == 'ALUNO':
 
                     datemode = arquivo_xls.datemode
-                    dtnascimento = datetime(*xlrd.xldate_as_tuple(row[3],datemode))
+                    #dtnascimento = datetime(*xlrd.xldate_as_tuple(row[3],datemode))
 
-                    t_csv = Aluno(registro_aluno=int(row[0]),
-                                  nome=row[1],
-                                  nome_abreviado=row[2],
-                                  dtnascimento=dtnascimento,
-                                  sexo=row[4],
-                                  cpf=row[5],
-                                  identidade=row[6],
-                                  email=row[7],
-                                  endereco=str(row[8]).decode('latin-1').encode('utf-8'),
-                                  complemento=row[9],
-                                  bairro=row[10],
-                                  cidade=row[11],
-                                  uf=row[12],
-                                  cep=row[13],
-                                  telefone=row[14],
-                                  telefone2=row[15],
-                                  responsavel_id=row[16],
-                                  arquivo_importado = str(caminho_xls)
+                    if getPeriodoLetivo():
 
-                    )
+                        t_csv = Aluno(registro_aluno=int(row[0]),
+                                      nome=row[1],
+                                      nome_abreviado=row[2],
+                                      email=row[3],
+                                      celular=str(row[4]),
+                                      whatsapp=str(row[5]),
+                                      usuario_id=row[6],
+                                      arquivo_importado = str(caminho_xls)
+
+                                      )
+                    else:
+
+                        mensagem = "Período Letivo não Cadastrado ! "
+                        messages.error(request, mensagem)
+                        return render(request, template_name, {'importacaoxls': importacaoxls})
 
                 # PROFESSOR
                 if regimportacaoxls.tabelaimportacao.nome == 'PROFESSOR':
 
                     datemode = arquivo_xls.datemode
-                    dtnascimento = datetime(*xlrd.xldate_as_tuple(row[3], datemode))
 
                     t_csv = Professor(registro_professor=int(row[0]),
-                                       nome=row[1],
-                                       nome_abreviado=row[2],
-                                       dtnascimento= dtnascimento,
-                                       sexo=row[4],
-                                       cpf=row[5],
-                                       identidade=row[6],
-                                       email=row[7],
-                                       endereco=str(row[8]).decode('latin-1').encode('utf-8'),
-                                       complemento=row[9],
-                                       bairro=row[10],
-                                       cidade=row[11],
-                                       uf=row[12],
-                                       cep=row[13],
-                                       telefone=row[14],
-                                       telefone2=row[15],
-                                       arquivo_importado = str(caminho_xls)
-                                       )
+                                      nome=row[1],
+                                      cpf=row[2],
+                                      email=row[3],
+                                      celular=row[4],
+                                      whatsapp=row[5],
+                                      # usuario_id=row[6],
+                                      # usuario_id= t_usuario,
+                                      arquivo_importado=str(caminho_xls)
+
+                                      )
+
 
                 #BOLETIM
                 if regimportacaoxls.tabelaimportacao.nome == 'BOLETIM':
@@ -825,8 +753,9 @@ def importacao_excel (request,pk, template_name="importacao_excel.html"):
                     # mensagem = (dados.line_num)
                     messages.success(request, mensagem)
 
-                #except Exception:
-                except ValueError:
+                except Exception:
+                #except Exception as my:
+                #except ValueError:
                     #regimportacaoxls.dtimportacao = ''
                     regimportacaoxls.stimportacao = False
                     regimportacaoxls.save()

@@ -28,6 +28,12 @@ DEBUG = True
 # FOI EU - LEO DIAS
 DATA_UPLOAD_MAX_NUMBER_FIELDS = None
 
+CORS_ORIGIN_ALLOW_ALL = True
+
+# CORS_ORIGIN_WHITELIST = (
+#     'http//:localhost:8000',
+# )
+
 ALLOWED_HOSTS = []
 
 
@@ -45,16 +51,19 @@ INSTALLED_APPS = [
     'rest_framework',
     'rest_framework.authtoken',
     'rest_auth',
+    'corsheaders',
+    'import_export',
+
 ]
 
 # REST_FRAMEWORK = {
 #     'DEFAULT_AUTHENTICATION_CLASSES': (
 #         'rest_framework.authentication.TokenAuthentication',
-#         'rest_framework.authentication.SessionAuthentication',
+#         #'rest_framework.authentication.SessionAuthentication',
 #     ),
 #     'DEFAULT_PERMISSION_CLASSES': (
-#         #'rest_framework.permissions.IsAuthenticated',
-#         'rest_framework.permissions.IsAdminUser',
+#         'rest_framework.permissions.IsAuthenticated',
+#         #'rest_framework.permissions.IsAdminUser',
 #     )
 # }
 
@@ -66,6 +75,9 @@ MIDDLEWARE = [
     'django.contrib.auth.middleware.AuthenticationMiddleware',
     'django.contrib.messages.middleware.MessageMiddleware',
     'django.middleware.clickjacking.XFrameOptionsMiddleware',
+    'corsheaders.middleware.CorsMiddleware',
+    'django.middleware.common.CommonMiddleware',
+
 ]
 
 ROOT_URLCONF = 'ABCMobile.urls'

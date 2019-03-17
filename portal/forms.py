@@ -72,7 +72,7 @@ class InstituicaoForm(forms.ModelForm):
                                           }),
             'inscestadual':  forms.TextInput(attrs={'class': 'form-control','id': 'inscestadual', 'placeholder' : 'Insc. Estadual' }),
             'telefone':  forms.TextInput(attrs={'class': 'form-control','id': 'telefone', 'placeholder' : 'Telefone',
-                                                'onKeyPress': "f(telefone);",
+                                                'onKeyPress': "MascaraTelefone(telefone);",
                                                 }),
             'email':  forms.TextInput(attrs={'class': 'form-control','id': 'email', 'placeholder' : 'E-mail' }),
             'endereco':  forms.TextInput(attrs={'class': 'form-control','id': 'endereco', 'placeholder' : 'Endereço' }),
@@ -257,81 +257,34 @@ class AlunoForm(forms.ModelForm):
 
         model = Aluno
 
-        fields = ['registro_aluno','nome','nome_abreviado','dtnascimento','sexo','cpf','identidade','email',
-                  'endereco','complemento','bairro','cidade','uf','cep','telefone','telefone2', 'imagem']
+        # fields = ['registro_aluno','nome','nome_abreviado','dtnascimento','sexo','cpf','identidade','email',
+        #           'endereco','complemento','bairro','cidade','uf','cep','telefone','telefone2', 'imagem']
+
+        fields = ['registro_aluno','nome','nome_abreviado','email','celular','whatsapp', 'imagem']
 
         widgets = {
 
-            # 'instituicao': forms.Select(attrs={
-            #     'class': 'form-control', 'id': 'instituicao', 'select': 'Instituição', 'title': 'Instituição'
-            # }),
             'registro_aluno': forms.TextInput(attrs={
                 'class': 'form-control','id': 'registro_aluno', 'placeholder' : 'Registro do Aluno', 'title': 'Registro do Aluno',
                 'readonly': 'readonly'
 
             }),
-            # 'codigo': forms.TextInput(attrs={
-            #     'class': 'form-control','id': 'codigo', 'placeholder' : 'Código', 'title': 'Código'
-            # }),
             'nome': forms.TextInput(attrs={
                 'class': 'form-control','id': 'nome', 'placeholder' : 'Nome do Professor', 'title': 'Nome do Professor'
             }),
             'nome_abreviado': forms.TextInput(attrs={
                 'class': 'form-control','id': 'nome_abreviado', 'placeholder' : 'Nome Apelido', 'title': 'Nome Apelido'
             }),
-            'dtnascimento': forms.DateInput(format='%d/%m/%Y', attrs={
-                'class': 'form-control','id': 'data', 'placeholder' : 'Data de Nascimento', 'title': 'Data de Nascimento',
-                'onKeyPress':"MascaraData(dtnascimento);"
-            }),
-            'nomedisciplina': forms.TextInput(attrs={
-                'class': 'form-control','id': 'nomedisciplina', 'placeholder' : 'Nome da Disciplina', 'title': 'Nome da Disciplina'
-            }),
-            'sexo': forms.TextInput(attrs={
-                'class': 'form-control','id': 'sexo', 'placeholder' : 'Sexo','title': 'Sexo'
-            }),
-            'cpf': forms.TextInput(attrs={
-                'class': 'form-control','id': 'cpf', 'placeholder' : 'CPF','title': 'CPF',
-                'onKeyPress': "MascaraCPF(cpf);"
-            }),
-            'identidade': forms.TextInput(attrs={
-                'class': 'form-control','id': 'identidade', 'placeholder' : 'Identidade','title': 'Identidade',
-                'onKeyPress': "MascaraRG(identidade);"
-
-            }),
             'email': forms.TextInput(attrs={
                 'class': 'form-control','id': 'email', 'placeholder' : 'E-mail','title': 'E-mail'
 
             }),
-            'endereco': forms.TextInput(attrs={
-                'class': 'form-control','id': 'endereco', 'placeholder' : 'Endereço','title': 'Endereço'
-
-            }),
-            'complemento': forms.TextInput(attrs={
-                'class': 'form-control','id': 'complemento', 'placeholder' : 'Complemento','title': 'Complemento'
-
-            }),
-            'bairro': forms.TextInput(attrs={
-                'class': 'form-control','id': 'bairro', 'placeholder' : 'Bairro','title': 'Bairro'
-
-            }),
-            'cidade': forms.TextInput(attrs={
-                'class': 'form-control','id': 'cidade', 'placeholder' : 'Cidade','title': 'Cidade'
-
-            }),
-            'uf': forms.TextInput(attrs={
-                'class': 'form-control','id': 'uf', 'placeholder' : 'UF','title': 'UF'
-
-            }),
-            'cep': forms.TextInput(attrs={
-                'class': 'form-control','id': 'cep', 'placeholder' : 'Cep','title': 'Cep'
-
-            }),
-            'telefone': forms.TextInput(attrs={
+            'celular': forms.TextInput(attrs={
                 'class': 'form-control','id': 'telefone', 'placeholder' : 'Telefone','title': 'Telefone',
                 'onKeyPress': "MascaraTelefone(telefone);"
 
             }),
-            'telefone2': forms.TextInput(attrs={
+            'whatsapp': forms.TextInput(attrs={
                 'class': 'form-control','id': 'celular', 'placeholder' : 'Celular','title': 'Celular',
                 'onKeyPress': "MascaraTelefone(celular);"
 
@@ -339,14 +292,92 @@ class AlunoForm(forms.ModelForm):
 
         }
 
+        # widgets = {
+        #
+        #     # 'instituicao': forms.Select(attrs={
+        #     #     'class': 'form-control', 'id': 'instituicao', 'select': 'Instituição', 'title': 'Instituição'
+        #     # }),
+        #     'registro_aluno': forms.TextInput(attrs={
+        #         'class': 'form-control','id': 'registro_aluno', 'placeholder' : 'Registro do Aluno', 'title': 'Registro do Aluno',
+        #         'readonly': 'readonly'
+        #
+        #     }),
+        #     # 'codigo': forms.TextInput(attrs={
+        #     #     'class': 'form-control','id': 'codigo', 'placeholder' : 'Código', 'title': 'Código'
+        #     # }),
+        #     'nome': forms.TextInput(attrs={
+        #         'class': 'form-control','id': 'nome', 'placeholder' : 'Nome do Professor', 'title': 'Nome do Professor'
+        #     }),
+        #     'nome_abreviado': forms.TextInput(attrs={
+        #         'class': 'form-control','id': 'nome_abreviado', 'placeholder' : 'Nome Apelido', 'title': 'Nome Apelido'
+        #     }),
+        #     'dtnascimento': forms.DateInput(format='%d/%m/%Y', attrs={
+        #         'class': 'form-control','id': 'data', 'placeholder' : 'Data de Nascimento', 'title': 'Data de Nascimento',
+        #         'onKeyPress':"MascaraData(dtnascimento);"
+        #     }),
+        #     'nomedisciplina': forms.TextInput(attrs={
+        #         'class': 'form-control','id': 'nomedisciplina', 'placeholder' : 'Nome da Disciplina', 'title': 'Nome da Disciplina'
+        #     }),
+        #     'sexo': forms.TextInput(attrs={
+        #         'class': 'form-control','id': 'sexo', 'placeholder' : 'Sexo','title': 'Sexo'
+        #     }),
+        #     'cpf': forms.TextInput(attrs={
+        #         'class': 'form-control','id': 'cpf', 'placeholder' : 'CPF','title': 'CPF',
+        #         'onKeyPress': "MascaraCPF(cpf);"
+        #     }),
+        #     'identidade': forms.TextInput(attrs={
+        #         'class': 'form-control','id': 'identidade', 'placeholder' : 'Identidade','title': 'Identidade',
+        #         'onKeyPress': "MascaraRG(identidade);"
+        #
+        #     }),
+        #     'email': forms.TextInput(attrs={
+        #         'class': 'form-control','id': 'email', 'placeholder' : 'E-mail','title': 'E-mail'
+        #
+        #     }),
+        #     'endereco': forms.TextInput(attrs={
+        #         'class': 'form-control','id': 'endereco', 'placeholder' : 'Endereço','title': 'Endereço'
+        #
+        #     }),
+        #     'complemento': forms.TextInput(attrs={
+        #         'class': 'form-control','id': 'complemento', 'placeholder' : 'Complemento','title': 'Complemento'
+        #
+        #     }),
+        #     'bairro': forms.TextInput(attrs={
+        #         'class': 'form-control','id': 'bairro', 'placeholder' : 'Bairro','title': 'Bairro'
+        #
+        #     }),
+        #     'cidade': forms.TextInput(attrs={
+        #         'class': 'form-control','id': 'cidade', 'placeholder' : 'Cidade','title': 'Cidade'
+        #
+        #     }),
+        #     'uf': forms.TextInput(attrs={
+        #         'class': 'form-control','id': 'uf', 'placeholder' : 'UF','title': 'UF'
+        #
+        #     }),
+        #     'cep': forms.TextInput(attrs={
+        #         'class': 'form-control','id': 'cep', 'placeholder' : 'Cep','title': 'Cep'
+        #
+        #     }),
+        #     'telefone': forms.TextInput(attrs={
+        #         'class': 'form-control','id': 'telefone', 'placeholder' : 'Telefone','title': 'Telefone',
+        #         'onKeyPress': "MascaraTelefone(telefone);"
+        #
+        #     }),
+        #     'telefone2': forms.TextInput(attrs={
+        #         'class': 'form-control','id': 'celular', 'placeholder' : 'Celular','title': 'Celular',
+        #         'onKeyPress': "MascaraTelefone(celular);"
+        #
+        #     }),
+        #
+        # }
+
 class ProfessorForm(forms.ModelForm):
     imagem = forms.ImageField(widget=ClearableFileInput)
     class Meta:
 
         model = Professor
 
-        fields = ['registro_professor','nome','nome_abreviado','dtnascimento','sexo','cpf','identidade','email',
-                  'endereco','complemento','bairro','cidade','uf','cep','telefone','telefone2', 'imagem']
+        fields = ['registro_professor','nome','cpf','email','celular','whatsapp', 'imagem']
 
         widgets = {
 
@@ -364,64 +395,25 @@ class ProfessorForm(forms.ModelForm):
             'nome': forms.TextInput(attrs={
                 'class': 'form-control','id': 'nome', 'placeholder' : 'Nome do Professor', 'title': 'Nome do Professor'
             }),
-            'nome_abreviado': forms.TextInput(attrs={
-                'class': 'form-control','id': 'nome_abreviado', 'placeholder' : 'Nome Apelido', 'title': 'Nome Apelido'
-            }),
-            'dtnascimento': forms.DateInput(format='%d/%m/%Y',attrs={
-                'class': 'form-control','id': 'dtnascimento', 'placeholder' : 'Data de Nascimento', 'title': 'Data de Nascimento',
-                'onKeyPress':"MascaraData(dtnascimento);"
-            }),
-            'nomedisciplina': forms.TextInput(attrs={
-                'class': 'form-control','id': 'nomedisciplina', 'placeholder' : 'Nome da Disciplina', 'title': 'Nome da Disciplina'
-            }),
-            'sexo': forms.TextInput(attrs={
-                'class': 'form-control','id': 'sexo', 'placeholder' : 'Sexo','title': 'Sexo'
-            }),
+            # 'nome_abreviado': forms.TextInput(attrs={
+            #     'class': 'form-control','id': 'nome_abreviado', 'placeholder' : 'Nome Apelido', 'title': 'Nome Apelido'
+            # }),
             'cpf': forms.TextInput(attrs={
                 'class': 'form-control','id': 'cpf', 'placeholder' : 'CPF','title': 'CPF',
                 'onKeyPress': "MascaraCPF(cpf);"
-            }),
-            'identidade': forms.TextInput(attrs={
-                'class': 'form-control','id': 'identidade', 'placeholder' : 'Identidade','title': 'Identidade',
-                'onKeyPress': "MascaraRG(identidade);"
-
             }),
             'email': forms.TextInput(attrs={
                 'class': 'form-control','id': 'email', 'placeholder' : 'E-mail','title': 'E-mail'
 
             }),
-            'endereco': forms.TextInput(attrs={
-                'class': 'form-control','id': 'endereco', 'placeholder' : 'Endereço','title': 'Endereço'
+            'celular': forms.TextInput(attrs={
+                'class': 'form-control','id': 'celular', 'placeholder' : 'Celular','title': 'Celular',
+                'onKeyPress': "MascaraTelefone(celular);"
 
             }),
-            'complemento': forms.TextInput(attrs={
-                'class': 'form-control','id': 'complemento', 'placeholder' : 'Complemento','title': 'Complemento'
-
-            }),
-            'bairro': forms.TextInput(attrs={
-                'class': 'form-control','id': 'bairro', 'placeholder' : 'Bairro','title': 'Bairro'
-
-            }),
-            'cidade': forms.TextInput(attrs={
-                'class': 'form-control','id': 'cidade', 'placeholder' : 'Cidade','title': 'Cidade'
-
-            }),
-            'uf': forms.TextInput(attrs={
-                'class': 'form-control','id': 'uf', 'placeholder' : 'UF','title': 'UF'
-
-            }),
-            'cep': forms.TextInput(attrs={
-                'class': 'form-control','id': 'cep', 'placeholder' : 'Cep','title': 'Cep'
-
-            }),
-            'telefone': forms.TextInput(attrs={
-                'class': 'form-control','id': 'telefone', 'placeholder' : 'Telefone','title': 'Telefone',
-                'onKeyPress': "MascaraTelefone(telefone);"
-
-            }),
-            'telefone2': forms.TextInput(attrs={
-                'class': 'form-control','id': 'telefone2', 'placeholder' : 'Telefone2','title': 'Telefone2',
-                'onKeyPress': "MascaraTelefone(telefone2);"
+            'whatsapp': forms.TextInput(attrs={
+                'class': 'form-control','id': 'whatsapp', 'placeholder' : 'Whatsapp','title': 'Whatsapp',
+                'onKeyPress': "MascaraTelefone(whatsapp);"
 
             }),
 
@@ -429,90 +421,28 @@ class ProfessorForm(forms.ModelForm):
 
 
 class ResponsavelForm(forms.ModelForm):
-    imagem = forms.ImageField(widget=ClearableFileInput)
+    # imagem = forms.ImageField(widget=ClearableFileInput)
     class Meta:
 
-        model = Responsavel
+        model = User
 
-        fields = ['registro_responsavel','nome','nome_abreviado','dtnascimento','sexo','cpf','identidade','email',
-                  'endereco','complemento','bairro','cidade','uf','cep','telefone','telefone2', 'imagem']
+        fields = ['id','first_name','username','email']
 
         widgets = {
 
-            # 'instituicao': forms.Select(attrs={
-            #     'class': 'form-control', 'id': 'instituicao', 'select': 'Instituição', 'title': 'Instituição'
-            # }),
-            'registro_responsavel': forms.TextInput(attrs={
-                'class': 'form-control','id': 'registro_professor', 'placeholder' : 'Registro do Responsavel', 'title': 'Registro do Responsavel',
+            'id': forms.TextInput(attrs={
+                'class': 'form-control','id': 'id', 'placeholder' : 'ID', 'title': 'Registro do Responsavel',
                 'readonly': 'readonly'
-
             }),
-            # 'codigo': forms.TextInput(attrs={
-            #     'class': 'form-control','id': 'codigo', 'placeholder' : 'Código', 'title': 'Código'
-            # }),
-            'nome': forms.TextInput(attrs={
-                'class': 'form-control','id': 'nome', 'placeholder' : 'Nome do Professor', 'title': 'Nome do Professor'
+            'first_name': forms.TextInput(attrs={
+                'class': 'form-control','id': 'first_name', 'placeholder' : 'Nome do Responsável', 'title': 'Nome do Responsável'
             }),
-            'nome_abreviado': forms.TextInput(attrs={
-                'class': 'form-control','id': 'nome_abreviado', 'placeholder' : 'Nome Apelido', 'title': 'Nome Apelido'
-            }),
-            #'dtnascimento': forms.DateInput(format='%d/%m/%Y',attrs={
-            'dtnascimento': forms.DateInput(format='%d/%m/%Y',attrs={
-                'class': 'form-control','id': 'dtnascimento', 'placeholder' : 'Data de Nascimento', 'title': 'Data de Nascimento',
-                'onKeyPress':"MascaraData(dtnascimento);"
-            }),
-            'nomedisciplina': forms.TextInput(attrs={
-                'class': 'form-control','id': 'nomedisciplina', 'placeholder' : 'Nome da Disciplina', 'title': 'Nome da Disciplina'
-            }),
-            'sexo': forms.TextInput(attrs={
-                'class': 'form-control','id': 'sexo', 'placeholder' : 'Sexo','title': 'Sexo'
-            }),
-            'cpf': forms.TextInput(attrs={
-                'class': 'form-control','id': 'cpf', 'placeholder' : 'CPF','title': 'CPF',
-                'onKeyPress': "MascaraCPF(cpf);"
-            }),
-            'identidade': forms.TextInput(attrs={
-                'class': 'form-control','id': 'identidade', 'placeholder' : 'Identidade','title': 'Identidade',
-                'onKeyPress': "MascaraRG(identidade);"
-
+            'username': forms.TextInput(attrs={
+                'class': 'form-control','id': 'username', 'placeholder' : 'CPF','title': 'CPF',
+                'onKeyPress': "MascaraCPF(username);"
             }),
             'email': forms.TextInput(attrs={
                 'class': 'form-control','id': 'email', 'placeholder' : 'E-mail','title': 'E-mail'
-
-            }),
-            'endereco': forms.TextInput(attrs={
-                'class': 'form-control','id': 'endereco', 'placeholder' : 'Endereço','title': 'Endereço'
-
-            }),
-            'complemento': forms.TextInput(attrs={
-                'class': 'form-control','id': 'complemento', 'placeholder' : 'Complemento','title': 'Complemento'
-
-            }),
-            'bairro': forms.TextInput(attrs={
-                'class': 'form-control','id': 'bairro', 'placeholder' : 'Bairro','title': 'Bairro'
-
-            }),
-            'cidade': forms.TextInput(attrs={
-                'class': 'form-control','id': 'cidade', 'placeholder' : 'Cidade','title': 'Cidade'
-
-            }),
-            'uf': forms.TextInput(attrs={
-                'class': 'form-control','id': 'uf', 'placeholder' : 'UF','title': 'UF'
-
-            }),
-            'cep': forms.TextInput(attrs={
-                'class': 'form-control','id': 'cep', 'placeholder' : 'Cep','title': 'Cep'
-
-            }),
-            'telefone': forms.TextInput(attrs={
-                'class': 'form-control','id': 'telefone', 'placeholder' : 'Telefone','title': 'Telefone',
-                'onKeyPress': "MascaraTelefone(telefone);"
-
-            }),
-            'telefone2': forms.TextInput(attrs={
-                'class': 'form-control','id': 'telefone2', 'placeholder' : 'Telefone2','title': 'Telefone2',
-                'onKeyPress': "MascaraTelefone(telefone2);"
-
             }),
 
         }

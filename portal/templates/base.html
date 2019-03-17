@@ -68,33 +68,38 @@
 				</div>
 
 				<!-- menu prile quick info -->
-				<div class="profile">
-					<div class="profile_pic">
-						<!--<img src="/media/{{ img.imagem }}" alt="Avatar" class="img-circle profile_img">-->
-						<!--<a href="#" >-->
-						<a href="{% url 'portal:usuario_edit' pk=request.user.pk %}" target="_blank" >
-							<img src="/media/{{ request.user.imagem }}" alt="Avatar" class="img-circle profile_img">
-						</a>
+				<!--<div class="profile">-->
+				<!--<div class="profile_pic">-->
+				<!--&lt;!&ndash;<img src="/media/{{ img.imagem }}" alt="Avatar" class="img-circle profile_img">&ndash;&gt;-->
+				<!--&lt;!&ndash;<a href="#" >&ndash;&gt;-->
+				<!--<a href="{% url 'portal:usuario_edit' pk=request.user.pk %}" target="_blank" >-->
+				<!--<img src="/media/{{ request.user.imagem }}" alt="Avatar" class="img-circle profile_img">-->
+				<!--</a>-->
 
-						<!--<img src="/media/usuarios/sem_foto.png" alt="Avatar" class="img-circle profile_img">-->
+				<!--&lt;!&ndash;<img src="/media/usuarios/sem_foto.png" alt="Avatar" class="img-circle profile_img">&ndash;&gt;-->
 
-					</div>
-					<div class="profile_info">
-						<span>Bem Vindo,</span>
-						<h2></h2>
-					</div>
-				</div>
+				<!--</div>-->
+				<!--<div class="profile_info">-->
+				<!--<span>Bem Vindo,</span>-->
+				<!--<h2></h2>-->
+				<!--</div>-->
+				<!--</div>-->
 				<!-- /menu prile quick info -->
 
 				<br />
 
 				<!-- sidebar menu -->
 				<div id="sidebar-menu" class="main_menu_side hidden-print main_menu">
-
+					<!--<div class="menu_section"> <h3>Usuário: </h3> </div>-->
 
 					<div class="menu_section">
 						<h3>
-							{{ request.user.first_name }} {{ request.user.last_name }}
+							Usuário: {{ request.user.first_name }} {{ request.user.last_name }}
+							<!--<a  class=""  href="{% url 'portal:administracao' %}" target="_blank" >-->
+
+							<!--Usuário: {{ request.user.first_name }} {{ request.user.last_name }}-->
+
+							<!--</a>-->
 						</h3>
 						<ul class="nav side-menu">
 							<li><a href="{% url 'portal:portal' %}"><i class="fa fa-home"></i> Home </a>
@@ -115,7 +120,11 @@
 
 								</ul>
 							</li>
-							<li><a href="{% url 'portal:aluno' %}" ><i class="fa fa-table"></i> Aluno(s) </a>
+							<li><a href="{% url 'portal:responsavel' %}"><i class="fa fa-table"></i>  Responsável </a>
+
+
+							</li>
+							<li><a href="{% url 'portal:aluno' %}" ><i class="fa fa-table"></i> Aluno </a>
 								<!--<ul class="nav child_menu" style="display: none">-->
 								<!--<li><a href="{% url 'portal:aluno' %}">Listar</a></li>-->
 								<!--</ul>-->
@@ -123,24 +132,20 @@
 							<li><a href="{% url 'portal:professor' %}"><i class="fa fa-table"></i> Professor </a>
 
 							</li>
-							<li><a href="{% url 'portal:responsavel' %}"><i class="fa fa-table"></i>  Responsável </a>
-
-
-							</li>
 							{% endif %}
 							<!--<li><a><i class="fa fa-bar-chart-o"></i> Avaliação Educacional <span class="fa fa-chevron-down"></span></a>-->
-								<!--<ul class="nav child_menu" style="display: none">-->
-									<!--<li><a href="chartjs.html">Chart JS</a>-->
-									<!--</li>-->
-									<!--<li><a href="chartjs2.html">Chart JS2</a>-->
-									<!--</li>-->
-									<!--<li><a href="morisjs.html">Moris JS</a>-->
-									<!--</li>-->
-									<!--<li><a href="echarts.html">ECharts </a>-->
-									<!--</li>-->
-									<!--<li><a href="other_charts.html">Other Charts </a>-->
-									<!--</li>-->
-								<!--</ul>-->
+							<!--<ul class="nav child_menu" style="display: none">-->
+							<!--<li><a href="chartjs.html">Chart JS</a>-->
+							<!--</li>-->
+							<!--<li><a href="chartjs2.html">Chart JS2</a>-->
+							<!--</li>-->
+							<!--<li><a href="morisjs.html">Moris JS</a>-->
+							<!--</li>-->
+							<!--<li><a href="echarts.html">ECharts </a>-->
+							<!--</li>-->
+							<!--<li><a href="other_charts.html">Other Charts </a>-->
+							<!--</li>-->
+							<!--</ul>-->
 							<!--</li>-->
 						</ul>
 					</div>
@@ -150,7 +155,7 @@
 
 				<!-- /menu footer buttons -->
 				<div class="sidebar-footer hidden-small">
-					<a href="{% url 'portal:administracao' %}" data-toggle="tooltip" data-placement="top" title="Adminstração">
+					<a href="{% url 'portal:administracao' %}" target="_blank" data-toggle="tooltip" data-placement="top" title="Adminstração">
 						<span class="glyphicon glyphicon-cog" aria-hidden="true"></span>
 					</a>
 					<a data-toggle="tooltip" data-placement="top" title="FullScreen">
@@ -176,6 +181,8 @@
 						<a id="menu_toggle"><i class="fa fa-bars"></i></a>
 					</div>
 
+
+
 					<ul class="nav navbar-nav navbar-right">
 						<li class="">
 							<a href="javascript:;" class="user-profile dropdown-toggle" data-toggle="dropdown" aria-expanded="false">
@@ -183,17 +190,21 @@
 								<span class=" fa fa-angle-down"></span>
 							</a>
 							<ul class="dropdown-menu dropdown-usermenu animated fadeInDown pull-right">
-								<li><a href="{% url 'portal:usuario_edit' pk=request.user.pk %}">  Perfil / Usuário </a>
-								</li>
+
+                                {% if request.user.is_superuser %}
+
 								<li>
-									<a href="{% url 'portal:responsavel_usuario' %}">Usuários</a>
+									<a href="{% url 'portal:administracao' %}" target="_blank">  Administração </a>
 								</li>
+
 								<li>
 									<a href="{% url 'portal:importacao_excel' pk=0 %}">
 										<!--span class="badge bg-red pull-right">50%</span-->
 										<span>Importação de Dados</span>
 									</a>
 								</li>
+
+                                {% endif %}
 
 								<li><a href="{% url 'portal:logout' %}"><i class="fa fa-sign-out pull-right"></i> Log Out</a>
 								</li>
@@ -219,6 +230,8 @@
 						</li>
 
 					</ul>
+
+
 				</nav>
 			</div>
 
@@ -553,44 +566,44 @@
         <script src="{% static "js/datatables/dataTables.scroller.min.js" %}"></script>
 
 
-    <!--&lt;!&ndash; jQuery &ndash;&gt;-->
-    <!--<script src="{% static "vendors/jquery/dist/jquery.min.js" %}"></script>-->
-    <!--&lt;!&ndash; Bootstrap &ndash;&gt;-->
-    <!--<script src="{% static "vendors/bootstrap/dist/js/bootstrap.min.js" %}></script>-->
-    <!--&lt;!&ndash; FastClick &ndash;&gt;-->
-    <!--<script src="{% static "vendors/fastclick/lib/fastclick.js" %}"></script>-->
-    <!--&lt;!&ndash; NProgress &ndash;&gt;-->
-    <!--<script src="{% static "vendors/nprogress/nprogress.js" %}"></script>-->
-    <!--&lt;!&ndash; Chart.js &ndash;&gt;-->
-    <!--<script src="{% static "vendors/Chart.js/dist/Chart.min.js" %}"></script>-->
+<!--&lt;!&ndash; jQuery &ndash;&gt;-->
+<!--<script src="{% static "vendors/jquery/dist/jquery.min.js" %}"></script>-->
+<!--&lt;!&ndash; Bootstrap &ndash;&gt;-->
+<!--<script src="{% static "vendors/bootstrap/dist/js/bootstrap.min.js" %}></script>-->
+<!--&lt;!&ndash; FastClick &ndash;&gt;-->
+<!--<script src="{% static "vendors/fastclick/lib/fastclick.js" %}"></script>-->
+<!--&lt;!&ndash; NProgress &ndash;&gt;-->
+<!--<script src="{% static "vendors/nprogress/nprogress.js" %}"></script>-->
+<!--&lt;!&ndash; Chart.js &ndash;&gt;-->
+<!--<script src="{% static "vendors/Chart.js/dist/Chart.min.js" %}"></script>-->
 
-    <!--&lt;!&ndash; Custom Theme Scripts &ndash;&gt;-->
-    <!--<script src="{% static "build/js/custom.min.js" %}"></script>-->
+<!--&lt;!&ndash; Custom Theme Scripts &ndash;&gt;-->
+<!--<script src="{% static "build/js/custom.min.js" %}"></script>-->
 
 <!-- pace -->
 <script src="{% static "js/pace/pace.min.js" %}"></script>
 
-                <script>
+<script>
           var handleDataTableButtons = function() {
               "use strict";
               0 !== $("#datatable-buttons").length && $("#datatable-buttons").DataTable({
-                dom: "Bfrtip",
-                buttons: [{
-                  extend: "copy",
-                  className: "btn-sm"
-                }, {
-                  extend: "csv",
-                  className: "btn-sm"
-                }, {
-                  extend: "excel",
-                  className: "btn-sm"
-                }, {
-                  extend: "pdf",
-                  className: "btn-sm"
-                }, {
-                  extend: "print",
-                  className: "btn-sm"
-                }],
+                <!--dom: "Bfrtip",-->
+                <!--buttons: [{-->
+                  <!--extend: "copy",-->
+                  <!--className: "btn-sm"-->
+                <!--}, {-->
+                  <!--extend: "csv",-->
+                  <!--className: "btn-sm"-->
+                <!--}, {-->
+                  <!--extend: "excel",-->
+                  <!--className: "btn-sm"-->
+                <!--}, {-->
+                  <!--extend: "pdf",-->
+                  <!--className: "btn-sm"-->
+                <!--}, {-->
+                  <!--extend: "print",-->
+                  <!--className: "btn-sm"-->
+                <!--}],-->
                 responsive: !0
               })
             },
@@ -602,7 +615,11 @@
                 }
               }
             }();
-        </script>
+ </script>
+
+
+
+
 
 <script type="text/javascript">
           $(document).ready(function() {

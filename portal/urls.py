@@ -60,9 +60,12 @@ urlpatterns = [
 
     #url(r'^importacao_csv/(?P<pk>[0-9]+)', importacao_csv, name='importacao_csv'),
     url(r'^importacao_excel/(?P<pk>[0-9]+)', importacao_excel, name='importacao_excel'),
+    url(r'^excluir_dados_importacao/(?P<pk>[0-9]+)', excluir_dados_importacao, name='excluir_dados_importacao'),
+    # url(r'^importacao_excel/(?P<pk>[0-9]+)/(?P<str>\d{2}/$)', importacao_excel, name='importacao_excel'),
+    # (r'^articles/(?P<year>\d{4})/(?P<month>\d{2})/(?P<day>\d+)/$', 'news.views.article_detail'),
     url(r'^upload_csv/', upload_csv, name='upload_csv'),
 
-   # url(r'^importacao_excel/', importacao_excel, name='importacao_excel'),
+    # url(r'^importacao_excel/', importacao_excel, name='importacao_excel'),
 
     url(r'^mensagem/', mensagem, name='mensagem'),
     url(r'^mensagem_new/', mensagem_new, name='mensagem_new'),

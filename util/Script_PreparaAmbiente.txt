@@ -1,13 +1,9 @@
 cls
 
+python manage.py makemigrations
 python manage.py migrate --run-syncdb
 
 python manage.py shell
-
-from django.contrib.auth.models import User;
-
-User.objects.create_superuser('leodiasp','leodiasp@gmail.com', 'leodiasp',first_name='Leonardo', last_name='Dias')
-
 
 from portal.models import *
 
@@ -5614,7 +5610,11 @@ cidade = Cidade.objects.create(ibge = '5222203', nome = 'Vila Boa', arquivo_impo
 cidade = Cidade.objects.create(ibge = '5222302', nome = 'Vila Propício', arquivo_importado = 'GO', estado_id = '53', pais_id = '1')
 cidade = Cidade.objects.create(ibge = '5300108', nome = 'Brasília', arquivo_importado = 'DF', estado_id = '53', pais_id = '1')
 
-instituicao = Instituicao.objects.create(razaosocial= 'Centro de Estudo Angular', nomefantasia = 'Angular Escola', cidade_id = cidade.ibge, numero_alunos = '30')
+from django.contrib.auth.models import User;
+
+User.objects.create_superuser('heloisa.krejci','leodiasp@gmail.com', 'heloisa.krejci',first_name='Heloisa', last_name='Krejci')
+
+instituicao = Instituicao.objects.create(razaosocial= 'Escola Mundo do Saber', nomefantasia = 'Escola de Ensino Mundo do Saber', cidade_id = cidade.ibge, numero_alunos = '50')
 
 tabelaimportacao = TabelaImportacao.objects.create(nome='RESPONSAVEL', descricao = 'DADOS DO RESPONSAVEL')
 tabelaimportacao = TabelaImportacao.objects.create(nome='ALUNO', descricao = 'DADOS DO ALUNO')
