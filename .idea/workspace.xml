@@ -4,37 +4,7 @@
     <list default="true" id="7382c40c-f45f-40ee-982a-92a7d826b7f9" name="Default" comment="Commit 01">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/ABCMobile/settings.py" beforeDir="false" afterPath="$PROJECT_DIR$/ABCMobile/settings.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/serializers.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/serializers.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/api/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/api/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/alunos/1199.png" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/alunos/22007771_1409504389163627_8201264940226990501_n.jpg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/csv/BOLETIM.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/csv/MODEL_ALUNO.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/csv/MODEL_BOLETIM.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/csv/MODEL_PROFESSOR.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/csv/MODEL_RESPONSAVEL.xlsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/media/csv/PLANILHAS_ABCMOBILE.rar" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/admin.py" beforeDir="false" afterPath="$PROJECT_DIR$/portal/admin.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/forms.py" beforeDir="false" afterPath="$PROJECT_DIR$/portal/forms.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/migrations/0002_auto_20180831_1103.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/migrations/0003_auto_20180831_1114.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/migrations/0004_auto_20180831_1115.py" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/models.py" beforeDir="false" afterPath="$PROJECT_DIR$/portal/models.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/templates/aluno.html" beforeDir="false" afterPath="$PROJECT_DIR$/portal/templates/aluno.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/templates/base.html" beforeDir="false" afterPath="$PROJECT_DIR$/portal/templates/base.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/templates/form_aluno.html" beforeDir="false" afterPath="$PROJECT_DIR$/portal/templates/form_aluno.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/templates/form_instituicao.html" beforeDir="false" afterPath="$PROJECT_DIR$/portal/templates/form_instituicao.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/templates/form_professor.html" beforeDir="false" afterPath="$PROJECT_DIR$/portal/templates/form_professor.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/templates/form_responsavel.html" beforeDir="false" afterPath="$PROJECT_DIR$/portal/templates/form_responsavel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/templates/importacao_excel.html" beforeDir="false" afterPath="$PROJECT_DIR$/portal/templates/importacao_excel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/templates/index.html" beforeDir="false" afterPath="$PROJECT_DIR$/portal/templates/index.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/templates/professor.html" beforeDir="false" afterPath="$PROJECT_DIR$/portal/templates/professor.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/templates/responsavel.html" beforeDir="false" afterPath="$PROJECT_DIR$/portal/templates/responsavel.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/urls.py" beforeDir="false" afterPath="$PROJECT_DIR$/portal/urls.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/portal/views.py" beforeDir="false" afterPath="$PROJECT_DIR$/portal/views.py" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/Script_PreparaAmbiente.txt" beforeDir="false" afterPath="$PROJECT_DIR$/util/Script_PreparaAmbiente.txt" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/util/script_drop_create_database.sql" beforeDir="false" afterPath="$PROJECT_DIR$/util/script_drop_create_database.sql" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/requirements.txt" beforeDir="false" afterPath="$PROJECT_DIR$/requirements.txt" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -60,6 +30,15 @@
           </provider>
         </entry>
       </file>
+      <file leaf-file-name="settings.py" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/ABCMobile/settings.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="289">
+              <caret line="50" column="21" lean-forward="true" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
+            </state>
+          </provider>
+        </entry>
+      </file>
       <file leaf-file-name="urls.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/portal/urls.py">
           <provider selected="true" editor-type-id="text-editor">
@@ -72,13 +51,37 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/portal/views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="51">
-              <caret line="612" lean-forward="true" selection-start-line="612" selection-end-line="612" />
+            <state relative-caret-position="272">
+              <caret line="627" lean-forward="true" selection-start-line="627" selection-end-line="627" />
               <folding>
                 <element signature="e#25#64#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wsgi.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/ABCMobile/wsgi.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="221">
+              <caret line="13" column="69" lean-forward="true" selection-start-line="13" selection-end-line="13" selection-end-column="69" />
+              <folding>
+                <element signature="e#226#235#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="wsgi.py" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/django/core/wsgi.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="68">
+              <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+              <folding>
+                <element signature="e#0#13#0" expanded="true" />
               </folding>
             </state>
           </provider>
@@ -238,7 +241,6 @@
         <option value="$PROJECT_DIR$/api/urls.py" />
         <option value="$PROJECT_DIR$/api/serializers.py" />
         <option value="$PROJECT_DIR$/api/views.py" />
-        <option value="$PROJECT_DIR$/ABCMobile/settings.py" />
         <option value="$PROJECT_DIR$/venv/Lib/site-packages/import_export/admin.py" />
         <option value="$PROJECT_DIR$/venv/Lib/site-packages/import_export/fields.py" />
         <option value="$PROJECT_DIR$/../ABCMobile-17012019/ABCMobile/portal/templates/index.html" />
@@ -259,13 +261,13 @@
         <option value="$PROJECT_DIR$/portal/templates/importacao_excel.html" />
         <option value="$PROJECT_DIR$/portal/models.py" />
         <option value="$PROJECT_DIR$/portal/views.py" />
+        <option value="$PROJECT_DIR$/ABCMobile/settings.py" />
       </list>
     </option>
   </component>
   <component name="ProjectFrameBounds" extendedState="6">
-    <option name="x" value="-13" />
-    <option name="y" value="246" />
-    <option name="width" value="1370" />
+    <option name="x" value="676" />
+    <option name="width" value="697" />
     <option name="height" value="735" />
   </component>
   <component name="ProjectLevelVcsManager">
@@ -276,6 +278,7 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
+      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <expand>
@@ -286,13 +289,12 @@
             <path>
               <item name="ABCMobile" type="b2602c69:ProjectViewProjectNode" />
               <item name="ABCMobile" type="462c0819:PsiDirectoryNode" />
-              <item name="portal" type="462c0819:PsiDirectoryNode" />
+              <item name="ABCMobile" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
         </subPane>
       </pane>
-      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -301,13 +303,13 @@
     <property name="settings.editor.selected.configurable" value="com.jetbrains.python.configuration.PyActiveSdkModuleConfigurable" />
   </component>
   <component name="RecentsManager">
-    <key name="MoveFile.RECENT_KEYS">
-      <recent name="C:\work\ABCMobile\mobile\templates" />
-    </key>
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\wamp\www\ABCMobile\util" />
       <recent name="C:\Users\leonardo.pinto\Downloads" />
       <recent name="C:\work\ABCMobile\mobile\static" />
+    </key>
+    <key name="MoveFile.RECENT_KEYS">
+      <recent name="C:\work\ABCMobile\mobile\templates" />
     </key>
   </component>
   <component name="RunDashboard">
@@ -384,7 +386,7 @@
     <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
     <editor active="true" />
     <layout>
-      <window_info content_ui="combo" id="Project" order="0" visible="true" weight="0.19033675" />
+      <window_info content_ui="combo" id="Project" order="0" weight="0.38140556" />
       <window_info anchor="bottom" id="TODO" order="7" weight="0.3289689" />
       <window_info anchor="bottom" id="Event Log" order="11" sideWeight="0.5241581" side_tool="true" weight="0.26391098" />
       <window_info anchor="bottom" id="Version Control" order="9" weight="0.3289689" />
@@ -446,30 +448,6 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/portal/templates/base.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="3842">
-          <caret line="226" column="42" lean-forward="true" selection-start-line="226" selection-start-column="42" selection-end-line="226" selection-end-column="42" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/portal/templates/importacao_excel.html">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="833">
-          <caret line="49" column="58" selection-start-line="49" selection-start-column="58" selection-end-line="49" selection-end-column="58" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/portal/models.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="4012">
-          <caret line="243" selection-start-line="243" selection-end-line="243" />
-          <folding>
-            <element signature="e#24#63#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/portal/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="7769">
@@ -822,6 +800,36 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/portal/views.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="627" lean-forward="true" selection-start-line="627" selection-end-line="627" />
+          <folding>
+            <element signature="e#25#64#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/venv/Lib/site-packages/django/core/wsgi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="68">
+          <caret line="4" column="4" selection-start-line="4" selection-start-column="4" selection-end-line="4" selection-end-column="4" />
+          <folding>
+            <element signature="e#0#13#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/ABCMobile/wsgi.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="221">
+          <caret line="13" column="69" lean-forward="true" selection-start-line="13" selection-end-line="13" selection-end-column="69" />
+          <folding>
+            <element signature="e#226#235#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/portal/models.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="343">
@@ -832,13 +840,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/portal/views.py">
+    <entry file="file://$PROJECT_DIR$/ABCMobile/settings.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="51">
-          <caret line="612" lean-forward="true" selection-start-line="612" selection-end-line="612" />
-          <folding>
-            <element signature="e#25#64#0" expanded="true" />
-          </folding>
+        <state relative-caret-position="289">
+          <caret line="50" column="21" lean-forward="true" selection-start-line="50" selection-start-column="21" selection-end-line="50" selection-end-column="21" />
         </state>
       </provider>
     </entry>
