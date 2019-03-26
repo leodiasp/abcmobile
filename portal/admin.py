@@ -13,8 +13,10 @@ from import_export.admin import ImportExportModelAdmin
 from django.contrib.auth.models import User
 
 import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
+# reload(sys)
+import importlib
+importlib.reload(sys)
+# sys.setdefaultencoding('utf8')
 # from portal.models import Estado
 
 

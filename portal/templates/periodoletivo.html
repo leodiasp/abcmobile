@@ -11,7 +11,7 @@
 				<li>
 					<div class="text-center">
 						<a href="{%  url 'portal:periodoletivo_new'  %}">
-							<button class="btn btn-success "><i class="glyphicon glyphicon-pencil"></i> Incluir </button>
+							<button class="btn btn-success "><i class="glyphicon glyphicon-pencil"></i></button>
 						</a>
 					</div>
 				</li>
@@ -45,8 +45,9 @@
 					<td>{{ reg.diasletivos  }}</td>
 					<td>{{ reg.calendario  }}</td>
 					<td>
+
 						<a href="{% url 'portal:periodoletivo_edit' pk=reg.pk %}">
-							<button class="btn btn-success btn-sm"><i class="glyphicon glyphicon-search"></i> Visualizar </button>
+							<button  class="btn btn-success btn-sm" title="Visualizar"><i class="glyphicon glyphicon-search"></i> </button>
 						</a>
 
 

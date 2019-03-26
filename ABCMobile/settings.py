@@ -40,6 +40,7 @@ ALLOWED_HOSTS = []
 # Application definition
 
 INSTALLED_APPS = [
+
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -127,7 +128,21 @@ DATABASES = {
     }
 }
 
-
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.mysql',
+#         'OPTIONS': {
+#             "init_command": "SET foreign_key_checks = 0;",
+#         },
+#         'CONN_MAX_AGE': 3600,
+#         'NAME': 'abcmobile$abcmobile',
+#         'USER': 'abcmobile',
+#         'PASSWORD': 'l30n4rd0',
+#         'HOST': 'abcmobile.mysql.pythonanywhere-services.com',
+#         'PORT': '',
+#
+#     }
+# }
 
 
 # Password validation

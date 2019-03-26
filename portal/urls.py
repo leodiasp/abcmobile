@@ -1,7 +1,7 @@
 from django.conf.urls import url, include
 from .views import *
 from portal.views import *
-from admin import *
+from django.contrib.admin import *
 from django.conf import settings
 from django.conf.urls.static import static
 

@@ -29,10 +29,12 @@ from django.conf import settings
 import csv
 import codecs
 import xlrd
-import sys
-reload(sys)
-sys.setdefaultencoding('utf8')
 
+import sys
+# reload(sys)
+import importlib
+importlib.reload(sys)
+# sys.setdefaultencoding('utf8')
 import os
 
 
@@ -321,9 +323,9 @@ def usuario_edit(request, pk, template="form_usuario.html"):
 
 def instituicao(request,template="instituicao.html"):
 
-    dados = Instituicao.objects.all()
+    instituicao = Instituicao.objects.all()
 
-    return render(request,template,{'instituicao': dados})
+    return render(request,template,{'instituicao': instituicao})
 
 def instituicao_new(request,template='form_instituicao.html'):
 
@@ -598,7 +600,7 @@ def excluir_dados_importacao(request, pk,template_name="importacao_excel.html"):
                 print("Ectrou no IF do Boletim")
                 print("Dt Importacao: %s" % str(regimportacaoxls.dtimportacao))
 
-                regimportacaoxls.dtimportacao.False
+                # regimportacaoxls.dtimportacao.False
                 regimportacaoxls.stimportacao = False
                 regimportacaoxls.save()
                 mensagem = "Registro Excluído - Planilha: [%s] !" % str(regimportacaoxls.arquivo)
@@ -625,7 +627,6 @@ def importacao_excel (request,pk, template_name="importacao_excel.html"):
 
     else:
 
-
         def getUsuario(registro):
             usuario = User.objects.filter(username=registro)
             return usuario
@@ -633,8 +634,8 @@ def importacao_excel (request,pk, template_name="importacao_excel.html"):
         instituicao = Instituicao.objects.all()
         tabelaimportacao = TabelaImportacao.objects.all().filter(importacaoxls=importacaoxls)
 
-        for pais_ativo in Pais.objects.all().filter(stativo=True):
-            pass
+        # for pais_ativo in Pais.objects.all().filter(stativo=True):
+        #     pass
 
         for regimportacaoxls in importacaoxls:
 
@@ -644,7 +645,7 @@ def importacao_excel (request,pk, template_name="importacao_excel.html"):
 
             planilha = arquivo_xls.sheet_by_index(0)
 
-            for row_num in xrange(planilha.nrows):
+            for row_num in range(planilha.nrows):
 
                 if row_num == 0: #cabecalho
                     continue
@@ -661,13 +662,18 @@ def importacao_excel (request,pk, template_name="importacao_excel.html"):
                                                          first_name=row[1])
                         t_csv.save()
 
-                #ALUNO
+                if not getPeriodoLetivo():
+
+                    mensagem = "Período Letivo não Cadastrado ! "
+                    messages.error(request, mensagem)
+                    return render(request, template_name, {'importacaoxls': importacaoxls})
+
+
+                # ALUNO
                 if regimportacaoxls.tabelaimportacao.nome == 'ALUNO':
-
                     datemode = arquivo_xls.datemode
-                    #dtnascimento = datetime(*xlrd.xldate_as_tuple(row[3],datemode))
 
-                    if getPeriodoLetivo():
+                    if User.objects.filter(pk=row[6]):
 
                         t_csv = Aluno(registro_aluno=int(row[0]),
                                       nome=row[1],
@@ -677,13 +683,11 @@ def importacao_excel (request,pk, template_name="importacao_excel.html"):
                                       whatsapp=str(row[5]),
                                       usuario_id=row[6],
                                       arquivo_importado = str(caminho_xls)
-
                                       )
-                    else:
 
-                        mensagem = "Período Letivo não Cadastrado ! "
-                        messages.error(request, mensagem)
-                        return render(request, template_name, {'importacaoxls': importacaoxls})
+
+
+
 
                 # PROFESSOR
                 if regimportacaoxls.tabelaimportacao.nome == 'PROFESSOR':
@@ -703,6 +707,7 @@ def importacao_excel (request,pk, template_name="importacao_excel.html"):
                                       )
 
 
+
                 #BOLETIM
                 if regimportacaoxls.tabelaimportacao.nome == 'BOLETIM':
 
@@ -716,23 +721,23 @@ def importacao_excel (request,pk, template_name="importacao_excel.html"):
                         #Boletim.objects.all().filter(aluno_id=int(row[1]),periodoletivo_id=int(row[0]), ).delete()
 
                         t_csv = Boletim(#registro_boletim = int(row[0]),
-                                        periodoletivo_id=int(row[0]),
-                                        aluno_id=int(row[1]),
-                                        curso= (row[2]),
-                                        serie=(row[3]),
-                                        turno=str(row[4]),
-                                        turma=str(row[5]),
-                                        disciplina=int(row[6]),
-                                        nome_disciplina=str(row[7]),
-                                        professor_id = int(row[8]),
-                                        etapa = int(row[9]),
-                                        nome_etapa = str(row[10]),
-                                        notas = row[11],
-                                        #faltas =int(row[12]),
-                                        faltas =row[12],
-                                        #arquivo_importado = str(caminho_xls)
-                                        arquivo_importado = regimportacaoxls.pk
-                                        )
+                            periodoletivo_id=int(row[0]),
+                            aluno_id=int(row[1]),
+                            curso= (row[2]),
+                            serie=(row[3]),
+                            turno=str(row[4]),
+                            turma=str(row[5]),
+                            disciplina=int(row[6]),
+                            nome_disciplina=str(row[7]),
+                            professor_id = int(row[8]),
+                            etapa = int(row[9]),
+                            nome_etapa = str(row[10]),
+                            notas = row[11],
+                            #faltas =int(row[12]),
+                            faltas =row[12],
+                            #arquivo_importado = str(caminho_xls)
+                            arquivo_importado = regimportacaoxls.pk
+                        )
                     # else:
                     #     continue
 
@@ -743,7 +748,9 @@ def importacao_excel (request,pk, template_name="importacao_excel.html"):
 
                     t_csv.arquivo_importado = str(caminho_xls)
                     #arquivo_importado = str(caminho_xls)
-                    t_csv.save()
+                    # t_csv.save()
+                    if t_csv:
+                        t_csv.save()
 
                     # # --> Muda o STImportacao e coloca a data atual
                     regimportacaoxls.dtimportacao = datetime.now().strftime('%Y-%m-%d')
@@ -754,8 +761,8 @@ def importacao_excel (request,pk, template_name="importacao_excel.html"):
                     messages.success(request, mensagem)
 
                 except Exception:
-                #except Exception as my:
-                #except ValueError:
+                    #except Exception as my:
+                    #except ValueError:
                     #regimportacaoxls.dtimportacao = ''
                     regimportacaoxls.stimportacao = False
                     regimportacaoxls.save()
